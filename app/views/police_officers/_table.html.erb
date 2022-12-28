@@ -1,0 +1,51 @@
+<% can_manage = can? :manage, PoliceOfficer %>
+<% can_update = can? :update, PoliceOfficer %>
+<% can_delete = can? :delete, PoliceOfficer %>
+<table class="table">
+  <thead>
+  <tr>
+
+    <th><%= sort_link @search, :title %></th>
+    <th><%= sort_link @search, :name %></th>
+    <th><%= sort_link @search, :pc_number %></th>
+    <th><%= sort_link @search, :police_authority %></th>
+
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :title_or_name_or_pc_number_or_police_authority_name_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @police_officers.each do |police_officer| %>
+      <tr>
+        <td><%= police_officer.title %></td>
+        <td><%= police_officer.name %></td>
+        <td><%= police_officer.pc_number %></td>
+        <td><%= police_officer.police_authority %></td>
+        <td><%= link_to 'View', police_officer, class: 'btn btn-default btn-sm' %>
+          <% if can_manage || can_update %>
+              <%= link_to 'Edit', edit_police_officer_path(police_officer), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can_manage || can_delete %>
+              <%= link_to police_officer, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @police_officers, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @police_officers %>
+</p>
+

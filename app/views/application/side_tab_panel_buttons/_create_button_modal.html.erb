@@ -1,0 +1,4 @@
+<% if can?(:create, collection_class) %>
+  <%= link_to "Add #{collection_class.name.underscore.humanize}", "#new_#{collection_name}_modal", 'data-toggle' => 'modal', class: 'btn btn-default btn-sm' %>
+  <%= render 'application/modal_form', model_class: collection_class, parent: parent %>
+<% end %>

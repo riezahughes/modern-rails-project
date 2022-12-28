@@ -1,0 +1,18 @@
+<div class="field form-group">
+  <%= f.label :username, class: "control-label" %><br>
+  <%= f.text_field :username, class: "form-control" %>
+</div>
+
+<div class="field form-group">
+  <div class="checkbox-inline">
+    <%= f.check_box :active, checked: @user.active.nil? || @user.active %>
+    <%= f.label :active, class: "control-label" %><br>
+  </div>
+</div>
+
+<div class="field form-group">
+  <%= f.label :email, class: "control-label" %><br>
+  <%= f.email_field :email, class: "form-control" %>
+</div>
+
+<%= render partial: 'personal_details/personal_details_fields', locals: {f: f, personable: @user} %>

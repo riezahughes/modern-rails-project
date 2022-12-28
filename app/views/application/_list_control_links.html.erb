@@ -1,0 +1,17 @@
+<% hide_new_button = hide_new_button || false %>
+
+  <ul class="list-inline">
+    <% if !hide_new_button && can?(:create, collection_class) %>
+      <li>
+        <%= link_to "New #{collection_class.model_name.human}", new_polymorphic_path(collection_class.new), class: 'btn btn-default btn-sm' %>
+      </li>
+    <% end %>
+    <%= yield %>
+    <li>
+      <div class="checkbox">
+        <label>
+          <%= check_box_tag 'show_all', '', @show_all, class: 'show-all' %> Show all
+        </label>
+      </div>
+    </li>
+  </ul>

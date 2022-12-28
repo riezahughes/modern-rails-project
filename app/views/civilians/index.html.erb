@@ -1,0 +1,15 @@
+<h1>Civilians</h1>
+
+<% if can? :create, Civilian %>
+<p>
+  <%= link_to 'New Civilian', new_civilian_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

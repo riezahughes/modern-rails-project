@@ -1,0 +1,15 @@
+<h1>Court Officials</h1>
+
+<% if can? :create, CourtOfficial %>
+    <p>
+      <%= link_to 'New Court official', new_court_official_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

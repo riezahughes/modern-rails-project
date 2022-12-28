@@ -1,0 +1,44 @@
+<% can_manage = can? :manage, AccountChargeItem %>
+<% can_update = can? :update, AccountChargeItem %>
+<% can_read = can? :read, AccountChargeItem %>
+<% can_delete = can? :delete, AccountChargeItem %>
+<table class="table" id="account_charge_items_table">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Item</th>
+            <th><%= sort_link @search, :item_date, 'Date' %></th>
+            <th><%= sort_link @search, :narrative %></th>
+            <th><%= sort_link @search, :fee_amount %></th>
+            <th><%= sort_link @search, :outlay_amount %></th>
+            <th colspan="1">
+                <%= search_form_for @search, class: 'form-inline' do |f| %>
+                <div class="form-group has-feedback">
+                    <%= f.search_field :narrative_cont, class: 'form-control' %>
+                </div>
+                <%= f.submit %>
+                <% end %>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @account_charge_items.each do |account_charge_item| %>
+        <tr>
+           <% if can_manage || can_update %>
+           <%= render 'editable_table_row',
+              account_charge_item: account_charge_item,
+              can_manage: can_manage,
+              can_read: can_read,
+              can_delete: can_delete %>
+           <% else %>
+           <%= render 'table_row', account_charge_item: account_charge_item %>
+           <% end %>
+         </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<%= will_paginate @account_charge_items, renderer: BootstrapPagination::Rails %>
+<p>
+    <%= page_entries_info @account_charge_items %>
+</p>

@@ -1,0 +1,17 @@
+<tr>
+  <td nowrap>
+    <%= ledger.formatted_date_paid %>
+  </td>
+  <td nowrap>
+    <%= link_to truncate(ledger.narrative), ledger  %>
+  </td>
+  <td nowrap>
+    <%= humanized_money_with_symbol ledger.amount_in %>
+  </td>
+  <td nowrap>
+    <%= humanized_money_with_symbol ledger.amount_out %>
+  </td>
+  <td nowrap>
+    <%= humanized_money_with_symbol ledger.balance %>
+  </td>
+</tr>

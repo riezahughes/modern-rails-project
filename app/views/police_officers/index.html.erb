@@ -1,0 +1,15 @@
+<h1>Police Officers</h1>
+
+<% if can? :create, PoliceOfficer %>
+<p>
+  <%= link_to 'New Police officer', new_police_officer_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

@@ -1,0 +1,54 @@
+<% can_manage = can? :manage, Account %>
+<% can_update = can? :update, Account %>
+<% can_delete = can? :delete, Account %>
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :client_file_file_number, "FN" %></th>
+    <th><%= sort_link @search, :account_type_name, "Type" %></th>
+    <th><%= sort_link @search, :effective_from, "Effective from" %></th>
+    <th><%= sort_link @search, :last_charged_on %></th>
+    <th><%= sort_link @search, :feed_status, "Status" %></th>
+    <th><%= sort_link @search, :reference %></th>
+    <th><%= sort_link @search, :expenditure_pennies, "Expenditure" %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :client_file_file_number_or_account_type_name_or_feed_status_or_reference_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @accounts.each do |account| %>
+      <tr>
+        <td><%= account.client_file.file_number %></td>
+        <td><%= account.account_type.name %></td>
+        <td><%= account.effective_from %></td>
+        <td><%= account.last_charged_on ? account.last_charged_on.to_date : '' %></td>
+        <td><%= account.feed_status.humanize %></td>
+        <td><%= account.reference %></td>
+        <td><%= humanized_money_with_symbol account.expenditure %></td>
+        <td><%= link_to 'View', account, class: 'btn btn-default btn-sm' %>
+          <% if can_manage || can_update %>
+              <%= link_to 'Edit', edit_account_path(account), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can_manage || can_delete %>
+              <%= link_to account, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @accounts, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @accounts %>
+</p>

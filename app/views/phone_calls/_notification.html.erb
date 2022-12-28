@@ -1,0 +1,68 @@
+<% phone_call = notifiable %>
+<h3>Phone Call</h3>
+<table class="table">
+  <tr valign="top">
+    <td nowrap>
+      <strong>Client file:</strong>
+    </td>
+    <td nowrap>
+      <%= phone_call.client_file %> - <%= phone_call.client_file.client %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Dates:</strong>
+    </td>
+    <td nowrap>
+      <%= phone_call.short_datetimes %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Duration:</strong>
+    </td>
+    <td nowrap>
+      <%= distance_of_time_in_words phone_call.work.duration %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>User:</strong>
+    </td>
+    <td nowrap>
+      <%= phone_call.work.user %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Attendance with:</strong>
+    </td>
+    <td nowrap>
+      <%= phone_call.attendance_with %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td>
+      <strong>Description:</strong>
+    </td>
+    <td>
+      <%= phone_call.description %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Chargeable:</strong>
+    </td>
+    <td nowrap>
+      <%= phone_call.chargeable %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Created By:</strong>
+    </td>
+    <td nowrap>
+      <%= phone_call.created_by %>
+    </td>
+  </tr>
+</table>

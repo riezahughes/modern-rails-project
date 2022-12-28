@@ -1,0 +1,24 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+<%= form_tag upload_main_file_document_client_file_path(parent), method: :patch,
+  multipart: true, role: :form, 'data-model' => 'client_file' do %>
+
+  <div class="row">
+    <div class="col-md-8">
+
+      <div class="field form-group">
+        <%= label_tag :pdf_documents, nil, class: 'control-label' %>
+        <%= file_field_tag 'pdf_documents[]',
+                          type: :file,
+                          multiple: true,
+                          accept: 'application/pdf',
+                          class: "filestyle form-control" %>
+      </div>
+
+      <div class="actions form-group">
+        <%= submit_tag 'Submit', class: "btn btn-default" %>
+      </div>
+    </div>
+  </div>
+<% end %>

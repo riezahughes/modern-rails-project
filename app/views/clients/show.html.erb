@@ -1,0 +1,229 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <h3>Client</h3>
+      <%= render 'application/entity_control_links', entity: @client %>
+      <%= render 'application/entity_timestamps', entity: @client %>
+
+      <% if can?(:read, ClientFile) && can?(:read, Account) %>
+          <ul class="list-inline">
+            <li>
+            <%= link_to client_file_report_client_path(@client), class: 'btn btn-default' do %>
+                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Files and Accounts
+            <% end %>
+            </li>
+            <li>
+              <%= link_to client_files_client_path(@client), class: 'btn btn-default' do %>
+                  <span class="glyphicon glyphicon-file" aria-hidden="true"></span> Client file list
+              <% end %>
+            </li>
+          </ul>
+      <% end %>
+      <table class="table">
+        <tr>
+          <td>
+            <strong>Name:</strong>
+          </td>
+          <td>
+            <%= @client.full_name %>
+            <% if @client.local_agent %>
+                <i>(Local Agent)</i>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Birth date:</strong>
+          </td>
+          <td>
+            <%= @client.formatted_birth_date %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Address:</strong>
+          </td>
+          <td>
+            <%= simple_format @client.address %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Postcode:</strong>
+          </td>
+          <td>
+            <%= @client.postcode %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Mobile telephone:</strong>
+          </td>
+          <td>
+            <%= @client.mobile_telephone %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Home telephone:</strong>
+          </td>
+          <td>
+            <%= @client.home_telephone %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Contact telephone:</strong>
+          </td>
+          <td>
+            <%= @client.contact_telephone %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Email address:</strong>
+          </td>
+          <td>
+            <%= @client.email_address %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Prison number:</strong>
+          </td>
+          <td>
+            <%= @client.prison_number %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Additional contact information:</strong>
+          </td>
+          <td>
+            <%= @client.additional_contact_information %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>National Insurance number:</strong>
+          </td>
+          <td>
+            <%= @client.national_insurance_number %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Location:</strong>
+          </td>
+          <td>
+            <% unless @client.location.nil? %>
+                <%= @client.location.name %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Created By:</strong>
+          </td>
+          <td>
+            <% unless @client.created_by.nil? %>
+                <%= @client.created_by.short_full_name %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Alfresco Node Id:</strong>
+          </td>
+          <td>
+            <%= @client.get_alfresco_id @client.folder_name %>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="col-md-8">
+
+      <div class="tab-content">
+
+        <%= render 'application/side_tab_panel', collection: @client_files, collection_class: ClientFile, active: true, panel_buttons: 'create_button_redirect', parent: @client %>
+
+        <% if can? :read, Account %>
+            <div role="tabpanel" class="tab-pane" id="accounts">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h5>Accounts</h5></div>
+                <%= render 'accounts/side_table', accounts: @accounts %>
+                <%= will_paginate @accounts, renderer: BootstrapPagination::Rails, param_name: :accounts_page %>
+              </div>
+            </div>
+        <% end %>
+
+        <% if can? :read, Ledger %>
+            <div role="tabpanel" class="tab-pane" id="ledgers">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h5>Ledgers</h5></div>
+                <%= render 'ledgers/side_table', ledgers: @ledgers %>
+                  <% if can? :create, Ledger %>
+                    <div class="panel-footer">
+                      <%= link_to 'Add Ledger', '#new_ledgers_modal', 'data-toggle' => 'modal', class: 'btn btn-default btn-sm' %>
+                    </div>
+                <% end %>
+                <%= render 'ledgers/side_table_expenditure' %>
+                <%= render 'application/modal_form', model_class: Ledger, parent: @client %>
+              </div>
+            </div>
+        <% end %>
+
+        <% if can? :read, Account %>
+            <div role="tabpanel" class="tab-pane" id="accounts_report">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h5>Accounts Report</h5></div>
+                <%= render 'accounts/expenditure_report', account_report_records: account_expenditure_records(@client) %>
+              </div>
+            </div>
+        <% end %>
+
+        <% if can? :folder_contents, Client %>
+            <div role="tabpanel" class="tab-pane" id="storage_documents">
+              <div class="panel panel-default">
+                <div class="panel-heading"><h5>Storage</h5></div>
+                <%= render 'document_folder_tree', client: @client %>
+              </div>
+            </div>
+        <% end %>
+
+        <%= render 'application/side_tab_panel', collection: @documents, collection_class: Document, panel_buttons: 'create_button_redirect', parent: @client %>
+      </div>
+
+
+      <ul class="nav nav-tabs" role="tablist">
+        <%= render 'application/side_tab', collection_class: ClientFile, active: true %>
+
+        <% if can? :read, Account %>
+            <li role="presentation">
+              <a href="#accounts" aria-controls="accounts" role="tab" data-toggle="tab">Accounts</a></li>
+        <% end %>
+
+        <% if can? :read, Ledger %>
+            <li role="presentation">
+              <a href="#ledgers" aria-controls="ledgers" role="tab" data-toggle="tab">Ledgers</a></li>
+        <% end %>
+
+        <% if can? :read, Account %>
+            <li role="presentation">
+              <a href="#accounts_report" aria-controls="accounts_report" role="tab" data-toggle="tab">Accounts Report</a>
+            </li>
+        <% end %>
+
+        <% if can? :folder_contents, Client %>
+            <li role="presentation">
+              <a href="#storage_documents" aria-controls="storage_documents" role="tab" data-toggle="tab"><%= image_tag 'alfresco-logo.png', size: "16x16" %> Storage</a>
+            </li>
+        <% end %>
+
+        <%= render 'application/side_tab', collection_class: Document %>
+      </ul>
+
+    </div>
+  </div>
+</div>

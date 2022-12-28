@@ -1,0 +1,157 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Account</h3>
+    <%= render 'application/entity_control_links', entity: @account %>
+    <%= render 'application/entity_timestamps', entity: @account %>
+
+    <p>
+
+      <ul class="list-inline">
+        <% if can?(:read, AccountChargeItem)  %>
+        <li>
+          <%= link_to account_account_charge_items_path(@account), class: 'btn btn-default' do %>
+              <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Charge Items
+          <% end %>
+        </li>
+        <% end %>
+
+        <% if can?(:charge, Account)  %>
+        <li>
+          <%= link_to charge_account_path(@account), method: :post, class: 'btn btn-default' do %>
+              <span class="glyphicon glyphicon-gbp" aria-hidden="true"></span> Charge Account
+          <% end %>
+        </li>
+        <% end %>
+
+      </ul>
+
+    </p>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>File Number:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @account.client_file.file_number, @account.client_file %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Type:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @account.account_type, @account.account_type %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Effective from:</strong>
+        </td>
+        <td nowrap>
+          <%= @account.effective_from %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Effective until:</strong>
+        </td>
+        <td nowrap>
+          <%= @account.effective_until %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Feed upto:</strong>
+        </td>
+        <td nowrap>
+          <%= @account.feed_upto %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Feed date:</strong>
+        </td>
+        <td nowrap>
+          <%= @account.feed_date %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Last charged on:</strong>
+        </td>
+        <td nowrap>
+          <%= @account.last_charged_on %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Feed status:</strong>
+        </td>
+        <td nowrap>
+          <%= @account.feed_status %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Expenditure:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @account.expenditure %>
+          (<%= humanized_money_with_symbol @account.charge_item_fee_total %>)
+          <!-- TODO: remove old -->
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Remaining to be claimed:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @account.remaining_amount_to_claim %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Expenditure Limit:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @account.expenditure_limit %>
+          (<%= humanized_money_with_symbol @account.account_type.initial_expenditure_limit %>)
+          <!-- TODO: remove old -->
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Outlay:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @account.charge_item_outlay_total %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Reference:</strong>
+        </td>
+        <td nowrap>
+          <%= @account.reference %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Nominated Solicitor:</strong>
+        </td>
+        <td nowrap>
+          <%= @account.nominated_solicitor.short_full_name unless @account.nominated_solicitor.nil? %>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-md-8">
+
+    <%= render 'side_tabs' %>
+
+  </div>
+
+
+</div>

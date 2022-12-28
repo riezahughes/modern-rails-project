@@ -1,0 +1,8 @@
+<% if can?(:create, collection_class) %>
+  <% @document_template_type = collection_class %>
+  <% @parent_id = parent_id %>
+
+  <%= link_to "Add #{collection_class.name}", "#new_#{collection_name}_modal", 'data-toggle' => 'modal', class: 'btn btn-default btn-sm' %>
+
+  <%= render 'application/modal_form', model_class: collection_class, parent: parent, form_partial: 'templateable_document/new_form_templateable_document_form' %>
+<% end %>

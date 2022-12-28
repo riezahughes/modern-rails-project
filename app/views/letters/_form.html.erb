@@ -1,0 +1,61 @@
+<%= form_for(@letter) do |f| %>
+    <% if @letter.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@letter.errors.count, "error") %> prohibited this letter
+            from being saved:</h2>
+
+          <ul>
+            <% @letter.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.hidden_field :client_file_id, class: "letter_client_file_id-autocomplete", id: "letter_client_file_id", value: @letter.client_file_id || @client_file_id %>
+          <%= f.label :client_file, class: "control-label" %><br>
+          <%= f.autocomplete_field :client_file_file_number, autocomplete_client_file_file_number_letters_path,
+                                   id_element: '.letter_client_file_id-autocomplete',
+                                   class: "letter_client_file_file_number-autocomplete form-control",
+                                   placeholder: "File Number",
+                                   value: @letter.client_file || @client_file %>
+        </div>
+
+
+        <div class="field">
+          <%= f.label :letter_date, class: "control-label" %><br>
+          <%= f.date_select :letter_date, {}, {class: "form-control "} %>
+        </div>
+
+        <div class="field">
+          <%= f.label :description, class: "control-label" %><br>
+          <%= f.text_area :description, class: "form-control" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :length, class: "control-label" %><br>
+          <%= f.number_field :length, class: "form-control" %>
+        </div>
+
+        <%= render 'templated_document/form_fields', f: f, document_templateable: @letter %>
+
+        <div class="field">
+          <%= f.label :chargeable, class: "control-label" %>
+          <%= f.check_box :chargeable, {checked: true} %>
+        </div>
+
+        <div class="field">
+          <%= f.label :high_legal, class: "control-label" %>
+          <%= f.check_box :high_legal %>
+        </div>
+      </div>
+    </div>
+<% end %>

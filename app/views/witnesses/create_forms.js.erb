@@ -1,0 +1,9 @@
+<% @file_forms.each_with_index do |file_form, index| %>
+$('#file_form_table > tbody').append("<%= j render partial: 'file_forms/table_row', locals: {file_form: file_form} %>");
+
+setTimeout(function(){
+  open_webdav_url("<%= file_form.templated_document.document_url %>");
+}, 1000 * <%= index %>);
+
+<% end %>
+$('#create-cited-witness-file-forms').modal_success();

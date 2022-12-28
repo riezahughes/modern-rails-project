@@ -1,0 +1,23 @@
+<% personal_details = nil %>
+<% personal_details =  personable.personal_details if defined? personable and defined? personable.personal_details %>
+
+<div class="field form-group">
+  <%= f.label :title, class: "control-label" %><br>
+  <%= select_tag 'personal_details[title]', options_for_select(PersonalDetails.valid_titles,
+                                                               (personal_details and personal_details.title) || nil), class: "form-control" %>
+</div>
+
+<div class="field form-group">
+  <%= f.label :forename, class: "control-label" %><br>
+  <%= text_field_tag 'personal_details[forename]', ((personal_details and personal_details.forename) or ''), class: "form-control" %>
+</div>
+
+<div class="field form-group">
+  <%= f.label :middlenames, class: "control-label" %><br>
+  <%= text_field_tag 'personal_details[middlenames]', ((personal_details and personal_details.middlenames) or ''), class: "form-control" %>
+</div>
+
+<div class="field form-group">
+  <%= f.label :surname, class: "control-label" %><br>
+  <%= text_field_tag 'personal_details[surname]', ((personal_details and personal_details.surname) or ''), class: "form-control" %>
+</div>

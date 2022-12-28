@@ -1,0 +1,29 @@
+<%= form_for(@travel_method) do |f| %>
+    <% if @travel_method.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@travel_method.errors.count, "error") %> prohibited this travel_method
+            from being saved:</h2>
+
+          <ul>
+            <% @travel_method.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :name, class: "control-label" %><br>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

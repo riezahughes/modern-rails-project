@@ -1,0 +1,13 @@
+<h1><%= plural_table_name.humanize %></h1>
+
+<%% if can? :create, <%= class_name %> %>
+<p>
+  <%%= link_to 'New <%= human_name %>', new_<%= singular_table_name %>_path, class: 'btn btn-default btn-sm' %>
+</p>
+<%% end %>
+
+<p>
+  <%%= render 'table' %>
+</p>
+
+<br>

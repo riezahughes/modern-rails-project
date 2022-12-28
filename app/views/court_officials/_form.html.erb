@@ -1,0 +1,36 @@
+<%= form_for(@court_official) do |f| %>
+    <% if @court_official.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@court_official.errors.count, "error") %> prohibited this court_official
+            from being saved:</h2>
+
+          <ul>
+            <% @court_official.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :name, class: "control-label" %><br>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :court_official_type, class: "control-label" %><br>
+          <%= f.select :court_official_type_id, options_from_collection_for_select(CourtOfficialType.all, :id, :name, @court_official.court_official_type_id), {include_blank: true, default: nil},
+                  class: "form-control" %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

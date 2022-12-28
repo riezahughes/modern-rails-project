@@ -1,0 +1,11 @@
+<table class="table" id="item_charge_rates_table">
+  <thead>
+  <th>Chargeable item name</th>
+  <th>Qualification type</th>
+  </thead>
+  <tbody>
+  <% item_charge_rates.each do |item_charge_rate| %>
+      <%= render partial: 'item_charge_rates/table_row', locals: {item_charge_rate: item_charge_rate} %>
+  <% end %>
+  </tbody>
+</table>

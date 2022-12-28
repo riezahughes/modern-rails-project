@@ -1,0 +1,13 @@
+<% default_id ||= nil %>
+<% default_value ||= nil %>
+<div class="field form-group ui-front">
+  <%= f.hidden_field field, class: "#{entity.to_s}_#{field.to_s}-autocomplete",
+   id: "#{entity.to_s}_#{field.to_s}",
+   value: default_id || nil %>
+  <%= f.label "#{field_label.to_s}", class: "control-label" %><br>
+  <%= f.autocomplete_field method.to_sym, autocomplete_path,
+                           id_element: ".#{entity.to_s}_#{field.to_s}-autocomplete",
+                           class: "#{entity.to_s}_#{field.to_s} form-control",
+                           placeholder: placeholder,
+                           value: default_value || nil  %>
+</div>

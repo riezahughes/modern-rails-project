@@ -1,0 +1,200 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <h3>Client File</h3>
+
+      <% content_for(:list_link) do %>
+      <%= link_to "#{@client_file.client} files", client_files_client_path(@client_file.client) %>
+      <% end %>
+      <%= render 'application/entity_control_links', entity: @client_file %>
+
+      <%= render 'application/entity_timestamps', entity: @client_file %>
+
+      <p>
+        <% get_account_warnings(@client_file).each do |warning| %>
+            <%= warning.to_html.html_safe %>
+        <% end %>
+      </p>
+      <p>
+        <% if @client_file.is_closed && (@client_file.feed? || @client_file.closed_not_feed?) %>
+          <i>To re-open the file, make sure the closed date is blank</i>
+        <% end %>
+      </p>
+      <table class="table">
+        <tr>
+          <td>
+            <strong>File number:</strong>
+          </td>
+          <td>
+            <%= @client_file.file_number %> (<%= @client_file.client_file_type.name %>)
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Client:</strong>
+          </td>
+          <td>
+            <%= link_to @client_file.client.short_full_name, @client_file.client.becomes(Client) %>
+            <% if @client_file.is_local_agent_file %>
+                <i>(Local Agent)</i>
+            <% end %>
+          </td>
+        </tr>
+        <tr class="<%= file_colour @client_file %>">
+          <td>
+            <strong>Status:</strong>
+          </td>
+          <td>
+            <%= @client_file.file_status.humanize %><br/>
+            <% if can?(:edit, ClientFile) && @client_file.is_not_closed && (@client_file.feed? || @client_file.closed_not_feed?) %>
+              <%= link_to "Re-open", {controller: :client_files, action: :reopen}, method: :patch %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Subject matter:</strong>
+          </td>
+          <td>
+            <%= @client_file.subject_matter %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Locus:</strong>
+          </td>
+          <td>
+            <%= @client_file.locus %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Date of offence:</strong>
+          </td>
+          <td>
+            <%= @client_file.formatted_date_of_offence %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Date open:</strong>
+          </td>
+          <td>
+            <%= @client_file.formatted_date_open %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Date closed:</strong>
+          </td>
+          <td>
+            <%= @client_file.formatted_date_closed %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Disposal:</strong>
+          </td>
+          <td>
+            <%= @client_file.disposal %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Procurator fiscal reference:</strong>
+          </td>
+          <td>
+            <%= @client_file.procurator_fiscal_reference %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Police reference:</strong>
+          </td>
+          <td>
+            <%= @client_file.police_reference %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Allocated:</strong>
+          </td>
+          <td>
+            <%= @client_file.allocated %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Court:</strong>
+          </td>
+          <td>
+            <%= link_to_if @client_file.court, @client_file.court, @client_file.court %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Procurator Fiscal:</strong>
+          </td>
+          <td>
+            <%=  link_to_if @client_file.procurator_fiscal, @client_file.procurator_fiscal, @client_file.procurator_fiscal %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Current solicitor:</strong>
+          </td>
+          <td>
+            <% unless @client_file.current_solicitor.nil? %>
+                <%= @client_file.current_solicitor.full_name %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Partner:</strong>
+          </td>
+          <td>
+            <% unless @client_file.partner.nil? %>
+                <%= @client_file.partner.full_name %>
+            <% end %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Information:</strong>
+          </td>
+          <td>
+            <%= @client_file.client_file_information.name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Created By:</strong>
+          </td>
+          <td>
+            <% unless @client_file.created_by.nil? %>
+                <%= @client_file.created_by.short_full_name %>
+            <% end %>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <strong>Alfresco Node Id:</strong>
+          </td>
+          <td>
+            <%= @client_file.get_alfresco_id @client_file.file_number %>
+          </td>
+        </tr>
+
+      </table>
+    </div>
+
+    <div class="col-md-8">
+
+      <%= render 'side_tabs' %>
+
+    </div>
+
+  </div>
+</div>

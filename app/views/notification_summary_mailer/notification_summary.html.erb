@@ -1,0 +1,14 @@
+<h1>Notification Summary</h1>
+
+<p>
+  <i>
+    <% @counts.each do |notifiable_name, count| %>
+        <%= count %> <%= notifiable_name.pluralize(count) %>
+    <% end %>
+  </i>
+</p>
+
+<% @notifiables.each do |notifiable| %>
+    <% notifiable_name = notifiable.class.name.underscore.pluralize.to_sym %>
+    <%= render "#{notifiable_name}/notification", notifiable: notifiable %>
+<% end %>

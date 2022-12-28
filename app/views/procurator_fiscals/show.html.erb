@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Procurator Fiscal</h3>
+    <%= render 'application/entity_control_links', entity: @procurator_fiscal %>
+    <%= render 'application/entity_timestamps', entity: @procurator_fiscal %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @procurator_fiscal.name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Address:</strong>
+        </td>
+        <td nowrap>
+          <%= @procurator_fiscal.address %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Telephone:</strong>
+        </td>
+        <td nowrap>
+          <%= @procurator_fiscal.telephone %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Fax:</strong>
+        </td>
+        <td nowrap>
+          <%= @procurator_fiscal.fax %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<% jounrey_children_adding_enabled = false %>
+
+  <%= form_for(@journey) do |f| %>
+  <% if @journey.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@journey.errors.count, "error") %>
+        prohibited this journey from being saved:</h2>
+
+      <ul>
+        <% @journey.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-8">
+
+      <div class="actions form-group">
+        <%= f.submit_change_aware %>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="field form-group">
+            <%= f.label :user, class: "control-label" %><br>
+            <%= f.select :user_id, options_from_collection_for_select(User.active.sorted_by_names, :id, :short_full_name, @journey.user_id), {}, {autofocus: true, class: "form-control"} %>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="field form-group">
+            <%= f.label :client_file_count, class: "control-label" %>
+            <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" title="If blank, the added meetings and court dates will be used to calculate the total number of client files."></span><br>
+            <%= f.text_field :client_file_count, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="actions form-group">
+
+        <div class="well well-sm">
+          <%= f.label 'Travel logs', class: "control-label" %><br>
+
+          <table class="table">
+            <thead>
+              <th>Locations</th>
+              <th>Dates</th>
+              <th>Milage</th>
+              <th>Cost</th>
+            </thead>
+            <tbody id="travel-list">
+              <tr id="travel-list-place-holder">
+                <td><i>No travel logs added, click "Add log" below</i></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <% if jounrey_children_adding_enabled %>
+        <div class="actions form-group">
+
+          <%= f.label :meetings, class: "control-label" %><br>
+
+          <table class="table">
+            <thead>
+              <th>Client File</th>
+              <th>Date</th>
+              <th>Type</th>
+              <th>With</th>
+              <th>Description</th>
+            </thead>
+            <tbody id="meetings-list"></tbody>
+          </table>
+
+          <%= link_to "Add meeting", "#select_meeting_modal", 'data-toggle' => 'modal', class: 'btn btn-default' %>
+        </div>
+
+        <div class="actions form-group">
+
+          <%= f.label :court_dates, class: "control-label" %><br>
+
+          <table class="table">
+            <thead>
+              <th>Client File</th>
+              <th>Date</th>
+              <th>Type</th>
+              <th>Court</th>
+            </thead>
+            <tbody id="court_dates-list"></tbody>
+          </table>
+
+          <%= link_to "Add court date", "#select_court_date_modal", 'data-toggle' => 'modal', class: 'btn btn-default' %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: 'journeys/add_travel_to_form' %>
+
+<%= render 'application/modal_form', model_class: Travel, parent: nil, form_partial: 'journeys/add_travel_to_form' %>
+
+<% if jounrey_children_adding_enabled %>
+  <%= render 'application/modal_form', modal_id: "select_meeting_modal", title: 'Select a meeting', model_class: Meeting, parent: nil, form_partial: 'journeys/add_meeting_to_form' %>
+  <%= render 'application/modal_form', modal_id: "select_court_date_modal", title: 'Select a court date', model_class: CourtDate, parent: nil, form_partial: 'journeys/add_court_date_to_form' %>
+<% end %>

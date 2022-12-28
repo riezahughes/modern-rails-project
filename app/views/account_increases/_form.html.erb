@@ -1,0 +1,56 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+<%= form_for(@account_increase, remote: remote, html: {role: :form, 'data-model' => 'account_increase'}) do |f| %>
+<% if @account_increase.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@account_increase.errors.count, "error") %>
+      prohibited this account_increase from being saved:</h2>
+
+    <ul>
+      <% @account_increase.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-<%= modal ? '8' : '4' %>">
+
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+
+    <% if parent %>
+        <div class="field form-group">
+          <%= f.label :account, class: "control-label" %>: <%= parent %>
+          <%= f.hidden_field :account_id, value: parent.id %>
+          <span class="help-block"></span>
+        </div>
+    <% else %>
+     <%= render 'application/form_autocomplete', f: f,
+               entity: :account_increase, field: :account_id, method: :account_formatted_identifier,
+               field_label: :account,
+               placeholder: 'File Number, Account Type or Effective From',
+               default_id: (@account_increase.account ? @account_increase.account.id : nil) || (@account ? @account.id : nil),
+               default_value: (@account_increase.account) || (@account),
+               autocomplete_path: autocomplete_account_identifier_claims_path %>
+          <span class="help-block"></span>
+    <% end %>
+    <div class="field form-group">
+      <%= f.label :amount, class: "control-label" %><br>
+      <%= f.text_field :amount, class: "form-control" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :date_granted, class: "control-label" %><br>
+      <%= f.date_select :date_granted, {}, class: "form-control " %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :granted_by, class: "control-label" %><br>
+      <%= f.text_field :granted_by, class: "form-control" %>
+    </div>
+
+  </div>
+</div>
+<% end %>

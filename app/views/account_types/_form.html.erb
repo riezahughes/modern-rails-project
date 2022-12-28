@@ -1,0 +1,41 @@
+<%= form_for(@account_type) do |f| %>
+    <% if @account_type.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@account_type.errors.count, "error") %> prohibited this account_type
+            from being saved:</h2>
+
+          <ul>
+            <% @account_type.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :name, class: "control-label" %><br>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :initial_expenditure_limit, class: "control-label" %><br>
+          <%= f.text_field :initial_expenditure_limit, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :account_charge_type, class: "control-label" %><br>
+          <%= f.select :account_charge_type,
+            options_for_select(AccountCharge.valid_account_charge_types.map { |type| [ type.underscore.humanize, type ] }, @account_type.account_charge_type),
+            {}, {class: "form-control"} %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

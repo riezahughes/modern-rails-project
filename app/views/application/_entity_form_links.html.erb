@@ -1,0 +1,10 @@
+<% unless entity.new_record? %>
+  <%= link_to "View #{entity.model_name.human}", entity %> |
+<% end %>
+
+<% client_file ||= @client_file || (entity.respond_to?(:client_file) && entity.client_file) %>
+<% if client_file && !client_file.new_record? && entity.class != ClientFile %>
+  <%= link_to "Back to Client file #{client_file}", client_file %>
+<% else %>
+  <%= link_to "Back to all #{entity.model_name.human.downcase.pluralize}", controller: entity.model_name.to_s.underscore.pluralize, action: :index %>
+<% end %>

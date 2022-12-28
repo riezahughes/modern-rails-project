@@ -1,0 +1,14 @@
+<table class="table" id="ledger_table">
+  <thead>
+  <th>Date paid</th>
+  <th>Narrative</th>
+  <th>Amount In</th>
+  <th>Amount Out</th>
+  <th>Balance</th>
+  </thead>
+  <tbody>
+  <% ledgers.each do |ledger| %>
+      <%= render partial: 'ledgers/table_row', locals: {ledger: ledger} %>
+  <% end %>
+  </tbody>
+</table>

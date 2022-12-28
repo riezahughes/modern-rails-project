@@ -1,0 +1,19 @@
+<% user_heading = user_heading || 'Solicitor' %>
+<% default_start_date = default_start_date ? default_start_date : DateTime.now %>
+<% default_end_date = default_end_date ? default_end_date : DateTime.now %>
+
+<div class="field form-group">
+  <%= f.label :start_date, class: "control-label" %><br>
+  <%= f.datetime_select :start_date, {default: default_start_date}, class: "form-control" %>
+</div>
+
+<div class="field form-group">
+  <%= f.label :end_date, class: "control-label" %><br>
+  <%= f.datetime_select :end_date, {default: default_end_date}, class: "form-control" %>
+</div>
+
+<div class="field form-group">
+  <%= f.label :user, user_heading, class: "control-label" %><br>
+
+  <%= f.collection_select(:user_id, User.active.sorted_by_names, :id, :short_full_name, {selected: workable.user_id || current_user.id}, {class: "form-control"}) %>
+</div>

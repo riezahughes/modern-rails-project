@@ -1,0 +1,33 @@
+<div class="panel-body">
+  <div class="folder_tree" data-href="<%= client_file.file_number %>"></div>
+  <hr/>
+  <ul class="list-inline">
+    <li>
+      <div class="create_folder">
+        <%= form_tag create_folder_client_file_path(client_file), method: :post do %>
+            <%= submit_tag 'Create folder', id: 'create_folder_button', class: 'btn btn-success btn-sm', 'data-loading-text' => "Creating" %>
+        <% end %>
+      </div>
+    </li>
+    <li>
+      <div class="folder_link">
+      </div>
+    </li>
+    <li>
+      <div class="upload_disclosure">
+        <%= render 'upload_disclosure_button' %>
+      </div>
+    </li>
+    <li>
+      <div class="upload_main_file">
+        <%= render 'upload_main_file_button' %>
+      </div>
+    </li>
+  </ul>
+</div>
+<%= render 'application/modal_form', model_class: Disclosure, parent: client_file, hide_title: true, form_partial: 'disclosures/upload_form' %>
+<%= render 'application/modal_form',
+  parent: @client_file,
+  title: 'Upload files to Main File folder',
+  modal_id: 'new_main_file_modal',
+  form_partial: 'upload_main_file_form' %>

@@ -1,0 +1,42 @@
+<% can_manage = can? :manage, AccountChargeRate %>
+<% can_update = can? :update, AccountChargeRate %>
+<% can_delete = can? :delete, AccountChargeRate %>
+<table class="table">
+  <thead>
+  <tr>
+            <th><%= sort_link @search, :fixed_fee %></th>
+            <th><%= sort_link @search, :account_type %></th>
+        <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :account_type_name_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @account_charge_rates.each do |account_charge_rate| %>
+  <tr>
+    <td><%= account_charge_rate.fixed_fee %></td><td><%= account_charge_rate.account_type %></td>    <td><%= link_to 'View', account_charge_rate, class: 'btn btn-default btn-sm' %>
+      <% if can_manage || can_update %>
+      <%= link_to 'Edit', edit_account_charge_rate_path(account_charge_rate), class: 'btn btn-default btn-sm' %>
+      <% end %>
+      <% if can_manage || can_delete %>
+    <%= link_to account_charge_rate, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      <% end %>
+      <% end %>
+    </td>
+  </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @account_charge_rates, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @account_charge_rates %>
+</p>

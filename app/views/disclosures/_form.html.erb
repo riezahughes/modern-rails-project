@@ -1,0 +1,29 @@
+<%= form_for(@disclosure) do |f| %>
+    <% if @disclosure.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@disclosure.errors.count, "error") %> prohibited this disclosure
+            from being saved:</h2>
+
+          <ul>
+            <% @disclosure.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :client_file_id, class: "control-label" %><br>
+          <%= f.text_field :client_file_id, class: "form-control" %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

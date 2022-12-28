@@ -1,0 +1,8 @@
+<tr>
+  <td nowrap><%= account.client_file.file_number %></td>
+  <td nowrap><%= link_to account.account_type.name, account %></td>
+  <td nowrap><%= account.effective_from %></td>
+  <td nowrap><%= account.feed_status.humanize %></td>
+  <td nowrap><%= humanized_money_with_symbol account.expenditure %> of <%= humanized_money_with_symbol account.expenditure_limit %></td>
+  <td nowrap><%= humanized_money_with_symbol account.claimed_amount %></td>
+</tr>

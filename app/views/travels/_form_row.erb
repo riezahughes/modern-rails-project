@@ -1,0 +1,47 @@
+<tr class="multi-select-item">
+  <td nowrap="nowrap">
+    <%= travel.origin %>
+    -
+    <%= travel.destination %>
+  </td>
+  <td nowrap="nowrap">
+    <% if travel.work %>
+      <%= travel.short_datetimes %>
+    <% end %>
+  </td>
+  <td>
+    <%= travel.mileage %>
+  </td>
+  <td nowrap="nowrap">
+    Parking: <%= humanized_money_with_symbol travel.parking_costs %> Other: <%= humanized_money_with_symbol travel.other_costs %>
+  </td>
+  <td>
+    <button type="button" class="multi-select-item-remove btn btn-default btn-sm">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </button>
+
+    <%= fields_for journey.travels do |travels_fields| %>
+    <% [
+        :travel_method_id,
+        :origin,
+        :destination,
+        :mileage,
+        :parking_costs,
+        :other_costs,
+      ].each do |field| %>
+      <div class="field form-group hidden">
+        <%= travels_fields.hidden_field_tag "travels[][#{field}]", travel.send(field) %>
+      </div>
+    <% end %>
+
+    <% [
+        :start_date,
+        :end_date
+      ].each do |field| %>
+      <div class="field form-group hidden">
+        <%= datetime_select "travels[][work]", field, { default: travel.work[field] } %>
+      </div>
+    <% end %>
+  <% end %>
+</td>
+</tr>

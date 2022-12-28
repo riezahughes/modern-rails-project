@@ -1,0 +1,15 @@
+<h1>Travel Methods</h1>
+
+<% if can? :create, TravelMethod %>
+    <p>
+      <%= link_to 'New Travel method', new_travel_method_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

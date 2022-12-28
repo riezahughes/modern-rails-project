@@ -1,0 +1,13 @@
+$('#travel-list-place-holder').remove();
+$('#travel-list').append("<%= j render partial: 'travels/form_row', locals: { travel: @travel, journey: @journey } %>");
+$('#new_travels_modal').modal_success();
+$('form.add_travel_to_form input#travel_origin').val('');
+$('form.add_travel_to_form input#travel_destination').val('');
+$('form.add_travel_to_form input#travel_mileage').val('');
+$('form.add_travel_to_form input#travel_parking_costs').val('0.00');
+$('form.add_travel_to_form input#travel_other_costs').val('0.00');
+$('form.add_travel_to_form span.help-block').html('');
+$('form.add_travel_to_form .has-error').removeClass('has-error');
+apply_multi_select_remove();
+var submit_button = $(".journey-submit");
+submit_button.toggle(true);

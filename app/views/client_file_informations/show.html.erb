@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Client_file_information</h3>
+    <%= render 'application/entity_control_links', entity: @client_file_information %>
+    <%= render 'application/entity_timestamps', entity: @client_file_information %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @client_file_information.name %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<h1>User Types</h1>
+
+<% if can? :create, UserType %>
+<p>
+  <%= link_to 'New User type', new_user_type_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

@@ -1,0 +1,25 @@
+<% if meeting.precognition %>
+<% templated_document = meeting.precognition.templated_document %>
+<tr>
+  <td >
+    <strong>Precognition template:</strong>
+  </td>
+  <td >
+    <% if templated_document %>
+      <%= link_to_if templated_document.document_template,
+                templated_document.document_template,
+                templated_document.document_template %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <td>
+    <strong>Precognition Document:</strong>
+  </td>
+  <td>
+    <% if templated_document %>
+      <%= link_to "Open in Word", templated_document.document_url, class: 'btn btn-default' %>
+    <% end %>
+  </td>
+</tr>
+<% end %>

@@ -1,0 +1,21 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+
+<%= form_tag charge_account_account_charge_items_path(@account_id), class: 'recharge-form' do |f| %>
+<div class="row">
+    <div class="col-md-8">
+
+        <%= label_tag :'selected-recharge-items-label', '', class: "selected-recharge-items-label" %>
+
+        <div class="field form-group">
+          <%= label_tag :account, 'Account to re-charge against', class: "control-label" %><br>
+          <%= select_tag 'recharge[account_id]', options_from_collection_for_select(@sibling_accounts, :id, :to_s, @account), {class: "form-control"} %>
+        </div>
+
+        <div class="actions form-group">
+          <%= submit_tag 'Re-charge', class: "btn btn-default recharge-submit" %>
+        </div>
+    </div>
+</div>
+<% end %>

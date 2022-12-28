@@ -1,0 +1,50 @@
+<% modal ||= false %>
+  <% remote = modal ? true : false %>
+    <% parent ||= nil %>
+
+      <%= form_tag templateable_document_new_form_templateable_document_path, class: 'template-selection' do |f| %>
+      <div class="row">
+        <div class="col-md-8">
+
+          <h3>Please select a template</h3>
+
+          <%= hidden_field_tag :template_type, @document_template_type.name %>
+          <%= hidden_field_tag :client_file_id, @parent_id %>
+
+          <div class="field form-group">
+            <%= label_tag :witness, 'Witness', class: "control-label" %><br>
+            <%= select_tag :witness_id,
+             options_from_collection_for_select(Witness.where(client_file: @parent_id).order(cited: :desc),
+              :id, :to_selection_item),
+              {include_blank: true, default: nil, class: "form-control"} %>
+          </div>
+
+          <div class="field form-group">
+            <%= label_tag :category, 'Category', class: "control-label" %><br>
+            <% categories = DocumentTemplate.where(template_type: @document_template_type.name).select(:category).uniq %>
+            <% if categories.empty? %>
+              No catergories for <%= @document_template_type.name.underscore.humanize %>
+            <% else %>
+              <%= select_tag :category, options_from_collection_for_select(categories, :category, :category),
+               {include_blank: true,
+                 class: "form-control category-select",
+                 'data-template-type' => @document_template_type.name.underscore}
+              %>
+            <% end %>
+          </div>
+
+          <div class="field form-group existing_client_file">
+            <%= label_tag :document_template_id, nil, class: "control-label" %><br>
+            <%= select_tag :document_template_id,
+             options_for_select([['Please select a category', nil]]),
+             disabled: true, class: "form-control", id: "document_template-#{@document_template_type.name.underscore}" %>
+             <span class="help-block"></span>
+          </div>
+
+
+          <div class="actions form-group">
+            <%= submit_tag 'Create', class: "btn btn-default", 'data-template-type' => @document_template_type.name.underscore %>
+          </div>
+        </div>
+      </div>
+    <% end %>

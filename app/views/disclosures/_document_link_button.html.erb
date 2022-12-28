@@ -1,0 +1,9 @@
+<% unless document_url.nil? %>
+    <a class="btn btn-default" href="<%= document_url %>" target="_blank" title="Go to document in Alfresco">
+      <span class="glyphicon glyphicon glyphicon-log-in" aria-hidden="true"></span>
+    </a>
+<% else %>
+    <a class="btn btn-default" href="#" title="Unable to get document link" disabled>
+      <span class="glyphicon glyphicon glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+    </a>
+<% end %>

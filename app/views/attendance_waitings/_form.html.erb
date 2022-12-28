@@ -1,0 +1,40 @@
+<%= form_for(@attendance_waiting) do |f| %>
+<% if @attendance_waiting.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@attendance_waiting.errors.count, "error") %>
+      prohibited this attendance_waiting from being saved:</h2>
+
+    <ul>
+      <% @attendance_waiting.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-6">
+
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+
+    <%= render 'application/form_autocomplete', f: f,
+              entity: :attendance_waiting,
+              field: :court_date_id,
+              method: :court_date,
+              field_label: :court_date,
+              placeholder: 'Court Date',
+              default_id: (@attendance_waiting.court_attendance.court_date ? @attendance_waiting.court_attendance.court_date.id : nil) || (@court_date ? @court_date.id : nil),
+              default_value: (@attendance_waiting.court_attendance.court_date) || (@court_date),
+              autocomplete_path: autocomplete_court_date_identifier_attendance_waitings_path %>
+
+    <%= render 'work/work_form_fields',
+      f: f,
+      workable: @attendance_waiting.court_attendance,
+      default_start_date: @court_date ? @court_date.court_date : nil,
+      default_end_date: @court_date ? @court_date.court_date : nil %>
+
+  </div>
+</div>
+<% end %>

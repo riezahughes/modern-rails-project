@@ -1,0 +1,119 @@
+<div class="row">
+    <div class="col-md-4">
+        <h3>Item charge rate</h3>
+
+        <% unless unqualified_item_charge_rate_exists?(@item_charge_rate) %>
+        <p>
+        <%= link_to 'Create new Unqualified rate',
+         item_charge_rates_path(item_charge_rate: unqualified_item_charge_rate_copy(@item_charge_rate)),
+         method: :post,
+         class: 'btn btn-default btn-sm' %>
+       </p>
+       <% end %>
+
+        <table class="table">
+            <tr>
+                <td nowrap>
+                    <strong>Chargeable item name:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.chargeable_item_name %>
+                </td>
+            </tr>
+            <tr>
+              <td nowrap>
+                <strong>Account type:</strong>
+              </td>
+              <td nowrap>
+                <%= link_to @item_charge_rate.account_type, @item_charge_rate.account_type %>
+              </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Qualification type:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.qualification_type %>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Fixed fee:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.fixed_fee %>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Initial block duration mins:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.initial_block_duration_mins %>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Initial block charge:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.initial_block_charge %>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Block duration mins:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.block_duration_mins %>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Block charge:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.block_charge %>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Block distance miles:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.block_distance_miles %>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Block distance charge:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.block_distance_charge %>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Block word length:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.block_word_length %>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Block word length charge:</strong>
+                </td>
+                <td nowrap>
+                    <%= @item_charge_rate.block_word_length_charge %>
+                </td>
+            </tr>
+        </table>
+        <% if can? :update, ItemChargeRate %>
+        <%= link_to 'Edit', edit_item_charge_rate_path(@item_charge_rate) %>
+        |
+        <% end %>
+        <%= link_to 'Back to item charge rates', item_charge_rates_path %>
+
+    </div>
+</div>

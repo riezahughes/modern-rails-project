@@ -1,0 +1,13 @@
+<table class="table" id="court_dates_table">
+  <thead>
+  <th>Client File</th>
+  <th>Date</th>
+  <th>Court</th>
+  <th>Type</th>
+  </thead>
+  <tbody>
+  <% court_dates.each do |court_date| %>
+      <%= render partial: 'court_dates/table_row', locals: {court_date: court_date} %>
+  <% end %>
+  </tbody>
+</table>

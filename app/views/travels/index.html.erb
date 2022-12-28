@@ -1,0 +1,15 @@
+<h1>Travels</h1>
+
+<% if can? :create, Travel %>
+<p>
+  <%= link_to 'New Travel', new_travel_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

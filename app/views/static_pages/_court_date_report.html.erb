@@ -1,0 +1,35 @@
+<% if can? :read, CourtDate %>
+    <h3>Upcoming court dates</h3>
+    <table class="table upcoming-court_dates">
+      <% @upcoming_court_dates.each do |court_date| %>
+          <tr>
+            <td>
+              <%= court_date.formatted_court_date %>
+            </td>
+            <td>
+              <strong><%= link_to court_date.client_file, court_date.client_file %></strong>
+            </td>
+            <td>
+              <%= court_date.court_date_type %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+
+    <h3>Past court dates</h3>
+    <table class="table past-court_dates">
+      <% @past_court_dates.each do |court_date| %>
+          <tr>
+            <td>
+              <%= court_date.formatted_court_date %>
+            </td>
+            <td>
+              <strong><%= link_to court_date.client_file, court_date.client_file %></strong>
+            </td>
+            <td>
+              <%= court_date.court_date_type %>
+            </td>
+          </tr>
+      <% end %>
+    </table>
+<% end %>

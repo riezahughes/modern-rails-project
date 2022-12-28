@@ -1,0 +1,3 @@
+$('#meetings-list').append("<%= j render partial: 'meetings/form_row', locals: { meeting: @meeting, journey: @journey } %>");
+$('#select_meeting_modal').modal_success();
+apply_multi_select_remove();

@@ -1,0 +1,10 @@
+<% if document_templateable.template_file.exists?(:pdf) %>
+  <div style="height: 400px;width: 100%;">
+    <iframe src="<%= polymorphic_path(document_templateable, action: :download, format: :pdf) %>" frameborder="0" style="overflow:hidden;height:100%;width:100%" height="100%" width="100%"></iframe>
+  </div>
+<% else %>
+  <div class="panel-body">
+    <h2>Preview missing</h2>
+    You can create the preview by uploading a new template file in the edit page.
+  </div>
+<% end %>

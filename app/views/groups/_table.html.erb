@@ -1,0 +1,41 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :name %></th>
+    <th><%= sort_link @search, :description %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :name_or_description_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.name %></td>
+        <td><%= group.description %></td>
+        <td><%= link_to 'View', group, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, Group %>
+              <%= link_to 'Edit', edit_group_path(group), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, Group %>
+              <%= link_to group, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @groups, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @groups %>
+</p>

@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Letter</h3>
+    <%= render 'application/entity_control_links', entity: @letter %>
+    <%= render 'application/entity_timestamps', entity: @letter %>
+
+    <p>
+      <%= render 'notifiables/register_for_notification_link', notifiable: @letter %>
+    </p>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>File Number:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @letter.client_file.file_number, @letter.client_file %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Letter date:</strong>
+        </td>
+        <td nowrap>
+          <%= @letter.formatted_letter_date %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Description:</strong>
+        </td>
+        <td>
+          <%= @letter.description %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Length:</strong>
+        </td>
+        <td nowrap>
+          <%= @letter.length %>
+        </td>
+      </tr>
+      <%= render 'templated_document/show_fields', document_templateable: @letter %>
+      <tr>
+        <td nowrap>
+          <strong>Chargeable:</strong>
+        </td>
+        <td nowrap>
+          <%= @letter.chargeable %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>High legal:</strong>
+        </td>
+        <td nowrap>
+          <%= @letter.high_legal %>
+        </td>
+      </tr>
+      <%= render 'chargeable_item/chargeable_item_show_fields', chargeable_item: @letter %>
+      <tr>
+        <td>
+          <strong>Created By:</strong>
+        </td>
+        <td>
+          <% unless @letter.created_by.nil? %>
+              <%= @letter.created_by.short_full_name %>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="col-md-8">
+
+    <%= render 'side_tabs' %>
+
+  </div>
+</div>

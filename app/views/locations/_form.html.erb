@@ -1,0 +1,51 @@
+<%= form_for(@location) do |f| %>
+<% if @location.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@location.errors.count, "error") %>
+      prohibited this location from being saved:</h2>
+
+    <ul>
+      <% @location.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-4">
+
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :name, class: "control-label" %><br>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :address, class: "control-label" %><br>
+      <%= f.text_area :address, rows: 6, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :telephone, class: "control-label" %><br>
+      <%= f.text_field :telephone, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :location_type, class: "control-label" %><br>
+      <div class="row">
+        <div class="col-md-8">
+          <%= f.select :location_type_id, options_from_collection_for_select(LocationType.all, :id, :name, @location.location_type_id), {}, class: "form-control" %>
+        </div>
+        <div class="col-md-4">
+          <%= link_to 'New Type', new_location_type_path, class: 'btn btn-default form-control', style: 'display: inline' %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<% end %>

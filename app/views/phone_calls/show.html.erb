@@ -1,0 +1,64 @@
+<div class="row">
+  <div class="col-md-8">
+    <h3>Phone Call</h3>
+    <%= render 'application/entity_control_links', entity: @phone_call %>
+    <%= render 'application/entity_timestamps', entity: @phone_call %>
+
+    <ul class="list-inline">
+      <li>
+        <%= render 'notifiables/register_for_notification_link', notifiable: @phone_call %>
+      </li>
+      <li>
+        <%= link_to sheet_phone_call_path(@phone_call), class: 'btn btn-default' do %>
+            <span class="glyphicon glyphicon-print" aria-hidden="true"></span> Printable phone sheet
+        <% end %>
+      </li>
+    </ul>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Client file:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @phone_call.client_file, @phone_call.client_file %>
+        </td>
+      </tr>
+      <%= render 'work/work_show_fields', workable: @phone_call %>
+      <tr>
+        <td nowrap>
+          <strong>Attendance with:</strong>
+        </td>
+        <td nowrap>
+          <%= @phone_call.attendance_with %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Description:</strong>
+        </td>
+        <td>
+          <%= @phone_call.description %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Chargeable:</strong>
+        </td>
+        <td nowrap>
+          <%= @phone_call.chargeable %>
+        </td>
+      </tr>
+      <%= render 'chargeable_item/chargeable_item_show_fields', chargeable_item: @phone_call %>
+      <tr>
+        <td nowrap>
+          <strong>Created By:</strong>
+        </td>
+        <td nowrap>
+          <%= @phone_call.created_by %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+
+<%= form_for [@account, @account_charge_item], url: account_account_charge_items_path, remote: remote, html: {role: :form, 'data-model' => 'charge_item'} do |f| %>
+<% if @account_charge_item.errors.any? %>
+<div id="error_explanation">
+    <h2><%= pluralize(@account_charge_item.errors.count, "error") %>
+        prohibited this account_charge_item from being saved:</h2>
+
+    <ul>
+        <% @account_charge_item.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+
+<div class="row">
+    <div class="col-md-4">
+        <%= f.hidden_field :account_id, value: @account_id %>
+
+        <%= f.hidden_field :item_date, value: DateTime.now %>
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+            <%= f.label :fee_amount, class: "control-label" %><br>
+            <%= f.text_field :fee_amount, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+            <%= f.label :outlay_amount, class: "control-label" %><br>
+            <%= f.text_field :outlay_amount, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+            <%= f.label :narrative, class: "control-label" %><br>
+            <%= f.text_field :narrative, class: "form-control" %>
+        </div>
+
+    </div>
+</div>
+<% end %>

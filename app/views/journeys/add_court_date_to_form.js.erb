@@ -1,0 +1,3 @@
+$('#court_dates-list').append("<%= j render partial: 'court_dates/form_row', locals: { court_date: @court_date, journey: @journey } %>");
+$('#select_court_date_modal').modal_success();
+apply_multi_select_remove();

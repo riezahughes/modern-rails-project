@@ -1,0 +1,65 @@
+<% can_manage = can? :manage, Payment %>
+<% can_update = can? :update, Payment %>
+<% can_delete = can? :delete, Payment %>
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= sort_link @search, :claim %></th>
+      <th><%= sort_link @search, :claim_account_reference %></th>
+      <th><%= sort_link @search, :payment_date %></th>
+      <th><%= sort_link @search, :fee_amount %></th>
+      <th><%= sort_link @search, :outlay_amount %></th>
+      <th><%= sort_link @search, :claim_problem %></th>
+      <th><%= sort_link @search, :claim_accepted %></th>
+      <th colspan="1">
+        <%= search_form_for @search, class: 'form-inline' do |f| %>
+        <div class="form-group has-feedback">
+          <%= f.search_field :account_account_type_name_cont, placeholder: "Account type", class: 'form-control' %>
+        </div>
+        <br/>
+
+        <div class="form-group">
+          <%= f.label :payment_date_gteq, 'From' %>
+          <%= f.search_field :payment_date_gteq, class: 'form-control', placeholder: 'DD/MM/YYYY', style: 'width: 100px' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :payment_date_lteq, 'To' %>
+          <%= f.search_field :payment_date_lteq, class: 'form-control', placeholder: 'DD/MM/YYYY', style: 'width: 100px' %>
+        </div>
+        </br>
+        <%= f.submit %>
+        <% end %>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @payments.each do |payment| %>
+    <tr>
+      <td><%= payment.claim %></td>
+      <td><%= payment.claim.account.reference %></td>
+      <td><%= payment.payment_date %></td>
+      <td><%= payment.fee_amount %></td>
+      <td><%= payment.outlay_amount %></td>
+      <td><%= payment.claim.problem ? 'Yes' : 'No' %></td>
+      <td><%= payment.claim.accepted ? 'Yes' : 'No' %></td>
+      <td><%= link_to 'View', payment, class: 'btn btn-default btn-sm' %>
+        <% if can_manage || can_update %>
+        <%= link_to 'Edit', edit_payment_path(payment), class: 'btn btn-default btn-sm' %>
+        <% end %>
+        <% if can_manage || can_delete %>
+        <%= link_to payment, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are you sure?'} do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @payments, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @payments %>
+</p>

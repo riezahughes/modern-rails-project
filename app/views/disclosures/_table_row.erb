@@ -1,0 +1,84 @@
+<tr id="disclosure-document-row-<%= disclosure.id %>">
+  <td nowrap colspan="2">
+    <%= truncate disclosure.pdf_document_file_name %> <%= link_to '#', 'data-toggle' => "page-numbering-row-#{disclosure.id}", class: 'page-numbering-row-toggle btn btn-default btn-sm' do %>
+        Numbering options <span class="caret"></span>
+    <% end %>
+  </td>
+  <td nowrap>
+    <div id="current-pages-<%= disclosure.id %>">
+      <% if disclosure.first_page && disclosure.last_page %>
+          <strong>Pages: <%= disclosure.first_page %>-<%= disclosure.last_page %></strong>
+      <% end %>
+    </div>
+    <div class="form-group">
+      <span id="document_errors-<%= disclosure.id %>" class="help-inline"></span>
+    </div>
+  </td>
+  <td nowrap>
+    <% if can? :delete, Disclosure %>
+        <div id="link-delete-placeholder<%= disclosure.id %>">
+          <%= link_to disclosure, method: :delete, title: 'Delete', class: 'btn btn-default btn-sm link-delete', 'data-id' => disclosure.id, remote: true,
+                      data: {confirm: 'Are you sure?'} do %>
+              <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <% end %>
+        </div>
+    <% end %>
+  </td>
+  <td nowrap>
+    <div id="document-store-<%= disclosure.id %>" style="<%= 'display: none' if disclosure.alfresco_id.blank? %>">
+      <ul class="list-inline">
+        <li>
+          <%= image_tag 'alfresco-logo.png', size: "16x16" %>
+        </li>
+        <li>
+          <div class="document_link" data-entity="disclosures/<%= disclosure.id %>">
+          </div>
+        </li>
+      </ul>
+
+    </div>
+  </td>
+</tr>
+<tr class="page-numbering-row" id="page-numbering-row-<%= disclosure.id %>">
+  <td nowrap style="vertical-align: middle;">
+    <div class="form-group">
+      <div class="checkbox">
+        <%= label_tag do %>
+            <%= hidden_field_tag "disclosure[#{disclosure.id}[number_pages]]", false %>
+            <%= check_box_tag "disclosure[#{disclosure.id}[number_pages]]", true, disclosure.number_pages.nil? ? true : disclosure.number_pages %>
+            Number pages
+        <% end %>
+      </div>
+    </div>
+  </td>
+  <td>
+    <div class="form-group">
+      <%= label_tag :skip_pages, 'Skip pages', class: 'control-label' %>
+      <%= text_field_tag "disclosure[#{disclosure.id}[skip_pages]]", disclosure.skip_pages, placeholder: 'e.g. 1,2,4-5', class: 'form-control' %>
+      <span id="skip_pages-<%= disclosure.id %>" class="help-inline"></span>
+    </div>
+
+  </td>
+  <td nowrap style="vertical-align: middle;">
+    <div class="form-group">
+      <div class="checkbox">
+        <%= label_tag do %>
+            <%= hidden_field_tag "disclosure[#{disclosure.id}[skip_odd]]", false %>
+            <%= check_box_tag "disclosure[#{disclosure.id}[skip_odd]]", true, disclosure.skip_odd %>
+            Skip odd pages
+        <% end %>
+      </div>
+    </div>
+  </td>
+  <td nowrap style="vertical-align: middle;">
+    <div class="form-group">
+      <div class="checkbox">
+        <%= label_tag do %>
+            <%= hidden_field_tag "disclosure[#{disclosure.id}[skip_even]]", false %>
+            <%= check_box_tag "disclosure[#{disclosure.id}[skip_even]]", true, disclosure.skip_even %>
+            Skip even pages
+        <% end %>
+      </div>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,48 @@
+<% can_manage = can? :manage, DebitEntry %>
+<% can_update = can? :update, DebitEntry %>
+<% can_delete = can? :delete, DebitEntry %>
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= sort_link @search, :client_file %></th>
+      <th><%= sort_link @search, :debit_entry_date, 'Date' %></th>
+      <th><%= sort_link @search, :description %></th>
+      <th><%= sort_link @search, :total %></th>
+      <th colspan="1">
+        <%= search_form_for @search, class: 'form-inline' do |f| %>
+        <div class="form-group has-feedback">
+          <%= f.search_field :debit_entry_date_cont, class: 'form-control' %>
+        </div>
+        <%= f.submit %>
+        <% end %>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @debit_entries.each do |debit_entry| %>
+    <tr>
+      <td><%= debit_entry.client_file %></td>
+      <td><%= debit_entry.debit_entry_date %></td>
+      <td><%= debit_entry.description %></td>
+      <td><%= humanized_money_with_symbol debit_entry.total %></td>
+      <td><%= link_to 'View', debit_entry, class: 'btn btn-default btn-sm' %>
+        <% if can_manage || can_update %>
+        <%= link_to 'Edit', edit_debit_entry_path(debit_entry), class: 'btn btn-default btn-sm' %>
+        <% end %>
+        <% if can_manage || can_delete %>
+        <%= link_to debit_entry, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @debit_entries, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @debit_entries %>
+</p>

@@ -1,0 +1,14 @@
+<% polymorphic_association_types = [] unless polymorphic_association_types  %>
+
+
+    <% polymorphic_association_types.each do |association_collection_class| %>
+      <% if can?(:create, association_collection_class) %>
+      <li>
+        <%= link_to "Add #{association_collection_class.model_name.human}",
+                          new_polymorphic_path(association_collection_class.new,
+                            parent_id_symbol => parent_id,
+                            parent_type: parent_class_name),
+                            class: 'btn btn-default btn-sm' %>
+      </li>
+      <% end %>
+    <% end %>

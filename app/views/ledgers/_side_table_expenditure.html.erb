@@ -1,0 +1,10 @@
+<% ledger_totals = client_ledger_totals @client %>
+<% expenditure_total = account_expenditure_by_type @client, get_private_account_type %>
+<div class="well-sm">
+    <ul class="list-inline">
+      <li><strong>Total In:</strong> <%= humanized_money_with_symbol ledger_totals.total_in %></li>
+      <li><strong>Total Out:</strong> <%= humanized_money_with_symbol ledger_totals.total_out %></li>
+      <li><strong>Expenditure:</strong> <%= humanized_money_with_symbol expenditure_total %></li>
+      <li><strong>Outstanding:</strong> <%= humanized_money_with_symbol expenditure_total - ledger_totals.total_out %></li>
+    </ul>
+</div>

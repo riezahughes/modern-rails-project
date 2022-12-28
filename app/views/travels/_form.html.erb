@@ -1,0 +1,77 @@
+<%= form_for(@travel) do |f| %>
+    <% if @travel.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@travel.errors.count, "error") %> prohibited this travel
+            from being saved:</h2>
+
+          <ul>
+            <% @travel.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <%= render 'application/form_autocomplete', f: f,
+                   entity: :travel, field: :journey_id, method: :journey_formatted_identifier,
+                   field_label: :journey,
+                   default_id: (@travel.journey ? @travel.journey.id : nil) || (@journey ? @journey.id : nil),
+                   default_value: (@travel.journey) || (@journey),
+                   placeholder: 'User or Departure Date',
+                   autocomplete_path: autocomplete_journey_identifier_travels_path %>
+
+        <%= render 'work/work_form_fields', f: f, workable: @travel %>
+
+        <div class="field form-group">
+          <%= f.label :travel_method, class: "control-label" %><br>
+          <%= f.select :travel_method_id, options_from_collection_for_select(TravelMethod.all, :id, :name, @travel.travel_method_id), {}, {class: "form-control"} %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :origin, class: "control-label" %><br>
+          <%= f.text_field :origin, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :destination, class: "control-label" %><br>
+          <%= f.text_field :destination, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :mileage, class: "control-label" %><br>
+          <%= f.number_field :mileage, class: "form-control" %>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="field form-group">
+              <%= f.label :parking_costs, class: "control-label" %><br>
+              <%= f.text_field :parking_costs, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="field form-group">
+              <%= f.label :toll_costs, class: "control-label" %><br>
+              <%= f.text_field :toll_costs, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="field form-group">
+              <%= f.label :other_costs, class: "control-label" %><br>
+              <%= f.text_field :other_costs, class: "form-control" %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<% end %>

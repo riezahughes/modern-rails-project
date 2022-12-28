@@ -1,0 +1,13 @@
+<table class="table" id="travel_table">
+  <thead>
+  <th>Locations</th>
+  <th>Date</th>
+  <th>Costs</th>
+  <th>Mileage</th>
+  </thead>
+  <tbody>
+  <% travels.each do |travel| %>
+      <%= render partial: 'travels/table_row', locals: {travel: travel} %>
+  <% end %>
+  </tbody>
+</table>

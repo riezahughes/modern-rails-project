@@ -1,0 +1,3 @@
+<% if can?(:create, collection_class) %>
+  <%= link_to "Add #{collection_class.model_name.human}", new_polymorphic_path(collection_class.new, parent_id_symbol => parent_id, parent_type: parent_class_name), class: 'btn btn-default btn-sm' %>
+<% end %>

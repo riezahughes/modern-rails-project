@@ -1,0 +1,5 @@
+<tr>
+  <td nowrap><%= link_to court_attendance.attendanceable_type.gsub(/Attendance/, ''), court_attendance.attendanceable %></td>
+  <td nowrap><%= court_attendance.short_datetimes %></td>
+  <td nowrap><%= court_attendance.work.user.short_full_name %></td>
+</tr>

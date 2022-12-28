@@ -1,0 +1,24 @@
+<%= form_for @meeting, url: add_meeting_to_form_journeys_path, remote: true, html: {'data-model': 'meeting'} do |f| %>
+
+<div class="field form-group ui-front">
+  <%= f.hidden_field :client_file_id, class: "meeting_client_file_id-autocomplete", id: "meeting_client_file_id", value: @meeting.client_file_id || @client_file_id %>
+  <%= f.label :client_file, class: "control-label" %><br>
+  <%= f.autocomplete_field :client_file_file_number, autocomplete_client_file_file_number_meetings_path,
+                           id_element: '.meeting_client_file_id-autocomplete',
+                           class: "meeting_client_file_file_number-autocomplete form-control meeting_client_file_select",
+                           placeholder: "File Number",
+                           value: @meeting.client_file || @client_file %>
+</div>
+
+<div class="field form-group">
+  <%= label_tag 'meeting[id]', 'Meeting', class: "control-label" %><br>
+  <%= select_tag 'meeting[id]',
+   options_for_select(['Please select a client file']),
+   disabled: true, class: "form-control", id: "meeting_for_client_file" %>
+</div>
+
+<div class="actions form-group">
+  <%= f.submit value: "Add", class: "btn btn-default" %>
+</div>
+
+<% end %>

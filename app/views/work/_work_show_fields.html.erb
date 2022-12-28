@@ -1,0 +1,24 @@
+<tr>
+  <td nowrap>
+    <strong>Dates:</strong>
+  </td>
+  <td nowrap>
+    <%= workable.short_datetimes %>
+  </td>
+</tr>
+<tr>
+  <td nowrap>
+    <strong>Duration:</strong>
+  </td>
+  <td nowrap>
+    <%= distance_of_time_in_words workable.duration %>
+  </td>
+</tr>
+<tr>
+  <td nowrap>
+    <strong>Solicitor:</strong>
+  </td>
+  <td nowrap>
+    <%= link_to workable.user, workable.user %>
+  </td>
+</tr>

@@ -1,0 +1,74 @@
+<h1>Client File Report: <%= @client.full_name %> - Files and Accounts</h1>
+<table class="table">
+  <thead>
+  <th>Birth Date</th>
+  <th>Address</th>
+  <th>Tel.</th>
+  <th>Email</th>
+  <th>Contact Info</th>
+  </thead>
+
+  <tbody>
+  <tr>
+    <td><%= @client.formatted_birth_date %></td>
+    <td><%= @client.address %><br><%= @client.postcode %></td>
+    <td>
+      <ul class="list-group">
+        <% unless @client.mobile_telephone.blank? %>
+            <li class="list-group-item"><strong>Mob:</strong> <%= @client.mobile_telephone %></li>
+        <% end %>
+        <% unless @client.home_telephone.blank? %>
+            <li class="list-group-item"><strong>Home:</strong> <%= @client.home_telephone %></li>
+        <% end %>
+        <% unless @client.contact_telephone.blank? %>
+            <li class="list-group-item"><strong>Other:</strong> <%= @client.contact_telephone %></li>
+        <% end %>
+      </ul>
+    </td>
+    <td><%= @client.email_address %></td>
+    <td><%= @client.additional_contact_information %></td>
+  </tr>
+  </tbody>
+</table>
+
+<table class="table">
+  <thead>
+  <th>Number</th>
+  <th>Subject Matter</th>
+  <th>Disposal</th>
+  <th>PF Ref.</th>
+  <th>Open</th>
+  <th>Offence</th>
+  <th>Closed</th>
+  </thead>
+  <tbody>
+  <% @client.client_files.order(file_status: :asc, date_open: :desc).each do |client_file| %>
+      <tr class="<%= ClientFilesController.helpers.file_colour client_file %>">
+        <td><%= client_file.file_number %></td>
+        <td><strong><%= client_file.subject_matter %></strong></td>
+        <td><%= client_file.disposal %></td>
+        <td><%= client_file.procurator_fiscal_reference %></td>
+        <td><%= client_file.formatted_date_open %></td>
+        <td><%= client_file.formatted_date_of_offence %></td>
+        <td><%= client_file.formatted_date_closed %></td>
+      </tr>
+      <% unless client_file.accounts.blank? %>
+          <tr>
+            <td></td>
+            <td colspan="6">
+              <ul class="list-group" style="margin-bottom: 0px;">
+                <% client_file.accounts.order(effective_from: :desc).each do |account| %>
+                    <li class="list-group-item">
+                      <strong><%= account.account_type.name %></strong> <%= account.reference %>
+                      <% unless account.feed_date.blank? %>
+                          FEED: <%= account.feed_date.strftime '%e/%m/%Y' %>
+                      <% end %>
+                    </li>
+                <% end %>
+              </ul>
+            </td>
+          </tr>
+      <% end %>
+  <% end %>
+  </tbody>
+</table>

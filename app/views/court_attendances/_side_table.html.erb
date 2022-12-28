@@ -1,0 +1,12 @@
+<table class="table" id="claims_table">
+  <thead>
+  <th>Type</th>
+  <th>Time</th>
+  <th>User</th>
+  </thead>
+  <tbody>
+  <% court_attendances.each do |court_attendance| %>
+      <%= render partial: 'court_attendances/table_row', locals: {court_attendance: court_attendance} %>
+  <% end %>
+  </tbody>
+</table>

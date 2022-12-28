@@ -1,0 +1,15 @@
+<table class="table" id="accounts_table">
+  <thead>
+  <th>FN</th>
+  <th>Type</th>
+  <th>Effective from</th>
+  <th>Status</th>
+  <th>Expenditure</th>
+  <th>Claimed</th>
+  </thead>
+  <tbody>
+  <% accounts.each do |account| %>
+      <%= render partial: 'accounts/table_row', locals: {account: account} %>
+  <% end %>
+  </tbody>
+</table>

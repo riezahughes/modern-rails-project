@@ -1,0 +1,5 @@
+<tr>
+  <td nowrap><%= link_to payment.payment_date, payment %></td>
+  <td nowrap><%= humanized_money_with_symbol payment.fee_amount %></td>
+  <td nowrap><%= humanized_money_with_symbol payment.outlay_amount %></td>
+</tr>

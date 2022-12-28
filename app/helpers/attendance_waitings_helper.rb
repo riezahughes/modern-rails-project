@@ -1,0 +1,2 @@
+module AttendanceWaitingsHelper
+end

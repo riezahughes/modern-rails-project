@@ -1,0 +1,15 @@
+<h1>Ledgers</h1>
+
+<% if can? :create, Ledger %>
+    <p>
+      <%= link_to 'New Ledger', new_ledger_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

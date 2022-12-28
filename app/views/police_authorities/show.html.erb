@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Police Authority</h3>
+    <%= render 'application/entity_control_links', entity: @police_authority %>
+    <%= render 'application/entity_timestamps', entity: @police_authority %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @police_authority.name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Address:</strong>
+        </td>
+        <td nowrap>
+          <%= @police_authority.address %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>City:</strong>
+        </td>
+        <td nowrap>
+          <%= @police_authority.city %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Police constable:</strong>
+        </td>
+        <td nowrap>
+          <%= @police_authority.police_constable %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Telephone:</strong>
+        </td>
+        <td nowrap>
+          <%= @police_authority.telephone %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

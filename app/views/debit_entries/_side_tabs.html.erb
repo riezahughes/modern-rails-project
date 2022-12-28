@@ -1,0 +1,20 @@
+<div class="tab-content">
+
+  <div role="tabpanel" class="tab-pane active" id="templated_document">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h5>Document</h5>
+      </div>
+      <%= render "templated_document/side_tab", document_templateable: @debit_entry %>
+    </div>
+  </div>
+
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+
+  <li role="presentation" class = "active">
+    <a href="#templated_document" aria-controls="templated_document" role="tab" data-toggle="tab">Document</a>
+  </li>
+
+</ul>

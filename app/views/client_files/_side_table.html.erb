@@ -1,0 +1,13 @@
+<table class="table" id="client_file_table">
+  <thead>
+  <th>FN</th>
+  <th>Subject Matter</th>
+  <th>Disposal</th>
+  <th>PF Ref.</th>
+  </thead>
+  <tbody>
+  <% client_files.each do |client_file| %>
+      <%= render partial: 'client_files/table_row', locals: {client_file: client_file} %>
+  <% end %>
+  </tbody>
+</table>

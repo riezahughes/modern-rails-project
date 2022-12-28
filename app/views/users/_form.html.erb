@@ -1,0 +1,53 @@
+<%= form_for(@user) do |f| %>
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+
+          <ul>
+            <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <%= render partial: 'users/user_fields', locals: {f: f, personable: @user} %>
+
+        <div class="field form-group">
+          <%= f.label :initials, class: "control-label" %><br>
+          <%= text_field_tag 'personal_details[initials]', ((@user.personal_details and @user.personal_details.initials) or ''), class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label "Group membership", class: "control-label" %><br>
+          <%= f.collection_check_boxes :group_ids, Group.all, :id, :name, checked: @user.groups.map(&:id) do |b| %>
+          <span>
+            <%= b.check_box %>
+            <%= b.label %>
+            <br/>
+          </span>
+          <% end %>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <div class="field form-group">
+          <%= f.label "Notification subscriptions", class: "control-label" %><br>
+          <%= f.collection_check_boxes :notification_ids, Notification.all, :id, :entity, checked: @user.notifications.map(&:id) do |b| %>
+          <span>
+            <%= b.check_box %>
+            <%= b.label %>
+            <br/>
+          </span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>

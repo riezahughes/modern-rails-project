@@ -1,0 +1,64 @@
+<%= form_for(@court_date) do |f| %>
+    <% if @court_date.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@court_date.errors.count, "error") %> prohibited this court_date
+            from being saved:</h2>
+
+          <ul>
+            <% @court_date.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <%= render 'application/form_autocomplete', f: f,
+                   entity: :court_date, field: :client_file_id, method: :client_file_file_number,
+                   field_label: :client_file,
+                   default_id: (@court_date.client_file ? @court_date.client_file.id : nil) || (@client_file ? @client_file.id : nil),
+                   default_value: (@court_date.client_file) || (@client_file),
+                   placeholder: 'File Number',
+                   autocomplete_path: autocomplete_client_file_file_number_court_dates_path %>
+
+        <div class="field form-group">
+          <%= f.label :court_date, class: "control-label" %><br>
+          <%= f.datetime_select :court_date, {}, class: "form-control " %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :court, class: "control-label" %><br>
+          <%= f.collection_select(:court_id, Court.order(:name), :id, :name, {selected: @court_date.court_id}, {class: "form-control"}) %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :court_date_type, class: "control-label" %><br>
+          <%= f.collection_select(:court_date_type_id, CourtDateType.order(:name), :id, :name, {selected: @court_date.court_date_type_id}, {class: "form-control"}) %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.hidden_field :journey_id, class: "court_date_journey_id-autocomplete", id: "court_date_journey_id" %>
+          <%= f.label :journey, class: "control-label" %><br>
+
+          <div class="row">
+            <div class="col-md-8">
+              <%= f.autocomplete_field :journey_formatted_identifier, autocomplete_journey_identifier_court_dates_path,
+                                   id_element: '.court_date_journey_id-autocomplete',
+                                   class: "court_date_journey_file_number-autocomplete form-control",
+                                   placeholder: "User or Departure Date" %>
+
+            </div>
+            <div class="col-md-4">
+              <%= link_to 'Create journey', new_journey_path, target: "_blank", class: "btn btn-default" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+<% end %>

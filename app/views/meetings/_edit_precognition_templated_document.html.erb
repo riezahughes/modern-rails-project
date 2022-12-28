@@ -1,0 +1,5 @@
+<div class="field form-group">
+  <%= label_tag :edit_document, "Edit #{document_template}", options: {class: "control-label"} %><br>
+  <%= link_to "Open in Word", templated_document.document_url, class: 'btn btn-default' %>
+  <%= hidden_field_tag 'precognition[templated_document_id]', templated_document.id %>
+</div>

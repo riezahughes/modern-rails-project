@@ -1,0 +1,112 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Journey</h3>
+    <%= render 'application/entity_control_links', entity: @journey %>
+    <%= render 'application/entity_timestamps', entity: @journey %>
+
+    <table class="table">
+      <tr>
+        <td nowrap="nowrap">
+          <strong>Departure date:</strong>
+        </td>
+        <td nowrap="nowrap">
+          <%= @journey.formatted_departure_date %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">
+          <strong>Return date:</strong>
+        </td>
+        <td nowrap="nowrap">
+          <%= @journey.formatted_return_date %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">
+          <strong>Duration:</strong>
+        </td>
+        <td nowrap="nowrap">
+          <%= distance_of_time_in_words @journey.duration if @journey.duration %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">
+          <strong>User:</strong>
+        </td>
+        <td nowrap="nowrap">
+          <%= @journey.user.full_name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">
+          <strong>Client File Count:</strong>
+        </td>
+        <td nowrap="nowrap">
+          <%= @journey.client_file_count || @journey.client_files.count %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Client files:</strong>
+        </td>
+        <td>
+          <ul class="list-unstyled">
+            <% @journey.client_files.each do |client_file| %>
+              <li><%= link_to client_file %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="col-md-8">
+    <div class="tab-content">
+
+      <%= render 'application/side_tab_panel', collection: @travels, collection_class: Travel, panel_buttons: 'create_button_redirect', parent: @journey %>
+
+      <% if can? :read, Meeting %>
+        <div role="tabpanel" class="tab-pane" id="meetings">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h5>Meetings</h5>
+            </div>
+            <%= render 'meetings/side_table', meetings: @meetings, show_client_file: true %>
+            <%= will_paginate @meetings, renderer: BootstrapPagination::Rails, param_name: :meetings_page %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if can? :read, CourtDate %>
+        <div role="tabpanel" class="tab-pane" id="court_dates">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h5>Court Dates</h5>
+            </div>
+            <%= render 'court_dates/side_table', court_dates: @court_dates, show_client_file: true %>
+            <%= will_paginate @court_dates, renderer: BootstrapPagination::Rails, param_name: :court_dates_page %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+    <ul class="nav nav-tabs" role="tablist">
+      <%= render 'application/side_tab', collection_class: Travel %>
+
+      <% if can? :read, Meeting %>
+        <li role="presentation">
+          <a href="#meetings" aria-controls="meetings" role="tab" data-toggle="tab">Meetings</a>
+        </li>
+      <% end %>
+
+      <% if can? :read, CourtDate %>
+        <li role="presentation">
+          <a href="#court_dates" aria-controls="court_dates" role="tab" data-toggle="tab">Court Dates</a>
+        </li>
+      <% end %>
+    </ul>
+
+  </div>
+
+</div>

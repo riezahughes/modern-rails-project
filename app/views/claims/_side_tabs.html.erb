@@ -1,0 +1,16 @@
+<div class="tab-content">
+
+  <%= render layout: 'application/side_tab_panel', locals: {collection: @payments, collection_class: Payment, panel_buttons: 'create_button_modal', parent: @claim} do %>
+      <li>
+        <strong>Outstanding:</strong>
+        <%= humanized_money_with_symbol outstanding_amount(@claim, @payments) %>
+      </li>
+  <% end %>
+
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+
+  <%= render 'application/side_tab', collection_class: Payment %>
+
+</ul>

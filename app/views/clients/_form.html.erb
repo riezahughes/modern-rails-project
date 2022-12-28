@@ -1,0 +1,113 @@
+<%= form_for(@client.becomes(Client)) do |f| %>
+    <% if @client.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client
+            from being saved:</h2>
+
+          <ul>
+            <% @client.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%# f.label 'Client Type', class: "control-label" %><br>
+          <%# select_tag :client_type,
+                         options_for_select(client_type_options_for_select, client_type_for_selection(@client)),
+                         include_blank: true,
+                         disabled: @client.class < Client,
+                         class: "form-control" %>
+
+          <% if @client.class < Client %>
+              <%= hidden_field_tag :client_type, client_type_for_selection(@client) %>
+          <% end %>
+        </div>
+
+        <div id="no_type_selected">
+          <p>
+            <i>Please select a type</i>
+          </p>
+        </div>
+
+        <div class="person_fields">
+          <%= render partial: 'personal_details/personal_details_fields', locals: {f: f, personable: @client} %>
+        </div>
+
+        <div class="company_fields">
+          <div class="field form-group">
+            <%= f.label :company_name, class: "control-label" %><br>
+            <%= f.text_field :company_name, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="shared_fields">
+          <div class="field form-group">
+            <%= f.label :birth_date, class: "control-label" %><br>
+            <%= f.date_select :birth_date, {include_blank: true}, {class: "form-control "} %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :address, class: "control-label" %><br>
+            <%= f.text_area :address, class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :postcode, class: "control-label" %><br>
+            <%= f.text_field :postcode, class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :mobile_telephone, class: "control-label" %><br>
+            <%= f.text_field :mobile_telephone, class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :home_telephone, class: "control-label" %><br>
+            <%= f.text_field :home_telephone, class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :contact_telephone, class: "control-label" %><br>
+            <%= f.text_field :contact_telephone, class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :email_address, class: "control-label" %><br>
+            <%= f.text_field :email_address, class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :prison_number, class: "control-label" %><br>
+            <%= f.text_field :prison_number, class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :additional_contact_information, class: "control-label" %><br>
+            <%= f.text_area :additional_contact_information, class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :national_insurance_number, class: "control-label" %><br>
+            <%= f.text_field :national_insurance_number, class: "form-control" %>
+          </div>
+
+          <div class="field form-group">
+            <%= f.label :location, class: "control-label" %><br>
+            <%= f.select :location_id, options_from_collection_for_select(Location.all, :id, :name, @client.location_id), {include_blank: true, default: nil},
+                    class: "form-control" %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+<% end %>

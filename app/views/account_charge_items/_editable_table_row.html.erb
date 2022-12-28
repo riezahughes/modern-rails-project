@@ -1,0 +1,37 @@
+<tr>
+    <td>
+      <%= check_box_tag 'recharge[charge_item_ids][]', account_charge_item.id, false, class: 'checkbox charge_item_select' %>
+    </td>
+    <td nowrap>
+        <%= link_to_if account_charge_item.chargeable_item,
+         account_charge_item.chargeable_item.to_s,
+         account_charge_item.chargeable_item %>
+    </td>
+    <td nowrap>
+      <%= account_charge_item.formatted_item_date %>
+    </td>
+    <td><%= best_in_place account_charge_item,
+     :narrative, as: :textarea,
+      helper_options: {length: 60},
+      url: account_account_charge_item_path(account_charge_item.account_id, account_charge_item.id),
+      html_attrs: { style: 'width:100%;' } %>
+      <div id="narrative_<%= account_charge_item.id %>" style="display:none;"><%= account_charge_item.narrative %></div>
+    </td>
+    <td><%= best_in_place account_charge_item,
+     :fee_amount, as: :input, display_with: :humanized_money_with_symbol,
+      url: account_account_charge_item_path(account_charge_item.account_id, account_charge_item.id),
+      html_attrs: { style: 'width:100%;' } %>
+    </td>
+    <td><%= best_in_place account_charge_item,
+     :outlay_amount, as: :input, display_with: :humanized_money_with_symbol,
+      url: account_account_charge_item_path(account_charge_item.account_id, account_charge_item.id),
+      html_attrs: { style: 'width:100%;' } %>
+    </td>
+    <td>
+      <%= render 'row_buttons',
+        account_charge_item: account_charge_item,
+        can_manage: can_manage,
+        can_read: can_read,
+        can_delete: can_delete %>
+    </td>
+</tr>

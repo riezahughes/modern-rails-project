@@ -1,0 +1,13 @@
+<h1>Client file types</h1>
+
+<% if can? :update, ClientFileType %>
+    <p>
+      <%= link_to 'New Client file type', new_client_file_type_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

@@ -1,0 +1,15 @@
+<% show_client_file = false unless defined? show_client_file %>
+<table class="table" id="phone_call_table">
+  <thead>
+  <% if show_client_file %>
+      <th>FN</th>
+  <% end %>
+  <th>Attendance With</th>
+  <th>Description</th>
+  </thead>
+  <tbody>
+  <% phone_calls.each do |phone_call| %>
+      <%= render partial: 'phone_calls/table_row', locals: {phone_call: phone_call, show_client_file: show_client_file} %>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,25 @@
+<% witness ||= Witness.new %>
+<li class="list-group-item multi-select-item">
+  <%= fields_for "witnesses[#{client_file_id}]", witness do |w| %>
+      <div class="row">
+        <div class="col-md-4">
+          <strong><%= label %></strong>
+        </div>
+
+        <%= w.hidden_field :client_file_id, value: client_file_id %>
+
+        <div class="col-md-4">
+          <label class="checkbox-inline">
+            <%# w.hidden_field :cited, value: 'false' %>
+            <%= w.check_box :cited, checked: cited, id: client_file_id %> Cite
+          </label>
+        </div>
+
+        <div class="col-md-4 pull-right">
+          <button type="button" id="delete-multi-select-item-<%= client_file_id %>" class="multi-select-item-remove btn btn-default btn-sm">
+  <span class="glyphicon glyphicon-remove" aria-hidden="true">
+            </span></button>
+        </div>
+      </div>
+  <% end %>
+</li>

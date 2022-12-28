@@ -1,0 +1,16 @@
+<tr>
+  <td nowrap="nowrap">
+    <%= link_to witness.witnessable, witness.witnessable %>
+  </td>
+  <td nowrap="nowrap">
+    <div style="cursor:pointer;" data-toggle="tooltip" title="Click to change">
+      <%= best_in_place witness,
+          :cited,
+          as: :checkbox,
+          class: 'witness-cited-change',
+          data: { file_number: @client_file.file_number },
+          url: witness_change_witness_cited_path(id: @client_file, witness_id: witness.id),
+          html_attrs: { style: 'width:100%; cursor:pointer;' } %>
+    </div>
+  </td>
+</tr>

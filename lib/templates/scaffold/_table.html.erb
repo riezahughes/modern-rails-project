@@ -1,0 +1,44 @@
+<%% can_manage = can? :manage, <%= class_name %> %>
+<%% can_update = can? :update, <%= class_name %> %>
+<%% can_delete = can? :delete, <%= class_name %> %>
+<table class="table">
+  <thead>
+  <tr>
+    <% attributes.reject(&:password_digest?).each do |attribute| -%>
+        <th><%%= sort_link @search, :<%= attribute.name %> %></th>
+    <% end -%>
+    <th colspan="1">
+      <%%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%%= f.search_field :<%= attributes.first.name %>_cont, class: 'form-control' %>
+          </div>
+          <%%= f.submit %>
+      <%% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <%% @<%= plural_table_name %>.each do |<%= singular_table_name %>| %>
+  <tr>
+    <% attributes.reject(&:password_digest?).each do |attribute| -%><td><%%= <%= singular_table_name %>.<%= attribute.name %> %></td><% end -%>
+    <td><%%= link_to 'View', <%= singular_table_name %>, class: 'btn btn-default btn-sm' %>
+      <%% if can_manage || can_update %>
+      <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(<%= singular_table_name %>), class: 'btn btn-default btn-sm' %>
+      <%% end %>
+      <%% if can_manage || can_delete %>
+    <%%= link_to <%= singular_table_name %>, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      <%% end %>
+      <%% end %>
+    </td>
+  </tr>
+  <%% end %>
+  </tbody>
+</table>
+
+<%%= will_paginate @<%= plural_table_name %>, renderer: BootstrapPagination::Rails %>
+<p>
+  <%%= page_entries_info @<%= plural_table_name %> %>
+</p>

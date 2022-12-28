@@ -1,0 +1,47 @@
+<div class="tab-content">
+
+  <div role="tabpanel" class="tab-pane active" id="templated_document">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h5>Document</h5>
+      </div>
+      <%= render "templated_document/side_tab", document_templateable: @meeting %>
+    </div>
+  </div>
+
+  <% if can? :read, Precognition %>
+      <div role="tabpanel" class="tab-pane" id="precognition">
+        <div class="panel panel-default">
+          <div class="panel-heading"><h5>Precognition</h5></div>
+          <% if @precognition %>
+            <%= render "precognitions/side_table", precognition: @precognition %>
+            <% if can?(:update, Precognition) %>
+              <div class="panel-footer">
+                <%= link_to "Edit precognition", edit_precognition_path(@precognition, meeting_id: @meeting.id), class: 'btn btn-default btn-sm' %>
+              </div>
+            <% end %>
+          <% else %>
+            <% if can?(:create, Precognition) %>
+              <div class="panel-footer">
+                <%= link_to "Add precognition", new_precognition_path(meeting_id: @meeting.id), class: 'btn btn-default btn-sm' %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+  <% end %>
+
+
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+
+  <li role="presentation" class = "active">
+    <a href="#templated_document" aria-controls="templated_document" role="tab" data-toggle="tab">Document</a>
+  </li>
+
+  <li role="presentation">
+    <a href="#precognition" aria-controls="precognition" role="tab" data-toggle="tab">Precognition</a>
+  </li>
+
+</ul>

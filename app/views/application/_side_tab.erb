@@ -1,0 +1,9 @@
+<% collection_name = collection_class.name.underscore.pluralize %>
+<% active ||= false %>
+<% parent ||= nil %>
+<% if can? :read, collection_class %>
+    <li role="presentation" class="<%= 'active' if active %>>">
+      <a href="#<%= collection_name %>"
+         aria-controls="<%= collection_name %>"
+         role="tab" data-toggle="tab"><%= collection_class.name.underscore.humanize.pluralize %></a></li>
+<% end %>

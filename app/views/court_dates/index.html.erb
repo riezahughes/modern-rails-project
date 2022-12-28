@@ -1,0 +1,15 @@
+<h1>Court Dates</h1>
+
+<% if can? :create, CourtDate %>
+<p>
+  <%= link_to 'New Court date', new_court_date_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

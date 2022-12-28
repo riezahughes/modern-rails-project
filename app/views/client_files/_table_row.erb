@@ -1,0 +1,14 @@
+<tr class="<%= ClientFilesController.helpers.file_colour client_file %>">
+  <td nowrap>
+    <%= link_to client_file.file_number, client_file %>
+  </td>
+  <td nowrap>
+    <%= truncate client_file.subject_matter %>
+  </td>
+  <td nowrap>
+    <%= truncate client_file.disposal %>
+  </td>
+  <td nowrap>
+    <%= truncate client_file.procurator_fiscal_reference %>
+  </td>
+</tr>

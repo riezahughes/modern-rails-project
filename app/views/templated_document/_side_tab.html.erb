@@ -1,0 +1,19 @@
+<div class="panel-body">
+  <% unless document_templateable.document_present? %>
+
+  <div class="fetch_document" data-id="<%= document_templateable.id %>" data-type="<%= document_templateable.class.model_name %>">
+    <%= render 'templated_document/missing_document', document_templateable: document_templateable %>
+  </div>
+
+  <p>
+    <div class="fetch_error text-danger">
+      Trying to import...
+    </div>
+  </p>
+
+  <% else %>
+
+    <%= render 'templated_document/document_side_panel', document_templateable: document_templateable %>
+
+  <% end %>
+</div>

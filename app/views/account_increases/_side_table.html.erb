@@ -1,0 +1,12 @@
+<table class="table" id="account_increases_table">
+  <thead>
+  <th>Amount</th>
+  <th>Date granted</th>
+  <th>Granted by</th>
+  </thead>
+  <tbody>
+  <% account_increases.each do |account_increase| %>
+      <%= render partial: 'account_increases/table_row', locals: {account_increase: account_increase} %>
+  <% end %>
+  </tbody>
+</table>

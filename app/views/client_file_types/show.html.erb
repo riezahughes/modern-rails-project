@@ -1,0 +1,34 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Client file type</h3>
+    <%= render 'application/entity_control_links', entity: @client_file_type %>
+    <%= render 'application/entity_timestamps', entity: @client_file_type %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @client_file_type.name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Prefixes:</strong>
+        </td>
+        <td nowrap>
+          <%= @client_file_type.prefixes %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Folder colour:</strong>
+        </td>
+        <td nowrap>
+          <%= @client_file_type.folder_colour %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :user_name_sort, 'User' %></th>
+    <th><%= sort_link @search, :departure_date_sort, 'Dates' %></th>
+    <th><%= sort_link @search, :duration_sort, 'Duration' %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :journey_search_scope, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @journeys.each do |journey| %>
+      <tr>
+        <td><%= journey.user.short_full_name %></td>
+        <td><%= journey.formatted_dates %></td>
+        <td><%= distance_of_time_in_words journey.duration if journey.duration %></td>
+        <td><%= link_to 'View', journey, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, Journey %>
+              <%= link_to 'Edit', edit_journey_path(journey), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, Journey %>
+              <%= link_to journey, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @journeys, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @journeys %>
+</p>

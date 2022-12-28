@@ -1,0 +1,14 @@
+<h1>Location Types</h1>
+
+<% if can? :create, LocationType %>
+    <p>
+      <%= link_to 'New Location type', new_location_type_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+

@@ -1,0 +1,2 @@
+class FolderExists < StandardError
+end

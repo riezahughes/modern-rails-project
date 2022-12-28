@@ -1,0 +1,34 @@
+<%= form_for(@journey) do |f| %>
+<% if @journey.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@journey.errors.count, "error") %>
+      prohibited this journey from being saved:</h2>
+
+    <ul>
+      <% @journey.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-8">
+
+    <div class="field form-group">
+      <%= f.label :user, class: "control-label" %><br>
+      <%= f.select :user_id, options_from_collection_for_select(User.active.sorted_by_names, :id, :short_full_name, @journey.user_id), {}, {class: "form-control"} %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :client_file_count, class: "control-label" %>
+      <span class="glyphicon glyphicon-question-sign" aria-hidden="true" data-toggle="tooltip" title="Used for feeing against apportioned client files. If blank, the added meetings and court dates will be used to calculate the total number of client files."></span><br>
+      <%= f.text_field :client_file_count, class: "form-control" %>
+    </div>
+
+    <div class="actions form-group">
+      <%= f.submit class: "btn btn-default" %>
+    </div>
+  </div>
+</div>
+<% end %>

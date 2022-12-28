@@ -1,0 +1,47 @@
+<% can_manage = can? :manage, AccountIncrease %>
+  <% can_update = can? :update, AccountIncrease %>
+    <% can_delete = can? :delete, AccountIncrease %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th><%= sort_link @search, :account %></th>
+            <th><%= sort_link @search, :amount %></th>
+            <th><%= sort_link @search, :date_granted %></th>
+            <th><%= sort_link @search, :granted_by %></th>
+            <th colspan="1">
+              <%= search_form_for @search, class: 'form-inline' do |f| %>
+              <div class="form-group has-feedback">
+                <%= f.search_field :date_granted_cont, class: 'form-control' %>
+              </div>
+              <%= f.submit %>
+            <% end %>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @account_increases.each do |account_increase| %>
+          <tr>
+            <td><%= account_increase.account %></td>
+            <td><%= humanized_money_with_symbol account_increase.amount %></td>
+            <td><%= account_increase.date_granted %></td>
+            <td><%= account_increase.granted_by %></td>
+            <td><%= link_to 'View', account_increase, class: 'btn btn-default btn-sm' %>
+              <% if can_manage || can_update %>
+                <%= link_to 'Edit', edit_account_increase_path(account_increase), class: 'btn btn-default btn-sm' %>
+              <% end %>
+              <% if can_manage || can_delete %>
+                <%= link_to account_increase, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are you sure?'} do %>
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <%= will_paginate @account_increases, renderer: BootstrapPagination::Rails %>
+  <p>
+    <%= page_entries_info @account_increases %>
+  </p>

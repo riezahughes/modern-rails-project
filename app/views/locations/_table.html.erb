@@ -1,0 +1,45 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :name %></th>
+    <th><%= sort_link @search, :location_type_name, "Type" %></th>
+    <th><%= sort_link @search, :address %></th>
+    <th><%= sort_link @search, :telephone %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :name_or_location_type_name_or_address_or_telephone_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @locations.each do |location| %>
+      <tr>
+        <td><%= location.name %></td>
+        <td><%= location.location_type.name %></td>
+        <td><%= truncate location.address %></td>
+        <td><%= location.telephone %></td>
+        <td><%= link_to 'View', location, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, Location %>
+              <%= link_to 'Edit', edit_location_path(location), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, Location %>
+              <%= link_to location, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @locations, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @locations %>
+</p>

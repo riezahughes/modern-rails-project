@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Meeting</h3>
+    <%= render 'application/entity_control_links', entity: @meeting %>
+    <%= render 'application/entity_timestamps', entity: @meeting %>
+
+    <p>
+      <%= render 'notifiables/register_for_notification_link', notifiable: @meeting %>
+    </p>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>File Number:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @meeting.client_file.file_number, @meeting.client_file %>
+        </td>
+      </tr>
+      <%= (render 'work/work_show_fields', workable: @meeting) if @meeting.work %>
+      <tr>
+        <td nowrap="">
+          <strong>Waiting times:</strong>
+        </td>
+        <td>
+          <%= @meeting.formatted_waiting_times %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Type:</strong>
+        </td>
+        <td nowrap>
+          <%= @meeting.meeting_type.name if @meeting.meeting_type %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap="">
+          <strong>Description:</strong>
+        </td>
+        <td>
+          <%= @meeting.description %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Location:</strong>
+        </td>
+        <td nowrap>
+          <%= @meeting.locus %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Word count:</strong>
+        </td>
+        <td nowrap>
+          <%= @meeting.length %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Attendance With:</strong>
+        </td>
+        <td nowrap>
+          <%= @meeting.attendance_with %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Witness:</strong>
+        </td>
+        <td nowrap>
+          <%= @meeting.witness %>
+        </td>
+      </tr>
+      <%= render 'templated_document/show_fields', document_templateable: @meeting %>
+      <%= render 'precognition_show_fields', meeting: @meeting %>
+      <tr>
+        <td nowrap>
+          <strong>Journey:</strong>
+        </td>
+        <td>
+          <%= link_to_if @meeting.journey, @meeting.journey, @meeting.journey %>
+        </td>
+      </tr>
+      <%= render 'chargeable_item/chargeable_item_show_fields', chargeable_item: @meeting %>
+      <tr>
+        <td>
+          <strong>Created By:</strong>
+        </td>
+        <td>
+          <%= link_to_if @meeting.created_by, @meeting.created_by, @meeting.created_by %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="col-md-8">
+
+    <%= render 'side_tabs' %>
+
+  </div>
+
+
+</div>

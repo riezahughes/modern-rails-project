@@ -1,0 +1,39 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :name, "Name" %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :name_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @client_file_informations.each do |client_file_information| %>
+      <tr>
+        <td><%= client_file_information.name %></td>
+        <td><%= link_to 'View', client_file_information, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, ClientFileInformation %>
+              <%= link_to 'Edit', edit_client_file_information_path(client_file_information), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, ClientFileInformation %>
+              <%= link_to client_file_information, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @client_file_informations, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @client_file_informations %>
+</p>

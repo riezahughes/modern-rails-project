@@ -1,0 +1,11 @@
+<tr>
+  <td nowrap>
+    <%= link_to letter.formatted_letter_date, letter %>
+  </td>
+  <td nowrap>
+    <%= truncate letter.description, length: 50, separator: ' ' %>
+  </td>
+  <td nowrap>
+    <%= letter.length %>
+  </td>
+</tr>

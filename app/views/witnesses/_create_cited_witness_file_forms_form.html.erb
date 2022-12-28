@@ -1,0 +1,50 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+<% @document_template_type = FileForm %>
+
+<%= form_tag create_forms_witnesses_path(id: @client_file.file_number), remote: true do |f| %>
+<div class="row">
+    <div class="col-md-8">
+
+        <h3>Please select a file form template</h3>
+
+        <%= hidden_field_tag :template_type, @document_template_type.name %>
+
+        <div class="field form-group">
+          <%= label_tag :category, 'Category', class: "control-label" %><br>
+          <% categories = DocumentTemplate.where(template_type: @document_template_type.name).select(:category).uniq %>
+          <% if categories.empty? %>
+            No catergories for <%= @document_template_type.name.underscore.humanize %>
+          <% else %>
+            <%= select_tag :category, options_from_collection_for_select(categories, :category, :category),
+             {include_blank: true,
+               class: "form-control category-select",
+               'data-template-type' => "cited_witness_#{@document_template_type.name.underscore}"}
+            %>
+          <% end %>
+        </div>
+
+        <div class="field form-group existing_client_file">
+          <%= label_tag :document_template_id, nil, class: "control-label" %><br>
+          <%= select_tag :document_template_id,
+           options_for_select([['Please select a category', nil]]),
+           disabled: true, class: "form-control", id: "document_template-cited_witness_#{@document_template_type.name.underscore}" %>
+           <span class="help-block"></span>
+        </div>
+
+        <div class="field form-group">
+          <%= label_tag :cited_witnesses, 'Cited witnesses' %>
+          <ul id="cited-witnesses-list" class="list-unstyled">
+            <% @client_file.witnesses.select { |witness| witness.cited? }.each do |cited_witness| %>
+            <li><%= cited_witness %></li>
+            <% end %>
+          </ul>
+        </div>
+
+        <div class="actions form-group">
+            <%= submit_tag 'Create file forms', class: "btn btn-default recharge-submit" %>
+        </div>
+    </div>
+</div>
+<% end %>

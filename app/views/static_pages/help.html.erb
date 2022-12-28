@@ -1,0 +1,25 @@
+<h1>Help</h1>
+<h2>About</h2>
+<p>
+Version: <%= APP_VERSION %>
+</p>
+
+<h2>Support</h2>
+<p>
+In case of any issues please contact <strong>sashman90@gmail.com</strong>
+</p>
+
+<h2>Creating Document Templates</h2>
+<p>Please follow <%= link_to 'this guide', help_document_templates_path %> for creating document templates.</p>
+
+<h2>Word Document Editing</h2>
+
+<h3>Configure MS Word</h3>
+
+Before you can use MS Word with to create documents, a first time set up is required:
+
+Download the file <%= link_to "here", '/setup_webdav_word.bat', :action => 'download' %>. Right-click and "Run as administrator", restart the computer.
+
+<h3>Testing</h3>
+
+Click <a href="ms-word:ofe|u|http://alfresco.shortlaw/alfresco/webdav/Sites/shortlaw-test/documentLibrary/test.doc">here</a> to open a test document.

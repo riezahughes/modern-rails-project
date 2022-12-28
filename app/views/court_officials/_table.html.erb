@@ -1,0 +1,41 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :name, "Name" %></th>
+    <th><%= sort_link @search, :court_official_type_name, "Type" %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :name_or_court_official_type_name_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @court_officials.each do |court_official| %>
+      <tr>
+        <td><%= court_official.name %></td>
+        <td><%= court_official.court_official_type.name %></td>
+        <td><%= link_to 'View', court_official, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, CourtOfficial %>
+              <%= link_to 'Edit', edit_court_official_path(court_official), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, CourtOfficial %>
+              <%= link_to court_official, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @court_officials, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @court_officials %>
+</p>

@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-4">
+        <h3>Attendance Waiting</h3>
+        <%= render 'application/entity_control_links', entity: @attendance_waiting %>
+        <%= render 'application/entity_timestamps', entity: @attendance_waiting %>
+
+        <table class="table">
+            <tr>
+                <td nowrap>
+                    <strong>Court Date:</strong>
+                </td>
+                <td nowrap>
+                    <%= link_to @attendance_waiting.court_date, @attendance_waiting.court_date %>
+                </td>
+            </tr>
+            <%= (render 'work/work_show_fields', workable: @attendance_waiting.court_attendance) %>
+            <%= render 'chargeable_item/chargeable_item_show_fields', chargeable_item: @attendance_waiting.court_attendance %>
+        </table>
+
+    </div>
+</div>

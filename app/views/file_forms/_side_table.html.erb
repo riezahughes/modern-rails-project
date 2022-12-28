@@ -1,0 +1,16 @@
+<% show_client_file = false unless defined? show_client_file %>
+<table class="table" id="file_form_table">
+  <thead>
+  <% if show_client_file %>
+      <th>FN</th>
+  <% end %>
+  <th>Form Date</th>
+  <th>Description</th>
+  <th>Template</th>
+  </thead>
+  <tbody>
+  <% file_forms.each do |file_form| %>
+      <%= render partial: 'file_forms/table_row', locals: {file_form: file_form, show_client_file: show_client_file} %>
+  <% end %>
+  </tbody>
+</table>

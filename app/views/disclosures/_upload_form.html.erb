@@ -1,0 +1,32 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+<%= form_for(parent, url: upload_disclosure_client_file_path, html: {multipart: true, role: :form, 'data-model' => 'client_file'}) do |f| %>
+    <%= token_tag nil %>
+    <% if parent.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@disclosure.errors.count, "error") %> prohibited this <%= parent.class.name.downcase %>
+            from being saved:</h2>
+
+          <ul>
+            <% parent.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-8">
+
+        <div class="field form-group">
+          <%= f.label :pdf_documents, class: 'control-label' %>
+          <%= f.file_field :pdf_documents, type: :file, multiple: true, accept: 'application/pdf', class: "filestyle form-control" %>
+        </div>
+
+        <div class="actions form-group">
+          <%= f.submit class: "btn btn-default", value: 'Submit' %>
+        </div>
+      </div>
+    </div>
+<% end %>

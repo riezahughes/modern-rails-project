@@ -1,0 +1,15 @@
+<h1>Disclosures</h1>
+
+<% if can? :create, Disclosure %>
+<p>
+  <%= link_to 'New Disclosure', new_disclosure_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

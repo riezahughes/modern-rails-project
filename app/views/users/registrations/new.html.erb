@@ -1,0 +1,39 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+<%= devise_error_messages! %>
+
+<div class="row">
+  <div class="col-md-6">
+    <%= render partial: 'users/user_fields', locals: {f: f} %>
+
+    <div class="field form-group">
+      <%= f.label :initials, class: "control-label" %><br>
+      <%= text_field_tag 'personal_details[initials]', ((@user.personal_details and @user.personal_details.initials) or ''), class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="field form-group">
+      <%= f.label :password, class: "control-label" %>
+      <% if @validatable %>
+        <em>(<%= @minimum_password_length %>
+          characters minimum)</em>
+      <% end %><br/>
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :password_confirmation, class: "control-label" %><br/>
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Sign up", class: 'btn btn-default' %>
+    </div>
+  </div>
+
+</div>
+<% end %>
+
+<%# render "devise/shared/links" %>

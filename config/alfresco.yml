@@ -1,0 +1,34 @@
+defaults: &defaults
+  alfresco_integration: true
+  browser_uri: http://localhost:8080/alfresco/api/-default-/public/cmis/versions/1.1/browser
+  site_share_uri: http://localhost:8080/alfresco/service/api/sites/shareUrl
+  ms_word_webdav_uri: ms-word:ofe|u|http://127.0.0.1:8080/alfresco/webdav
+  login_uri: http://localhost:8080/share/page/dologin
+  pdf_preview_space_store_uri: http://localhost:8080/share/proxy/alfresco/api/node/workspace/SpacesStore
+  space_store_uri: http://localhost:8080/share/proxy/alfresco/slingshot/node/content/workspace/SpacesStore
+  create_site_uri: http://localhost:8080/share/service/modules/create-site
+  username: admin
+  password: admin
+  repository: -default-
+  file_subfolders_to_be_created: [Disclosure, Account, DebitEntry, FileForm, Letter, Meeting, Precognition, Documents, '_Main File']
+  file_main_file_folder: _Main File
+  file_disclosure_folder: Disclosure
+  file_debit_entry_folder: DebitEntry
+  file_file_form_folder: FileForm
+  file_letter_folder: Letter
+  file_meeting_folder: Meeting
+  file_precognition_folder: Precognition
+  file_documents_folder: Documents
+  client_subfolders_to_be_created: [Files, Documents]
+  client_file_folder: Files
+  client_documents_folder: Documents
+  template_folder: Document Templates
+  aliases: true
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

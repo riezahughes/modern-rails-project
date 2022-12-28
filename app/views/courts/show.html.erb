@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Court</h3>
+    <%= render 'application/entity_control_links', entity: @court %>
+    <%= render 'application/entity_timestamps', entity: @court %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @court.name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Type:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @court.court_type, @court.court_type %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Address:</strong>
+        </td>
+        <td nowrap>
+          <%= @court.address %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>City:</strong>
+        </td>
+        <td nowrap>
+          <%= @court.city %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Telephone:</strong>
+        </td>
+        <td nowrap>
+          <%= @court.telephone %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Fax:</strong>
+        </td>
+        <td nowrap>
+          <%= @court.fax %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Police Authority:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to_if @court.police_authority, @court.police_authority, @court.police_authority %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Court Official:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to_if @court.court_type.court_official, @court.court_type.court_official, @court.court_type.court_official %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Jurisdiction:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to_if @court.jurisdiction, @court.jurisdiction, @court.jurisdiction %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

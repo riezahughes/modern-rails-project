@@ -1,0 +1,47 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :client_file_file_number, "FN" %></th>
+    <th><%= sort_link @search, :work_start_date, 'Date' %></th>
+    <th><%= sort_link @search, :meeting_type_name, "Type" %></th>
+    <th><%= sort_link @search, :attendance_with %></th>
+    <th><%= sort_link @search, :description %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :description_or_attendance_with_or_locus_or_client_file_file_number_or_meeting_type_name_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @meetings.each do |meeting| %>
+      <tr>
+        <td><%= meeting.client_file.file_number %></td>
+        <td><%= meeting.work ? meeting.work.formatted_start_date : '-' %></td>
+        <td><%= meeting.meeting_type.name if meeting.meeting_type %></td>
+        <td><%= meeting.attendance_with %></td>
+        <td><%= truncate meeting.description %></td>
+        <td><%= link_to 'View', meeting, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, Meeting %>
+              <%= link_to 'Edit', edit_meeting_path(meeting), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, Meeting %>
+              <%= link_to meeting, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @meetings, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @meetings %>
+</p>

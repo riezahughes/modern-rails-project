@@ -1,0 +1,39 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :name, "Name" %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :name_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @court_official_types.each do |court_official_type| %>
+      <tr>
+        <td><%= court_official_type.name %></td>
+        <td><%= link_to 'View', court_official_type, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, CourtOfficialType %>
+              <%= link_to 'Edit', edit_court_official_type_path(court_official_type), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, CourtOfficialType %>
+              <%= link_to court_official_type, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @court_official_types, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @court_official_types %>
+</p>

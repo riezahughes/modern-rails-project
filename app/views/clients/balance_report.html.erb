@@ -1,0 +1,39 @@
+<% @report_records = client_balance_records(@date) %>
+
+<h1>Client Balance Report</h1>
+<p>
+  <i>For month ending <%= @date.end_of_month.to_formatted_s(:long) %></i>
+</p>
+
+<%= form_tag({controller: :clients, action: :balance_report}, method: :get, role: "form") do %>
+
+    <div class="form-group field">
+      <%= label_tag "Select date for report" %><br/>
+      <%= select_date @date,
+                      {order: [:month, :year],
+                       start_year: 20.years.ago.year, end_year: Date.today.year} %>
+    </div>
+
+    <div class="actions">
+      <%= submit_tag nil, class: "btn btn-default" %>
+    </div>
+<% end %>
+
+<br/>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Client</th>
+    <th>Balance</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @report_records.each do |ledger| %>
+      <tr>
+        <td><%= ledger.client.full_name %></td>
+        <td><%= humanized_money_with_symbol ledger.balance %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

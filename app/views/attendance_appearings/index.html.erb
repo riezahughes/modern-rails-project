@@ -1,0 +1,13 @@
+<h1>Attendance appearings</h1>
+
+<% if can? :create, AttendanceAppearing %>
+<p>
+  <%= link_to 'New Attendance appearing', new_attendance_appearing_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

@@ -1,0 +1,15 @@
+<h1>Police Authorities</h1>
+
+<% if can? :create, PoliceAuthority %>
+    <p>
+      <%= link_to 'New Police authority', new_police_authority_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

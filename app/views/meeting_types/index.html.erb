@@ -1,0 +1,15 @@
+<h1>Meeting_types</h1>
+
+<% if can? :create, MeetingType %>
+    <p>
+      <%= link_to 'New Meeting type', new_meeting_type_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

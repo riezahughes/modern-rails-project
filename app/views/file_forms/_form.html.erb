@@ -1,0 +1,49 @@
+<%= form_for(@file_form) do |f| %>
+<% if @file_form.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@file_form.errors.count, "error") %>
+    prohibited this file_form from being saved:</h2>
+
+  <ul>
+    <% @file_form.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+    <%= render 'application/form_autocomplete', f: f,
+               entity: :file_form, field: :client_file_id, method: :client_file_file_number,
+               field_label: :client_file,
+               placeholder: 'File Number',
+               default_id: (@file_form.client_file ? @file_form.client_file.id : nil) || (@client_file ? @client_file.id : nil),
+               default_value: (@file_form.client_file) || (@client_file),
+               autocomplete_path: autocomplete_client_file_file_number_file_forms_path %>
+    <div class="field">
+      <%= f.label :form_date, class: "control-label" %><br>
+      <%= f.datetime_select :form_date, {}, {class: "form-control "} %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :description, class: "control-label" %><br>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :witness, class: "control-label" %><br>
+      <%= f.select :witness_id, options_from_collection_for_select(Witness.where(client_file: @file_form.client_file || @client_file_id).order(cited: :desc),
+        :id, :to_selection_item, @file_form.witness_id), {include_blank: true, default: nil}, {class: "form-control"} %>
+    </div>
+    <%= render 'templated_document/form_fields', f: f, document_templateable: @file_form %>
+    <div class="field form-group">
+      <div class="checkbox-inline">
+        <%= f.check_box :chargeable, checked: @file_form.chargeable.nil? || @file_form.chargeable %>
+        <%= f.label :chargeable, class: "control-label" %><br>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

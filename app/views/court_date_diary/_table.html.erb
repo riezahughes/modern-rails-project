@@ -1,0 +1,24 @@
+
+<table class="table">
+  <thead>
+  <tr>
+    <th>Client</th>
+    <th>File</th>
+    <th></th>
+    <th>Time</th>
+    <th>Court</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @court_dates.each do |court_date| %>
+      <tr>
+        <td><%= link_to court_date.client, court_date.client %></td>
+        <td><%= link_to court_date.client_file, court_date.client_file %></td>
+        <td><%= link_to court_date.court_date_type, court_date %></td>
+        <td><%= court_date.court_date.strftime("%l:%M %P") %></td>
+        <td><%= court_date.court %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

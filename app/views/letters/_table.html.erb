@@ -1,0 +1,49 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :client_file_file_number, "FN" %></th>
+    <th><%= sort_link @search, :letter_date %></th>
+    <th><%= sort_link @search, :description %></th>
+    <th><%= sort_link @search, :length %></th>
+    <th><%= sort_link @search, :chargeable %></th>
+    <th><%= sort_link @search, :high_legal %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :description_or_client_file_file_number_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @letters.each do |letter| %>
+      <tr>
+        <td><%= letter.client_file.file_number %></td>
+        <td><%= letter.formatted_letter_date %></td>
+        <td><%= truncate letter.description %></td>
+        <td><%= letter.length %></td>
+        <td><%= letter.chargeable %></td>
+        <td><%= letter.high_legal %></td>
+        <td><%= link_to 'View', letter, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, Letter %>
+              <%= link_to 'Edit', edit_letter_path(letter), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, Letter %>
+              <%= link_to letter, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @letters, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @letters %>
+</p>

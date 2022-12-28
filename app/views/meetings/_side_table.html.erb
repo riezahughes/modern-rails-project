@@ -1,0 +1,17 @@
+<% show_client_file = false unless defined? show_client_file %>
+<table class="table" id="meeting_table">
+  <thead>
+  <% if show_client_file %>
+      <th>FN</th>
+  <% end %>
+  <th>Type</th>
+  <th>Date</th>
+  <th>Attendance With</th>
+  <th>Description</th>
+  </thead>
+  <tbody>
+  <% meetings.each do |meeting| %>
+      <%= render partial: 'meetings/table_row', locals: {meeting: meeting, show_client_file: show_client_file} %>
+  <% end %>
+  </tbody>
+</table>

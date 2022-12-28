@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Disclosure</h3>
+    <%= render 'application/entity_control_links', entity: @disclosure %>
+    <%= render 'application/entity_timestamps', entity: @disclosure %>
+
+    <table class="table">
+          <tr>
+            <td nowrap>
+            <strong>Client file:</strong>
+            </td>
+            <td nowrap>
+            <%= @disclosure.client_file.file_number %>
+            </td>
+          </tr>
+    </table>
+
+  </div>
+</div>

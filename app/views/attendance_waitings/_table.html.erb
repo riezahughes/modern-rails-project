@@ -1,0 +1,46 @@
+<% can_manage = can? :manage, AttendanceWaiting %>
+<% can_update = can? :update, AttendanceWaiting %>
+<% can_delete = can? :delete, AttendanceWaiting %>
+<table class="table">
+    <thead>
+        <tr>
+            <th><%= sort_link @search, :court_attendance_court_date_court_date_type_name, 'Court Date' %></th>
+            <th><%= sort_link @search, :court_attendance_work_start_date, 'Time' %></th>
+            <th><%= sort_link @search, :court_attendance_work_user_personal_details_surname, 'User' %></th>
+            <th colspan="1">
+                <%= search_form_for @search, class: 'form-inline' do |f| %>
+                <div class="form-group has-feedback">
+                    <%= f.search_field :court_attendance_work_start_date_cont, class: 'form-control' %>
+                </div>
+                <%= f.submit %>
+                <% end %>
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <% @attendance_waitings.each do |attendance_waiting| %>
+        <tr>
+            <td><%= attendance_waiting.court_attendance %></td>
+            <td><%= attendance_waiting.court_attendance.short_datetimes %></td>
+            <td><%= attendance_waiting.court_attendance.work.user.short_full_name %></td>
+            <td><%= link_to 'View', attendance_waiting, class: 'btn btn-default btn-sm' %>
+                <% if can_manage || can_update %>
+                <%= link_to 'Edit', edit_attendance_waiting_path(attendance_waiting), class: 'btn btn-default btn-sm' %>
+                <% end %>
+                <% if can_manage || can_delete %>
+                <%= link_to attendance_waiting, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                <% end %>
+                <% end %>
+            </td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<%= will_paginate @attendance_waitings, renderer: BootstrapPagination::Rails %>
+<p>
+    <%= page_entries_info @attendance_waitings %>
+</p>

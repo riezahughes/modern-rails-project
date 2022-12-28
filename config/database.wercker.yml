@@ -1,0 +1,8 @@
+test:
+    adapter: mysql2
+    encoding: utf8
+    database: <%= ENV['MARIADB_NAME'] %>
+    username: root
+    password: <%= ENV['MARIADB_ENV_MYSQL_ROOT_PASSWORD'] %>
+    host: <%= ENV['MARIADB_PORT_3306_TCP_ADDR'] %>
+

@@ -1,0 +1,13 @@
+<tr>
+  <% if show_client_file %>
+      <td nowrap>
+        <%= link_to phone_call.client_file.file_number, phone_call.client_file %>
+      </td>
+  <% end %>
+  <td nowrap>
+    <%= truncate(phone_call.attendance_with, separator: ' ') %>
+  </td>
+  <td nowrap>
+    <%= link_to truncate(phone_call.description, length: 50, separator: ' '), phone_call %>
+  </td>
+</tr>

@@ -1,0 +1,11 @@
+<table class="table" id="file_form_table">
+  <thead>
+  <th>Created on</th>
+  <th>Description</th>
+  </thead>
+  <tbody>
+  <% documents.each do |document| %>
+      <%= render partial: 'documents/table_row', locals: {document: document} %>
+  <% end %>
+  </tbody>
+</table>

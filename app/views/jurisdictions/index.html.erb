@@ -1,0 +1,13 @@
+<h1>Jurisdictions</h1>
+
+<% if can? :create, Jurisdiction %>
+<p>
+  <%= link_to 'New Jurisdiction', new_jurisdiction_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

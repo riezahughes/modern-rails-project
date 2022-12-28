@@ -1,0 +1,42 @@
+<h1>Claims</h1>
+
+<% if can? :create, Claim %>
+  <p>
+    <%= link_to 'New Claim', new_claim_path, class: 'btn btn-default btn-sm' %>
+  </p>
+<% end %>
+
+<% if can? :payments_breakdown, Claim %>
+  <p>
+    <div class="row">
+      <div class="col-md-6">
+        <table class="table">
+          <tr>
+            <td>
+              <strong>Claimed:</strong>
+            </td>
+            <td><%= humanized_money_with_symbol @total_amount %></td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Paid:</strong>
+            </td>
+            <td><%= humanized_money_with_symbol @total_paid %></td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Outstanding:</strong>
+            </td>
+            <td><%= humanized_money_with_symbol @total_outstanding %></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

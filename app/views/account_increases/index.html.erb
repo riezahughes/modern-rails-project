@@ -1,0 +1,13 @@
+<h1>Account increases</h1>
+
+<% if can? :create, AccountIncrease %>
+<p>
+  <%= link_to 'New Account increase', new_account_increase_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

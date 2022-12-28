@@ -1,0 +1,5 @@
+$('.fetch_document').empty();
+$('.fetch_document')
+.append("<%= j render 'templated_document/document_side_panel', document_templateable: @document_templateable %>");
+$('.fetch_document').removeClass('fetch_document');
+$('.fetch_error').html('Imported from legacy system')

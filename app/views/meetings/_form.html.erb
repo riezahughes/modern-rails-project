@@ -1,0 +1,152 @@
+<% @document_template_type = Meeting %>
+<% @parent_id = @meeting.client_file_id || @client_file_id %>
+<% parent = ClientFile.find_by(@parent_id) %>
+<% collection_name = 'meetings' %>
+
+<%= form_for(@meeting) do |f| %>
+    <% if @meeting.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting
+            from being saved:</h2>
+
+          <ul>
+            <% @meeting.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+
+          <% if @meeting.precognition %>
+            <h3>Precognition errors:</h3>
+            <ul>
+              <% @meeting.precognition.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.hidden_field :client_file_id, class: "meeting_client_file_id-autocomplete", id: "meeting_client_file_id", value: @meeting.client_file_id || @client_file_id %>
+          <%= f.label :client_file, class: "control-label" %><br>
+          <%= f.autocomplete_field :client_file_file_number, autocomplete_client_file_file_number_meetings_path,
+                                   id_element: '.meeting_client_file_id-autocomplete',
+                                   class: "meeting_client_file_file_number-autocomplete form-control",
+                                   placeholder: "File Number",
+                                   value: @meeting.client_file || @client_file %>
+        </div>
+
+        <%= render 'work/work_form_fields', f: f, workable: @meeting, user_heading: 'Attendance By' %>
+
+        <div class="row">
+
+          <div class="col-md-6">
+            <div class="field form-group">
+              <%= f.label :waiting_time_start, class: "control-label" %><br>
+              <%= f.datetime_select :waiting_time_start, {default: nil}, class: "form-control" %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="field form-group">
+              <%= f.label :waiting_time_end, class: "control-label" %><br>
+              <%= f.datetime_select :waiting_time_end, {default: nil}, class: "form-control" %>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :meeting_type, class: "control-label" %><br>
+          <%= f.select :meeting_type_id, options_from_collection_for_select(MeetingType.all, :id, :name, @meeting.meeting_type_id), {}, {class: "form-control"} %>
+        </div>
+
+        <div class="field">
+          <%= f.label :description, class: "control-label" %><br>
+          <%= f.text_area :description, class: "form-control" %>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+
+        <div class="field">
+          <%= f.label :locus, 'Location', class: "control-label" %><br>
+          <%= f.text_field :locus, class: "form-control" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :length, 'Word count', class: "control-label" %><br>
+          <%= f.number_field :length, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :attendance_with, class: "control-label" %><br>
+          <%= f.autocomplete_field :attendance_with, autocomplete_meeting_attendance_with_meetings_path,
+                                   class: "meeting_attendance_with-autocomplete form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :witness, class: "control-label" %><br>
+          <%= f.select :witness_id, options_from_collection_for_select(Witness.where(client_file: @meeting.client_file || @client_file_id).order(cited: :desc),
+            :id, :to_selection_item, @meeting.witness_id), {include_blank: true, default: nil}, {class: "form-control"} %>
+        </div>
+
+        <ul class="list-inline">
+          <li>
+            <div class="field form-group" id="attendance_node-document">
+              <% if TemplatedDocument.exists?(document_templateable: @meeting) %>
+                <% templated_document = TemplatedDocument.where(document_templateable: @meeting).first %>
+                <%= render 'meetings/edit_templated_document',
+                  document_template: templated_document.document_template,
+                  templated_document: templated_document %>
+              <% else %>
+                <%= link_to "Create Attendance Note Document", "#new_#{collection_name}_modal", 'data-toggle' => 'modal', class: 'btn btn-default' %>
+              <% end %>
+            </div>
+          </li>
+          <li>
+            <div class="field form-group" id="precognition-document">
+              <% precognition = @meeting.precognition %>
+              <% if TemplatedDocument.exists?(document_templateable: precognition, document_templateable_type: 'Precognition') %>
+                <% templated_document = TemplatedDocument.where(document_templateable: precognition, document_templateable_type: 'Precognition').first %>
+                <%= render 'meetings/edit_precognition_templated_document',
+                  document_template: templated_document.document_template,
+                  templated_document: templated_document %>
+              <% else %>
+                <%= link_to "Create Precognition Document", "#new_precognitions_modal", 'data-toggle' => 'modal', class: 'btn btn-default' %>
+              <% end %>
+            </div>
+          </li>
+        </ul>
+
+        <div class="field form-group">
+          <%= f.hidden_field :journey_id, class: "meeting_journey_id-autocomplete", id: "meeting_journey_id" %>
+          <%= f.label :journey, class: "control-label" %><br>
+
+          <div class="row">
+            <div class="col-md-8">
+              <%= f.autocomplete_field :journey_formatted_identifier, autocomplete_journey_identifier_meetings_path,
+                                   id_element: '.meeting_journey_id-autocomplete',
+                                   class: "meeting_journey_file_number-autocomplete form-control",
+                                   placeholder: "User or Departure Date" %>
+
+            </div>
+            <div class="col-md-4">
+              <%= link_to 'Create journey', new_journey_path, target: "_blank", class: "btn btn-default" %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+<% end %>
+
+<%= render 'application/modal_form', model_class: Meeting, parent: parent, form_partial: 'meetings/new_meeting_templateable_document_form', hide_title: true %>
+<%= render 'application/modal_form', model_class: Precognition, parent: parent, form_partial: 'precognitions/new_precognition_templateable_document_form', hide_title: true %>

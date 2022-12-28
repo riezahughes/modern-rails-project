@@ -1,0 +1,23 @@
+<% templated_document = document_templateable.templated_document %>
+<tr>
+  <td >
+    <strong>Document template:</strong>
+  </td>
+  <td >
+    <% if templated_document %>
+      <%= link_to_if templated_document.document_template,
+                templated_document.document_template,
+                templated_document.document_template %>
+    <% end %>
+  </td>
+</tr>
+<tr>
+  <td>
+    <strong>Document:</strong>
+  </td>
+  <td>
+    <% if templated_document %>
+      <%= link_to "Open in Word", templated_document.document_url, class: 'btn btn-default' %>
+    <% end %>
+  </td>
+</tr>

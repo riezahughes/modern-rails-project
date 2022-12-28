@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Civilian</h3>
+    <%= render 'application/entity_control_links', entity: @civilian %>
+    <%= render 'application/entity_timestamps', entity: @civilian %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Title:</strong>
+        </td>
+        <td nowrap>
+          <%= @civilian.title %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @civilian.name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Address:</strong>
+        </td>
+        <td nowrap>
+          <%= @civilian.address %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Telephone:</strong>
+        </td>
+        <td nowrap>
+          <%= @civilian.telephone %>
+        </td>
+      </tr>
+      <%= render 'witnesses/show_fields', witnessable: @civilian %>
+    </table>
+
+  </div>
+</div>

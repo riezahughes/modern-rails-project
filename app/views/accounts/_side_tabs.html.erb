@@ -1,0 +1,15 @@
+<div class="tab-content">
+
+  <%= render 'application/side_tab_panel', collection: @claims, collection_class: Claim, panel_buttons: 'create_button_modal', parent: @account %>
+  <%= render 'application/side_tab_panel', collection: @account_increases, collection_class: AccountIncrease, panel_buttons: 'create_button_modal', parent: @account %>
+  <%= render 'application/side_tab_panel', collection: @account_charge_items, collection_class: AccountChargeItem, active: true  %>
+
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+
+  <%= render 'application/side_tab', collection_class: Claim %>
+  <%= render 'application/side_tab', collection_class: AccountIncrease %>
+  <%= render 'application/side_tab', collection_class: AccountChargeItem, active: true %>
+
+</ul>

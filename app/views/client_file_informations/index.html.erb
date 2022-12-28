@@ -1,0 +1,15 @@
+<h1>Client_file_informations</h1>
+
+<% if can? :create, ClientFileInformation %>
+    <p>
+      <%= link_to 'New Client file information', new_client_file_information_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

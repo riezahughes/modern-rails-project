@@ -1,0 +1,52 @@
+<% letter = notifiable %>
+<h3>Letter</h3>
+<table class="table">
+  <tr valign="top">
+    <td nowrap>
+      <strong>Client file:</strong>
+    </td>
+    <td nowrap>
+      <%= letter.client_file %> - <%= letter.client_file.client %>
+    </td>
+  </tr>
+  <tr>
+    <td nowrap>
+      <strong>Date:</strong>
+    </td>
+    <td nowrap>
+      <%= letter.formatted_letter_date %>
+    </td>
+  </tr>
+  <tr>
+    <td nowrap>
+      <strong>Description:</strong>
+    </td>
+    <td nowrap>
+      <%= letter.description %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Chargeable:</strong>
+    </td>
+    <td nowrap>
+      <%= letter.chargeable %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>High legal:</strong>
+    </td>
+    <td nowrap>
+      <%= letter.high_legal %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Created By:</strong>
+    </td>
+    <td nowrap>
+      <%= letter.created_by %>
+    </td>
+  </tr>
+</table>

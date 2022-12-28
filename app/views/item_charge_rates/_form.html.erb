@@ -1,0 +1,74 @@
+<%= form_for(@item_charge_rate) do |f| %>
+<% if @item_charge_rate.errors.any? %>
+<div id="error_explanation">
+    <h2><%= pluralize(@item_charge_rate.errors.count, "error") %>
+        prohibited this item_charge_rate from being saved:</h2>
+
+    <ul>
+        <% @item_charge_rate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+    </ul>
+</div>
+<% end %>
+
+<div class="row">
+    <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :chargeable_item_name, class: "control-label" %><br>
+          <%= f.select :chargeable_item_name, options_for_select(AccountChargeable.classes.map(&:name), @item_charge_rate.chargeable_item_name), {},
+                  class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= f.label :qualification_type, class: "control-label" %><br>
+          <%= f.select :qualification_type, options_for_select(AccountChargeable.qualification_types, @item_charge_rate.qualification_type), {},
+                  class: "form-control" %>
+        </div>
+        <div class="field form-group">
+          <%= f.label :account_type, class: "control-label" %><br>
+          <%= f.select :account_type_id, options_from_collection_for_select(AccountType.all, :id, :name, @item_charge_rate.account_type_id), {}, {class: "form-control"} %>
+        </div>
+        <div class="field form-group">
+            <%= f.label :fixed_fee, class: "control-label" %><br>
+            <%= f.text_field :fixed_fee, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+            <%= f.label :initial_block_duration_mins, class: "control-label" %><br>
+            <%= f.number_field :initial_block_duration_mins, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+            <%= f.label :initial_block_charge, class: "control-label" %><br>
+            <%= f.text_field :initial_block_charge, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+            <%= f.label :block_duration_mins, class: "control-label" %><br>
+            <%= f.number_field :block_duration_mins, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+            <%= f.label :block_charge, class: "control-label" %><br>
+            <%= f.text_field :block_charge, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+            <%= f.label :block_distance_miles, class: "control-label" %><br>
+            <%= f.number_field :block_distance_miles, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+            <%= f.label :block_distance_charge, class: "control-label" %><br>
+            <%= f.text_field :block_distance_charge, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+            <%= f.label :block_word_length, class: "control-label" %><br>
+            <%= f.text_field :block_word_length, class: "form-control" %>
+        </div>
+        <div class="field form-group">
+            <%= f.label :block_word_length_charge, class: "control-label" %><br>
+            <%= f.text_field :block_word_length_charge, class: "form-control" %>
+        </div>
+    </div>
+</div>
+<% end %>

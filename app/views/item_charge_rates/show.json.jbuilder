@@ -1,0 +1,1 @@
+json.extract! @item_charge_rate, :id, :chargeable_item_name, :qualification_type, :fixed_fee, :initial_block_duration_mins, :initial_block_charge, :block_duration_mins, :block_charge, :account_type_id, :created_at, :updated_at

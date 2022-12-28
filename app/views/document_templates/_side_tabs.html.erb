@@ -1,0 +1,20 @@
+<div class="tab-content">
+
+  <div role="tabpanel" class="tab-pane active" id="document_template">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h5>Document Template</h5>
+      </div>
+      <%= render "pdf_preview", document_templateable: @document_template %>
+    </div>
+  </div>
+
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+
+  <li role="presentation" class = "active">
+    <a href="#document_template" aria-controls="document_template" role="tab" data-toggle="tab">Document Template</a>
+  </li>
+
+</ul>

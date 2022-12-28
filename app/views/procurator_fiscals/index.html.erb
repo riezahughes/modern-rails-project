@@ -1,0 +1,15 @@
+<h1>Procurator Fiscals</h1>
+
+<% if can? :create, ProcuratorFiscal %>
+    <p>
+      <%= link_to 'New Procurator Fiscal', new_procurator_fiscal_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

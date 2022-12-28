@@ -1,0 +1,6 @@
+<tr>
+  <td><%= document.created_at %></td>
+  <td nowrap>
+    <%= link_to truncate(document.description, length: 50, separator: ' '), document %>
+  </td>
+</tr>

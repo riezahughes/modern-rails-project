@@ -1,0 +1,70 @@
+<h1>Main menu</h1>
+
+<div class="row">
+  <div class="col-md-3">
+
+    <% if can? :read, Client %>
+    <p>
+      <%= link_to search_clients_path, class: 'btn btn-default btn-xlarge', type: 'button' do %>
+      <span class="glyphicon glyphicon-user"></span>
+      Clients
+      <% end %>
+    </p>
+    <% end %>
+
+    <% if can? :read, ClientFile %>
+    <p>
+      <%= link_to search_client_files_path, class: 'btn btn-default btn-xlarge', type: 'button' do %>
+      <span class="glyphicon glyphicon-file"></span>
+      Files
+      <% end %>
+    </p>
+    <% end %>
+
+    <p>
+      <div class="dropdown">
+        <button class="btn btn-default btn-xlarge dropdown-toggle" type="button" id="dropdownWork" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          <span class="glyphicon glyphicon-inbox"></span>
+          Work
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownWork">
+          <li><%= link_to letters_path do %>
+            Letters
+            <% end %>
+          </li>
+          <li><%= link_to meetings_path do %>
+            Meetings
+            <% end %>
+          </li>
+          <li>
+            <%= link_to phone_calls_path, class: 'inline' do %>
+            Phone Calls
+            <% end %>
+            <span data-toggle="tooltip" title="Create new phone call">
+              <%= link_to new_phone_call_path, 'data-toggle' => 'modal', class: 'btn btn-default btn-sm btn-clear' do %>
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+              <% end %>
+            </span>
+          </li>
+
+        </ul>
+      </div>
+    </p>
+
+    <% if can? :read, CourtDate %>
+    <p>
+      <%= link_to court_date_diary_show_path, class: 'btn btn-default btn-xlarge', type: 'button' do %>
+      <span class="glyphicon glyphicon-calendar"></span>
+      Diary
+      <% end %>
+    </p>
+    <% end %>
+
+  </div>
+
+  <div class="col-md-8">
+    <%# render 'court_date_report' %>
+  </div>
+
+</div>

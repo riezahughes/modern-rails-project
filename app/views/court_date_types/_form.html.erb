@@ -1,0 +1,40 @@
+<%= form_for(@court_date_type) do |f| %>
+    <% if @court_date_type.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@court_date_type.errors.count, "error") %> prohibited this court_date_type
+            from being saved:</h2>
+
+          <ul>
+            <% @court_date_type.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :name, class: "control-label" %><br>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :preparation, class: "control-label" %><br>
+          <%= f.text_field :preparation, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :following_court_date_type, class: "control-label" %><br>
+          <%= f.select :following_court_date_type_id, options_from_collection_for_select(CourtDateType.where.not(id: @court_date_type.id), :id, :name, @court_date_type.following_court_date_type_id),
+           {include_blank: true, default: nil}, class: "form-control" %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

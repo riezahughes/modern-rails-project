@@ -1,0 +1,30 @@
+<tr class="multi-select-item">
+  <td nowrap="nowrap">
+    <%= court_date.client_file %>
+  </td>
+  <td nowrap="nowrap">
+    <%= court_date.court_date %>
+  </td>
+  <td nowrap="nowrap">
+    <%= court_date.court_date_type %>
+  </td>
+  <td nowrap="nowrap">
+    <%= court_date.court %>
+  </td>
+  <td>
+    <button type="button" class="multi-select-item-remove btn btn-default btn-sm">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </button>
+
+    <%= fields_for journey.court_dates do |court_dates_fields| %>
+    <% [
+        :id,
+      ].each do |field| %>
+      <div class="field form-group hidden">
+        <%= court_dates_fields.hidden_field_tag "court_dates[][#{field}]", court_date.send(field) %>
+      </div>
+    <% end %>
+
+  <% end %>
+</td>
+</tr>

@@ -1,0 +1,15 @@
+<h1>Court Official Types</h1>
+
+<% if can? :create, CourtOfficialType %>
+    <p>
+      <%= link_to 'New Court official type', new_court_official_type_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

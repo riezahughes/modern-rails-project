@@ -1,0 +1,33 @@
+<tr class="multi-select-item">
+  <td nowrap="nowrap">
+    <%= meeting.client_file %>
+  </td>
+  <td nowrap="nowrap">
+    <%= meeting.formatted_start_date %>
+  </td>
+  <td nowrap="nowrap">
+    <%= meeting.meeting_type %>
+  </td>
+  <td nowrap="nowrap">
+    <%= meeting.attendance_with %>
+  </td>
+  <td nowrap="nowrap">
+    <%= truncate meeting.description %>
+  </td>
+  <td>
+    <button type="button" class="multi-select-item-remove btn btn-default btn-sm">
+      <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+    </button>
+
+    <%= fields_for journey.meetings do |meetings_fields| %>
+    <% [
+        :id,
+      ].each do |field| %>
+      <div class="field form-group hidden">
+        <%= meetings_fields.hidden_field_tag "meetings[][#{field}]", meeting.send(field) %>
+      </div>
+    <% end %>
+
+  <% end %>
+</td>
+</tr>

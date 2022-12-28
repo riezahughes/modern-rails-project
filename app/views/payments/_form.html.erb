@@ -1,0 +1,54 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+<%= form_for(@payment, remote: remote, html: {role: :form, 'data-model' => 'payment'}) do |f| %>
+<% if @payment.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@payment.errors.count, "error") %>
+    prohibited this payment from being saved:</h2>
+
+  <ul>
+    <% @payment.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-<%= modal ? '8' : '4' %>">
+
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+
+    <% if parent %>
+    <div class="field form-group">
+      <%= f.label :claim, class: "control-label" %>:
+      <%= parent %>
+      <%= f.hidden_field :claim_id, value: parent.id %>
+      <span class="help-block"></span>
+    </div>
+    <% else %>
+    <div class="field form-group">
+      <%= f.label :claim_id, class: "control-label" %><br>
+      <%= f.text_field :claim_id, class: "form-control" %>
+    </div>
+    <% end %>
+
+    <div class="field form-group">
+      <%= f.label :payment_date, class: "control-label" %><br>
+      <%= f.date_select :payment_date, {}, class: "form-control " %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :fee_amount, class: "control-label" %><br>
+      <%= f.text_field :fee_amount, class: "form-control" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :outlay_amount, class: "control-label" %><br>
+      <%= f.text_field :outlay_amount, class: "form-control" %>
+    </div>
+
+  </div>
+</div>
+<% end %>

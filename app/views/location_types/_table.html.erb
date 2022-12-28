@@ -1,0 +1,39 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :name %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :name_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @location_types.each do |location_type| %>
+      <tr>
+        <td><%= location_type.name %></td>
+        <td><%= link_to 'View', location_type, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, LocationType %>
+              <%= link_to 'Edit', edit_location_type_path(location_type), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, LocationType %>
+              <%= link_to location_type, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @location_types, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @location_types %>
+</p>

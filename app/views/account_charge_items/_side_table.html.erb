@@ -1,0 +1,15 @@
+<table class="table" id="account_charge_items_table">
+  <thead>
+  <th></th>
+  <th>Item</th>
+  <th>Date</th>
+  <th>Narrative</th>
+  <th>Fee Amount</th>
+  <th>Outlay Amount</th>
+  </thead>
+  <tbody>
+  <% account_charge_items.each do |account_charge_item| %>
+      <%= render partial: 'account_charge_items/table_row', locals: {account_charge_item: account_charge_item, render_buttons: false} %>
+  <% end %>
+  </tbody>
+</table>

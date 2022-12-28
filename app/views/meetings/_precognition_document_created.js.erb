@@ -1,0 +1,4 @@
+$('#precognition-document').html("<%= j render partial: 'meetings/edit_precognition_templated_document', locals: { document_template: @document_template, templated_document: @templated_document } %>");
+$('#attendance_node-document').append("<%= j render partial: 'templated_document/open_for_edit_webdav_link', locals: { templated_document: @templated_document } %>");
+$('#new_precognitions_modal').modal_success();
+open_webdav_link();

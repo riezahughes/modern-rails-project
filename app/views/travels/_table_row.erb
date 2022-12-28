@@ -1,0 +1,60 @@
+<tr>
+  <td nowrap="nowrap">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong>Method:</strong>
+        <%= link_to travel.travel_method, travel %></li>
+      <li class="list-group-item">
+        <strong>Start (From):</strong>
+        <%= travel.origin %></li>
+      <li class="list-group-item">
+        <strong>End (To):</strong>
+        <%= travel.destination %></li>
+    </ul>
+  </td>
+  <td nowrap="nowrap">
+    <% if travel.work %>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <strong><%= travel.short_dates %></strong>
+        </li>
+        <li class="list-group-item">
+          <strong><%= travel.formatted_start_time %></strong>
+        </li>
+        <li class="list-group-item">
+          <strong><%= travel.formatted_end_time %></strong>
+        </li>
+      </ul>
+    <% end %>
+  </td>
+  <td nowrap="nowrap">
+    <ul class="list-group">
+      <li class="list-group-item">
+        <strong>Parking:</strong>
+        <%= humanized_money_with_symbol travel.parking_costs %></li>
+      <li class="list-group-item">
+        <strong>Toll:</strong>
+        <%= humanized_money_with_symbol travel.toll_costs %></li>
+      <li class="list-group-item">
+        <strong>Other:</strong>
+        <%= humanized_money_with_symbol travel.other_costs %></li>
+    </ul>
+  </td>
+  <td nowrap="nowrap">
+    <ul class="list-group">
+      <li class="list-group-item"><%= travel.mileage %>
+      </li>
+    </ul>
+
+    <div class="pull-right">
+      <% if can? :update, Travel %>
+        <%= link_to 'Edit', edit_travel_path(travel), {class: 'btn btn-default'} %>
+      <% end %>
+      <% if can? :delete, Travel %>
+        <%= link_to travel, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are you sure?'} do %>
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <% end %>
+      <% end %>
+    </div>
+  </td>
+</tr>

@@ -1,0 +1,48 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :journey_departure_date_sort, 'Journey' %></th>
+    <th><%= sort_link @search, :travel_method_name, 'Method' %></th>
+    <th><%= sort_link @search, :origin %></th>
+    <th><%= sort_link @search, :destination %></th>
+    <th><%= sort_link @search, :mileage %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :travel_search_scope, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @travels.each do |travel| %>
+      <tr>
+        <td><%= travel.journey %></td>
+        <td><%= travel.travel_method %></td>
+        <td><%= travel.origin %></td>
+        <td><%= travel.destination %></td>
+        <td><%= travel.mileage %></td>
+        <td><%= link_to 'View', travel, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, Travel %>
+              <%= link_to 'Edit', edit_travel_path(travel), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, Travel %>
+              <%= link_to travel, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @travels, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @travels %>
+</p>
+

@@ -1,0 +1,12 @@
+<tr>
+  <td nowrap>
+    <strong>Client Files:</strong>
+  </td>
+  <td nowrap>
+    <ul>
+      <% witnessable.witnesses.each do |witness| %>
+          <li><%= link_to witness.client_file, witness.client_file %> <%= 'Cited' if witness.cited? %></li>
+      <% end %>
+    </ul>
+  </td>
+</tr>

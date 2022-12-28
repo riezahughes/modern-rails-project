@@ -1,0 +1,37 @@
+<%= form_for(@account_charge_rate) do |f| %>
+<% if @account_charge_rate.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@account_charge_rate.errors.count, "error") %>
+      prohibited this account_charge_rate from being saved:</h2>
+
+    <ul>
+      <% @account_charge_rate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-4">
+
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+
+    <% if @account_charge_rate.account_type %>
+      <div class="field form-group">
+        <%= f.label :account_type, class: "control-label" %><br>
+        <%= f.hidden_field :account_type_id, value: @account_charge_rate.account_type.id %>
+        <%= @account_charge_rate.account_type %>
+      </div>
+    <% end %>
+
+    <div class="field form-group">
+      <%= f.label :fixed_fee, class: "control-label" %><br>
+      <%= f.text_field :fixed_fee, class: "form-control" %>
+    </div>
+
+  </div>
+</div>
+<% end %>

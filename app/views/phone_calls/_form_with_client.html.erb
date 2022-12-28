@@ -1,0 +1,289 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+<%= form_tag(controller: :client_client_file_phone_calls, action: :create) do %>
+
+<% if @client.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@client.errors.count, "error") %> prohibited this client from being saved:</h2>
+
+      <ul>
+        <% @client.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<% if @client_file.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@client_file.errors.count, "error") %> prohibited this client file from being saved:</h2>
+
+      <ul>
+        <% @client_file.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<% if @phone_call.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@phone_call.errors.count, "error") %> prohibited this phone call from being saved:</h2>
+
+      <ul>
+        <% @phone_call.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="clientHeading">
+      <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseClient" aria-expanded="true" aria-controls="collapseClient">
+          Client
+        </a>
+      </h4>
+    </div>
+    <div id="collapseClient" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="clientHeading">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+
+            <div class="field form-group">
+              <%= select_tag :existing_new_client_select, options_for_select({'Existing client' => :existing_client, 'New client' => :new_client}, :existing_client), class: "form-control", id: "new_or_exisitng_client" %>
+            </div>
+
+            <div class="field form-group existing_client">
+              <%= hidden_field_tag :existing_client_id, '', class: "client_file_client_id-autocomplete", id: "client_file_client_id", value: phone_call_default_client_id(@client, @client_file) %>
+              <%= label_tag :existing_client_id, 'Client', class: "control-label" %><br>
+              <%= autocomplete_field_tag :existing_client_full_name, '',
+               autocomplete_client_name_client_files_path,
+               id_element: '.client_file_client_id-autocomplete',
+               class: "client_file_client_name-autocomplete existing_client_select form-control",
+               placeholder: "Client",
+               value: phone_call_default_client(@client, @client_file) %>
+            </div>
+
+            <%= fields_for 'new_client', @client do |f| %>
+            <div class="new_client">
+              <div class="field form-group">
+                <%= f.label 'Client Type', class: "control-label" %><br>
+                <%= select_tag :client_type, options_for_select(client_type_options_for_select, client_type_for_selection(@client)), include_blank: true, disabled: @client.class < Client, class: "form-control" %>
+
+                <% if @client.class < Client %>
+                <%= hidden_field_tag :client_type, client_type_for_selection(@client) %>
+                <% end %>
+              </div>
+
+              <div id="no_type_selected">
+                <p>
+                  <i>Please select a type</i>
+                </p>
+              </div>
+
+              <div class="person_fields">
+                <%= render partial: 'personal_details/personal_details_fields', locals: {f: f, personable: @client} %>
+
+                <div class="field form-group">
+                  <%= f.label :birth_date, class: "control-label" %><br>
+                  <%= f.date_select :birth_date, {include_blank: true}, {class: "form-control "} %>
+                </div>
+              </div>
+
+              <div class="company_fields">
+                <div class="field form-group">
+                  <%= f.label :company_name, class: "control-label" %><br>
+                  <%= f.text_field :company_name, class: "form-control" %>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="col-md-6 new_client">
+            <div class="shared_fields">
+              <div class="field form-group">
+                <%= f.label :address, class: "control-label" %><br>
+                <%= f.text_area :address, class: "form-control" %>
+              </div>
+
+              <div class="field form-group">
+                <%= f.label :postcode, class: "control-label" %><br>
+                <%= f.text_field :postcode, class: "form-control" %>
+              </div>
+
+              <div class="field form-group">
+                <%= f.label :mobile_telephone, class: "control-label" %><br>
+                <%= f.text_field :mobile_telephone, class: "form-control" %>
+              </div>
+
+              <div class="field form-group">
+                <%= f.label :home_telephone, class: "control-label" %><br>
+                <%= f.text_field :home_telephone, class: "form-control" %>
+              </div>
+
+              <div class="field form-group">
+                <%= f.label :contact_telephone, class: "control-label" %><br>
+                <%= f.text_field :contact_telephone, class: "form-control" %>
+              </div>
+
+              <div class="field form-group">
+                <%= f.label :email_address, class: "control-label" %><br>
+                <%= f.text_field :email_address, class: "form-control" %>
+              </div>
+
+              <div class="field form-group">
+                <%= f.label :additional_contact_information, class: "control-label" %><br>
+                <%= f.text_area :additional_contact_information, class: "form-control" %>
+              </div>
+
+            </div>
+
+          </div>
+            <% end %>
+
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-md-2 col-md-offset-10">
+          <a class="collapsed btn btn-default pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseClientFile" aria-expanded="false" aria-controls="collapseClientFile">
+            Client File <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          </a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="clientFileHeading">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseClientFile" aria-expanded="false" aria-controls="collapseClientFile">
+          Client File
+        </a>
+      </h4>
+    </div>
+    <div id="collapseClientFile" class="panel-collapse collapse" role="tabpanel" aria-labelledby="clientFileHeading" aria-expanded="false">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+
+            <div class="field form-group">
+              <%= select_tag :existing_new_client_file_select,
+               options_for_select({'Existing client file' => :existing_client_file,
+               'New client file' => :new_client_file}, :existing_client_file),
+               class: "form-control", id: "new_or_exisitng_client_file" %>
+            </div>
+
+            <div class="field form-group existing_client_file">
+
+              <%= label_tag :existing_client_file_id, 'Client File', class: "control-label" %><br>
+              <%= select_tag :existing_client_file_id,
+               options_for_select(['Please select a client']),
+               disabled: true, class: "form-control", id: "existing_client_file_id" %>
+            </div>
+
+            <div class="new_client_file">
+              <%= fields_for 'new_client_file', @client_file do |f| %>
+              <div class="field form-group">
+                <%= f.label :client_file_type, class: "control-label" %><br>
+                <%= f.select :client_file_type_id,
+                             options_from_collection_for_select(ClientFileType.all, :id, :name, @client_file.client_file_type_id), {},
+                             {class: "form-control client_file_type_select"} %>
+              </div>
+
+              <div class="field form-group">
+                <%= f.label :file_number, class: "control-label" %><br>
+                <%= f.text_field :file_number, class: "form-control client_file_file_number", style: "width: auto; display: inline-block" %>
+                <%= button_tag "Next File Number", type: 'button', id: 'next_file_number_link',
+                 class: 'btn btn-default',
+                 :'data-href' => get_next_file_number_client_files_path %>
+              </div>
+
+              <div class="field form-group">
+                <%= f.label :subject_matter, class: "control-label" %><br>
+                <%= f.text_field :subject_matter, class: "form-control" %>
+              </div>
+
+              <div class="field form-group">
+                <%= f.label :client_file_information, class: "control-label" %><br>
+                <%= f.select :client_file_information_id,
+                             options_from_collection_for_select(ClientFileInformation.all, :id, :name, @client_file.client_file_information_id), {},
+                             {class: "form-control"} %>
+              </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-md-2 col-md-offset-10">
+          <a class="collapsed btn btn-default pull-right" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePhoneCall" aria-expanded="false" aria-controls="collapsePhoneCall">
+            Phone Call <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          </a>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default">
+    <div class="panel-heading" role="tab" id="phoneCallHeading">
+      <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapsePhoneCall" aria-expanded="false" aria-controls="collapsePhoneCall">
+          Phone Call
+        </a>
+      </h4>
+    </div>
+    <div id="collapsePhoneCall" class="panel-collapse collapse" role="tabpanel" aria-labelledby="phoneCallHeading" aria-expanded="false">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+
+            <div class="new_phone_call">
+              <%= fields_for 'phone_call', @phone_call do |f| %>
+              <%= render 'work/work_form_fields', f: f, workable: @phone_call %>
+
+              <div class="field form-group">
+                <%= f.label :attendance_with, class: "control-label" %><br>
+                <%= f.autocomplete_field :attendance_with, autocomplete_phone_call_attendance_with_phone_calls_path,
+                                         class: "phone_call_attendance_with-autocomplete form-control" %>
+              </div>
+
+              <div class="field form-group">
+                <div class="checkbox-inline">
+                  <%= f.check_box :chargeable, checked: @phone_call.chargeable.nil? || @phone_call.chargeable %>
+                <%= f.label :chargeable, class: "control-label" %><br>
+                </div>
+              </div>
+
+              <div class="field form-group">
+                <%= f.label :description, class: "control-label" %><br>
+                <%= f.text_area :description, rows: 10, class: "form-control" %>
+              </div>
+
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer">
+        <div class="row">
+          <div class="col-md-2 col-md-offset-10">
+            <div class="actions form-group">
+              <%= submit_change_aware_tag %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  <% end %>

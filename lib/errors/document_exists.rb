@@ -1,0 +1,2 @@
+class DocumentExists < StandardError
+end

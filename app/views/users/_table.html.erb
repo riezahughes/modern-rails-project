@@ -1,0 +1,44 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :username %></th>
+    <th><%= sort_link @search, :person_name, 'Name' %></th>
+    <th><%= sort_link @search, :personal_details_initials, 'Initials' %></th>
+    <th><%= sort_link @search, :active %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :username_or_person_name_or_personal_details_initials_or_id_number_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @users.each do |user| %>
+      <tr>
+        <td><%= user.username %></td>
+        <td><%= user.full_name %></td>
+        <td><%= user.personal_details.initials %></td>
+        <td><%= user.active ? 'Yes' : 'No' %></td>
+        <td align="left"><%= link_to 'View', user, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, User %>
+              <%= link_to 'Edit', edit_user_path(user), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, User %>
+              <%= link_to user, class: 'btn btn-default btn-sm', method: :delete, data: {confirm: 'Are you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @users, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @users %>
+</p>

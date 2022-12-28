@@ -1,0 +1,62 @@
+<%= form_for(@document) do |f| %>
+<% if @document.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@document.errors.count, "error") %>
+    prohibited this document from being saved:</h2>
+
+  <ul>
+    <% @document.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-4">
+
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label 'Attach to', class: "control-label" %><br>
+      <%= f.select :documentable_type,
+                     options_for_select([['Client', 'Client'], ['Client file', 'ClientFile']], @document.documentable_type || @documentable_type.to_s), {},
+                     disabled: !@document.documentable_type.nil?,
+                     class: "form-control documentable_type-select" %>
+    </div>
+
+    <div class="field form-group Client-documentable documentable_type">
+      <%= f.hidden_field :documentable_id, class: "document_client_id-autocomplete", id: "document_client_id", value: default_documentable_id(@document, @documentable_type) %>
+      <%= f.label :client, class: "control-label" %><br>
+      <%= f.autocomplete_field :documentable_full_name, autocomplete_client_name_documents_path,
+                               id_element: '.document_client_id-autocomplete',
+                               class: "document_client_name-autocomplete form-control",
+                               placeholder: "Client",
+                               value: default_documentable(@document, @documentable_type) %>
+    </div>
+
+    <div class="field form-group ClientFile-documentable documentable_type">
+      <%= f.hidden_field :documentable_id, class: "document_client_file_id-autocomplete", id: "document_client_file_id", value: default_documentable_id(@document, @documentable_type) %>
+      <%= f.label :client_file, class: "control-label" %><br>
+      <%= f.autocomplete_field :documentable_file_number, autocomplete_client_file_file_number_documents_path,
+                               id_element: '.document_client_file_id-autocomplete',
+                               class: "document_client_file_file_number-autocomplete form-control",
+                               placeholder: "File Number",
+                               value: default_documentable(@document, @documentable_type) %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :description, class: "control-label" %><br>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :document_file, class: "control-label" %><br>
+      <%= f.file_field :document_file, class: "filestyle form-control" %>
+    </div>
+
+  </div>
+</div>
+<% end %>

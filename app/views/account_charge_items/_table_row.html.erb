@@ -1,0 +1,27 @@
+<% render_buttons = defined?(render_buttons) ? render_buttons : true %>
+<tr>
+  <td></td>
+  <td nowrap>
+    <%= link_to_if account_charge_item.chargeable_item,
+    account_charge_item.chargeable_item.to_s,
+    account_charge_item.chargeable_item %>
+  </td>
+  <td nowrap>
+    <%= account_charge_item.formatted_item_date %>
+  </td>
+  <td nowrap>
+    <%= account_charge_item.narrative %>
+    <div id="narrative_<%= account_charge_item.id %>" style="display:none;"><%= account_charge_item.narrative %></div>
+  </td>
+  <td nowrap>
+    <%= humanized_money_with_symbol account_charge_item.fee_amount %>
+  </td>
+  <td nowrap>
+    <%= humanized_money_with_symbol account_charge_item.outlay_amount %>
+  </td>
+  <% if render_buttons %>
+  <td>
+    <%= render 'account_charge_items/row_buttons', account_charge_item: account_charge_item %>
+  </td>
+  <% end %>
+</tr>

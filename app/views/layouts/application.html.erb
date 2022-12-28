@@ -1,16 +1,123 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>RailsAttempt</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../favicon.ico">
+  <link href='http://fonts.googleapis.com/css?family=Playfair+Display' rel='stylesheet' type='text/css'>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-    <%= javascript_importmap_tags %>
-  </head>
+  <title>Short Law</title>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => false %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+  <script type="text/javascript" charset="utf-8">var ROOT_PATH = '<%= root_url %>';</script>
 
-  <body>
-    <%= yield %>
-  </body>
+  <%= csrf_meta_tags %>
+  <%= yield :head %>
+
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <%= link_to "SHORT LAW", root_path, class: "navbar-brand brand" %>
+    </div>
+    <div class="collapse navbar-collapse">
+      <% if user_signed_in? %>
+          <ul class="nav navbar-nav">
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Records <span class="caret"></span></a>
+              <ul class="dropdown-menu multi-level" role="menu">
+                <%= render 'layouts/records_dropdown' %>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <% if can? :balance_report, Client %>
+                    <li class="<%= 'active' if current_page?(balance_report_clients_path) %>"><%= link_to "Client Balance", balance_report_clients_path %></li>
+                <% end %>
+                <% if can? :client_report, Location %>
+                    <li class="<%= 'active' if current_page?(client_report_locations_path) %>"><%= link_to "Client Locations", client_report_locations_path %></li>
+                <% end %>
+                <% if can? :work_in_progress_report, Claim %>
+                    <li class="<%= 'active' if current_page?(work_in_progress_report_claims_path) %>"><%= link_to "Work in Progress", work_in_progress_report_claims_path %></li>
+                <% end %>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <% if can? :read, User %>
+                    <li class="<%= 'active' if current_page?(users_path) %>"><%= link_to "Users", users_path %></li>
+                <% end %>
+                <% if can? :read, Group %>
+                    <li class="<%= 'active' if current_page?(groups_path) %>"><%= link_to "Groups", groups_path %></li>
+                <% end %>
+                <% if can? :read, ItemChargeRate %>
+                    <li class="<%= 'active' if current_page?(item_charge_rates_path) %>"><%= link_to "Item Charge Rates", item_charge_rates_path %></li>
+                <% end %>
+                <% if can? :read, DocumentTemplate %>
+                    <li class="<%= 'active' if current_page?(document_templates_path) %>"><%= link_to "Document Templates", document_templates_path %></li>
+                <% end %>
+              </ul>
+            </li>
+
+            <li>
+              <%= link_to "Help", help_path %>
+            </li>
+          </ul>
+      <% end %>
+
+      <p class="navbar-text pull-right" data-no-turbolink>
+        <% if user_signed_in? %>
+            Logged in as
+            <strong><%= current_user.short_full_name %></strong>.
+            <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+        <% else %>
+            <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link' %> |
+            <%= link_to "Login", new_user_session_path, :class => 'navbar-link' %>
+        <% end %>
+      </p>
+    </div>
+    <!--/.nav-collapse -->
+  </div>
+</div>
+
+
+<div class="container" data-no-turbolink>
+  <% if notice %>
+      <p class="alert alert-success alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <%= notice %>
+      </p>
+  <% end %>
+  <% if alert %>
+      <p class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <%= alert %>
+      </p>
+  <% end %>
+  <%= yield %>
+</div>
+<!-- /.container -->
+
+
+</body>
 </html>

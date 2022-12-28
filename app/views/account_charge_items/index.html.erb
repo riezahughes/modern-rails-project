@@ -1,0 +1,79 @@
+<h1>Account Charge Items</h1>
+
+<ul class="list-inline">
+  <% if @account %>
+  <% if can?(:read, ItemChargeRate)  %>
+  <li>
+    <%= link_to account_type_item_charge_rates_path(@account.account_type), class: 'btn btn-default' do %>
+        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span> Item Charge Rates
+    <% end %>
+  </li>
+  <% end %>
+
+  <% if can?(:expenses_report, Account)  %>
+  <li>
+    <%= link_to expenses_report_account_path(@account), class: 'btn btn-default' do %>
+        <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Show expenses report
+    <% end %>
+  </li>
+  <% end %>
+  <% end %>
+</ul>
+
+<ul class="list-inline">
+  <li>
+    <strong><%= @account ? @account : 'All accounts' %></strong>
+  </li>
+  <li>
+    <strong>Fee:</strong> <%= humanized_money_with_symbol @total_charge_fee %>
+  </li>
+  <li>
+    <strong>Outlay:</strong> <%= humanized_money_with_symbol @total_charge_outlay %>
+  </li>
+</ul>
+
+<p>
+  <% if @account_id %>
+    <%= link_to 'Back to account', account_path(@account) %>
+  <% end %>
+</p>
+<p>
+  <ul class="list-inline">
+    <% if @account_id %>
+      <% if can? :create, AccountChargeItem %>
+        <li>
+        <%= link_to 'New Account Charge Item',
+           '#new_account_charge_items_modal', 'data-toggle' => 'modal', class: 'btn btn-default btn-sm' %>
+        <%= render 'application/modal_form', model_class: AccountChargeItem, parent: @account %>
+        </li>
+      <% end %>
+
+      <% if can? :charge, AccountChargeItem %>
+        <li>
+        <%= link_to 'Re-Charge Items',
+           '#recharge_form_modal', 'data-toggle' => 'modal', class: 'btn btn-default btn-sm recharge-items-button' %>
+        <%= render 'application/modal_form',
+            model_class: AccountChargeItem,
+            modal_id: "recharge_form_modal",
+            title: "Re-charge selected charge items",
+            form_partial: 'account_charge_items/recharge_form' %>
+        </li>
+      <% end %>
+
+      <% if can? :delete, AccountChargeItem %>
+        <li>
+        <%= link_to destroy_all_account_account_charge_items_path, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are you sure?'}  do %>
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete all
+        <% end %>
+        </li>
+      <% end %>
+    <% end %>
+
+  </ul>
+</p>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

@@ -1,0 +1,2 @@
+module AttendanceAppearingsHelper
+end

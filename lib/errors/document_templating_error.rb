@@ -1,0 +1,2 @@
+class DocumentTemplatingError < StandardError
+end

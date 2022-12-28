@@ -1,0 +1,26 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+<%= form_tag(import_payments_path, role: :form, enctype: "multipart/form-data", 'data-model' => 'payment') do |f| %>
+
+<div id="error_explanation">
+
+</div>
+
+<div class="row">
+  <div class="col-md-<%= modal ? '8' : '4' %>">
+
+    <div class="actions form-group">
+      <%= submit_change_aware_tag %>
+    </div>
+
+    <div class="field form-group">
+      <%= label_tag :slab_file, nil, class: "control-label" %><br>
+      <%= file_field_tag :slab_file,
+                        accept: ['application/xml', 'text/xml'],
+                        class: "filestyle form-control" %>
+    </div>
+
+  </div>
+</div>
+<% end %>

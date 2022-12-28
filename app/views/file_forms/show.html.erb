@@ -1,0 +1,66 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>File form</h3>
+    <%= render 'application/entity_control_links', entity: @file_form %>
+    <%= render 'application/entity_timestamps', entity: @file_form %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Client file:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @file_form.client_file, @file_form.client_file %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Form date:</strong>
+        </td>
+        <td nowrap>
+          <%= @file_form.form_date %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Description:</strong>
+        </td>
+        <td>
+          <%= @file_form.description %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Witness:</strong>
+        </td>
+        <td nowrap>
+          <%= @file_form.witness %>
+        </td>
+      </tr>
+      <%= render 'templated_document/show_fields', document_templateable: @file_form %>
+      <tr>
+        <td nowrap>
+          <strong>Chargeable:</strong>
+        </td>
+        <td nowrap>
+          <%= @file_form.chargeable %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Created by:</strong>
+        </td>
+        <td nowrap>
+          <%= @file_form.created_by %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="col-md-8">
+
+    <%= render 'side_tabs' %>
+
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<h1>Clients</h1>
+
+<%= render layout: 'application/list_control_links', locals: {collection_class: Client} do %>
+  <li>
+    <%= link_to "Search clients", search_clients_path, class: 'btn btn-default btn-sm' %>
+  </li>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

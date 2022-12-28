@@ -1,0 +1,27 @@
+<h1>Files</h1>
+
+
+<div class="row">
+  <div class="col-md-6">
+    <%= render layout: 'application/list_control_links', locals: {collection_class: ClientFile} do %>
+      <li>
+        <%= link_to "Search client files", search_client_files_path, class: 'btn btn-default btn-sm' %>
+      </li>
+    <% end %>
+  </div>
+
+  <div class="col-md-6">
+    <table class="table">
+      <tr>
+        <th><%= sort_link @search, :file_status, ['file_status', 'date_open desc'], 'File Status' %></th>
+        <% ClientFile.file_statuses.each do |status, _| %>
+            <td class="<%= status_colour status.to_sym %>"><%= status.humanize %></td>
+        <% end %>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<p>
+  <%= render 'client_files/table' %>
+</p>

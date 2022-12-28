@@ -1,0 +1,42 @@
+<table class="table">
+  <thead>
+  <tr>
+
+    <th><%= sort_link @search, :client_file_file_number %></th>
+
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :client_file_file_number_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @disclosures.each do |disclosure| %>
+      <tr>
+        <td><%= disclosure.client_file.file_number %></td>
+        <td><%= link_to 'View', disclosure, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, Disclosure %>
+              <%= link_to 'Edit', edit_disclosure_path(disclosure), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, Disclosure %>
+              <%= link_to disclosure, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @disclosures, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @disclosures %>
+</p>
+

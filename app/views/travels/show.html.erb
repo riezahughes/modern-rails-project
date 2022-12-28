@@ -1,0 +1,86 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Travel</h3>
+    <%= render 'application/entity_control_links', entity: @travel %>
+    <%= render 'application/entity_timestamps', entity: @travel %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Journey:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @travel.journey, @travel.journey %>
+        </td>
+      </tr>
+      <%= render 'work/work_show_fields', workable: @travel %>
+      <tr>
+        <td nowrap>
+          <strong>Method:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @travel.travel_method, @travel.travel_method %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Origin:</strong>
+        </td>
+        <td nowrap>
+          <%= @travel.origin %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Destination:</strong>
+        </td>
+        <td nowrap>
+          <%= @travel.destination %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Mileage:</strong>
+        </td>
+        <td nowrap>
+          <%= @travel.mileage %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Parking costs:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @travel.parking_costs %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Toll costs:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @travel.toll_costs %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Other costs:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @travel.other_costs %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Charged under accounts:</strong>
+        </td>
+        <td>
+          <% @travel.account_charge_items.map(&:account).reject { |account| account.nil? }.each do |account| %>
+            <%= link_to account, account %><br/>
+          <% end %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

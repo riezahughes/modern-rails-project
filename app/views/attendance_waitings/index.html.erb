@@ -1,0 +1,13 @@
+<h1>Attendance Waiting</h1>
+
+<% if can? :create, AttendanceWaiting %>
+<p>
+  <%= link_to 'New Attendance waiting', new_attendance_waiting_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

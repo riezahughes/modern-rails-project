@@ -1,0 +1,3 @@
+$('#account_charge_items_table > tbody')
+  .append("<%= j render partial: can?(:update, AccountChargeItem) ? 'account_charge_items/editable_table_row' : 'account_charge_items/table_row', locals: {account_charge_item: @account_charge_item } %>");
+$('#new_account_charge_items_modal').modal_success();

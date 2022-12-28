@@ -1,0 +1,31 @@
+<h1>Court Date Diary</h1>
+
+<%= form_tag(court_date_diary_show_path, method: :get, role: "form", class: "form-inline") do %>
+
+    <div class="form-group field">
+      <%= link_to court_date_diary_show_path(date: @previous_day), class: "btn btn-default" do %>
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+      <% end %>
+    </div>
+
+    <div class="form-group field">
+      <%= select_date @date, {order: [:day, :month, :year]},
+        class: "form-control  no-sumbit-check",
+        onchange: "this.form.submit();" %>
+    </div>
+
+    <div class="form-group field">
+      <%= link_to court_date_diary_show_path(date: @next_day), class: "btn btn-default" do %>
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+      <% end %>
+    </div>
+
+    <div class="form-group field pull-right">
+      <strong><%= @date.strftime('%A') %></strong>
+    </div>
+
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>

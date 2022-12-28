@@ -1,0 +1,43 @@
+<% collection_name = collection_class.name.underscore.pluralize %>
+<% polymorphic_association_types = [] unless polymorphic_association_types  %>
+<% active ||= false %>
+<% panel_buttons ||= false %>
+<% parent ||= nil %>
+<% parent_id = parent ? parent.id : nil %>
+<% parent_class_name = parent ? parent.model_name.name.underscore : nil %>
+<% parent_id_symbol = parent_class_name ? "#{parent_class_name}_id".to_sym : nil %>
+
+<% if can? :read, collection_class %>
+    <div role="tabpanel" class="tab-pane <%= 'active' if active %>" id="<%= collection_name %>">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h5><%= collection_class.name.underscore.humanize.pluralize %></h5></div>
+        <%= render "#{collection_name}/side_table", collection_name.to_sym => collection %>
+        <%= will_paginate collection, renderer: BootstrapPagination::Rails, param_name: "#{collection_name}_page".to_sym %>
+
+          <div class="panel-footer">
+            <ul class="list-inline">
+              <% if panel_buttons &&
+                [
+                  'create_button_redirect',
+                  'create_button_polymorphic_redirect',
+                  'create_button_modal',
+                  'create_button_template_select_modal',
+                  'create_button_file_form_template_select_modal'
+                ].include?(panel_buttons) %>
+              <%= render "application/side_tab_panel_buttons/#{panel_buttons}",
+                collection_class: collection_class,
+                collection_name: collection_name,
+                parent: parent,
+                parent_id_symbol: parent_id_symbol,
+                parent_id: parent_id,
+                parent_class_name: parent_class_name,
+                polymorphic_association_types: polymorphic_association_types %>
+              <% end %>
+
+            <%= yield %>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+<% end %>

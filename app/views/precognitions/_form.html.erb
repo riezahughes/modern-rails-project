@@ -1,0 +1,40 @@
+<%= form_for(@precognition) do |f| %>
+<% if @precognition.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@precognition.errors.count, "error") %>
+    prohibited this precognition from being saved:</h2>
+
+  <ul>
+    <% @precognition.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :meeting_id, class: "control-label" %><br>
+      <%= f.hidden_field :meeting_id, value: @meeting_id %>
+      <%= link_to_if @meeting, @meeting, @meeting %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :date_framed, class: "control-label" %><br>
+      <%= f.datetime_select :date_framed, {}, class: "form-control " %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :description, class: "control-label" %><br>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :length, class: "control-label" %><br>
+      <%= f.text_field :length, class: "form-control" %>
+    </div>
+    <%= render 'templated_document/form_fields', f: f, document_templateable: @precognition %>
+  </div>
+</div>
+<% end %>

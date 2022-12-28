@@ -1,0 +1,55 @@
+<% can_manage = can? :manage, Client %>
+<% can_update = can? :update, Client %>
+<% can_delete = can? :delete, Client %>
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        <%= sort_link @search, :surname_sort, [:surname_sort, :forename_sort, :middlenames_sort], 'Name' %>
+      </th>
+      <th><%= sort_link @search, :birth_date, "Birth date" %></th>
+      <th><%= sort_link @search, :address, "Address" %></th>
+      <th><%= sort_link @search, :location_name_sort, "Location" %></th>
+      <th colspan="1">
+
+        <%= search_form_for @search, class: 'form-inline' do |f| %>
+        <div class="form-group field">
+          <%= f.search_field :person_fuzzy_name_scope, class: 'form-control', placeholder: 'Client name' %>
+        </div>
+        <div class="form-group form-group-sm">
+          <%= f.submit 'Search', class: 'btn btn-default' %>
+        </div>
+
+      </div>
+    <% end %>
+  </th>
+</tr>
+</thead>
+
+<tbody>
+<% @clients.each do |client| %>
+  <tr>
+    <td><%= client.full_name %></td>
+    <td><%= client.formatted_birth_date %></td>
+    <td><%= truncate client.address %></td>
+    <td><%= client.location.nil? ? '' : client.location.name %></td>
+    <td>
+      <%= link_to 'View', client_path(client), class: 'btn btn-default btn-sm' %>
+      <% if can_manage || can_update %>
+        <%= link_to 'Edit', edit_client_path(client), class: 'btn btn-default btn-sm' %>
+      <% end %>
+      <% if can_manage || can_delete %>
+        <%= link_to client_path(client), method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are you sure?'} do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+      <% end %>
+    <% end %>
+  </td>
+</tr>
+<% end %>
+</tbody>
+</table>
+
+<%= will_paginate @clients, renderer: BootstrapPagination::Rails %>
+<p>
+<%= page_entries_info @clients, model: 'Clients' %>
+</p>

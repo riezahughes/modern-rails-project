@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>CourtOfficial</h3>
+    <%= render 'application/entity_control_links', entity: @court_official %>
+    <%= render 'application/entity_timestamps', entity: @court_official %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @court_official.name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Type:</strong>
+        </td>
+        <td nowrap>
+          <%= @court_official.court_official_type.name %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<%= form_for(@document_templates, url: multiple_file_upload_document_templates_path, html: { multipart: true }) do |f| %>
+<% if @document_templates.flat_map(&:errors).any? %>
+<div id="error_explanation">
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-4">
+
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :template_type, class: "control-label" %><br>
+      <%= f.select :template_type, options_for_select(DocumentTemplateable.classes.map { |_class| [ _class.model_name.human, _class.name ] }), {},
+              class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :category, class: "control-label" %><br>
+      <%= f.text_field :category, class: "form-control" %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :template_files, class: "control-label" %><br>
+      <%= f.file_field :template_files,
+                        multiple: true,
+                        accept: ['application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'application/msword'],
+                        class: "filestyle form-control" %>
+    </div>
+
+  </div>
+  <div class="col-md-8">
+    <h2>Creating Document Templates</h2>
+    <p>Please follow <%= link_to 'this guide', help_document_templates_path %> for creating document templates.</p>
+
+    <div class="row">
+
+      <div class="col-md-6">
+        <h3>Available template fields</h3>
+        <ul class="list-unstyled">
+        <% DocumentTemplating::TemplateValues.valid_context_fields(@example_file, current_user).each do |field_name, example_value| %>
+        <li><strong>=<%= field_name %></strong><br/>
+          example: <%= example_value %>
+        </li>
+        <% end %>
+        </ul>
+      </div>
+
+      <div class="col-md-6">
+        <% @templateables.each do |templateable| %>
+
+          <h4><%= templateable.model_name.human %></h4>
+          <ul class="list-unstyled">
+          <% templateable.to_template_values.each do |field_name, _| %>
+          <li><strong>=<%= templateable.class.name %>.<%= field_name %></strong></li>
+          <% end %>
+          </ul>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>

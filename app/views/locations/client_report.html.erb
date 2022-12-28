@@ -1,0 +1,40 @@
+<h1>Client Locations Report</h1>
+
+<%= form_tag({controller: :locations, action: :client_report}, method: :get, role: "form") do %>
+
+<%= label_tag "Select location" %><br/>
+<div class="field form-group">
+  <%= label_tag :location_id, 'Location', class: "control-label" %><br>
+  <%= select_tag :location_id, options_from_collection_for_select(Location.order(:name), :id, :name, @location ? @location.id : nil), class: "form-control" %>
+</div>
+
+<div class="actions">
+  <%= submit_tag nil, class: "btn btn-default" %>
+</div>
+<% end %>
+
+<br/>
+<table class="table">
+<thead>
+  <tr>
+    <th>
+      <% if @location %>
+        (<%= @location.clients.count %>)
+      <% end %>
+      Name
+    </th>
+    <th>Files</th>
+  </tr>
+</thead>
+
+<tbody>
+  <% if @location %>
+    <% @location.clients.order(created_at: :desc).each do |client| %>
+      <tr>
+        <td><%= link_to client, client %></td>
+        <td><%= client.client_files.count %></td>
+      </tr>
+    <% end %>
+  <% end %>
+</tbody>
+</table>

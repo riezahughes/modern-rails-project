@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Court Date</h3>
+    <%= render 'application/entity_control_links', entity: @court_date %>
+    <%= render 'application/entity_timestamps', entity: @court_date %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Client file:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @court_date.client_file,@court_date.client_file %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Court date:</strong>
+        </td>
+        <td nowrap>
+          <%= @court_date.formatted_court_date %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Court:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @court_date.court, @court_date.court %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Court date type:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @court_date.court_date_type, @court_date.court_date_type %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Journey:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to_if @court_date.journey, @court_date.journey, @court_date.journey %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Created By:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to_if @court_date.created_by, @court_date.created_by, @court_date.created_by %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="col-md-8">
+
+    <%= render 'side_tabs' %>
+
+  </div>
+</div>

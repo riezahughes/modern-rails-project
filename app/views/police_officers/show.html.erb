@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Police Officer</h3>
+    <%= render 'application/entity_control_links', entity: @police_officer %>
+    <%= render 'application/entity_timestamps', entity: @police_officer %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Title:</strong>
+        </td>
+        <td nowrap>
+          <%= @police_officer.title %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @police_officer.name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Pc number:</strong>
+        </td>
+        <td nowrap>
+          <%= @police_officer.pc_number %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Police authority:</strong>
+        </td>
+        <td nowrap>
+          <%= @police_officer.police_authority %>
+        </td>
+      </tr>
+      <%= render 'witnesses/show_fields', witnessable: @police_officer %>
+    </table>
+
+  </div>
+</div>

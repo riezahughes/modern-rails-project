@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Ledger</h3>
+    <%= render 'application/entity_control_links', entity: @ledger %>
+    <%= render 'application/entity_timestamps', entity: @ledger %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Client:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @ledger.client.short_full_name, @ledger.client.becomes(Client) %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Date paid:</strong>
+        </td>
+        <td nowrap>
+          <%= @ledger.date_paid %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Narrative:</strong>
+        </td>
+        <td nowrap>
+          <%= @ledger.narrative %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Amount In:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @ledger.amount_in %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Amount Out:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @ledger.amount_out %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Balance:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @ledger.balance %>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

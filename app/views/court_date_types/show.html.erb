@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Court Date Type</h3>
+    <%= render 'application/entity_control_links', entity: @court_date_type %>
+    <%= render 'application/entity_timestamps', entity: @court_date_type %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @court_date_type.name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Preparation:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @court_date_type.preparation %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Following court date types:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to_if @court_date_type.following_court_date_type, @court_date_type.following_court_date_type, @court_date_type.following_court_date_type  %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+</div>

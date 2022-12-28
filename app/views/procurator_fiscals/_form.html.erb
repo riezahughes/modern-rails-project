@@ -1,0 +1,44 @@
+<%= form_for(@procurator_fiscal) do |f| %>
+    <% if @procurator_fiscal.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@procurator_fiscal.errors.count, "error") %> prohibited this procurator_fiscal
+            from being saved:</h2>
+
+          <ul>
+            <% @procurator_fiscal.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :name, class: "control-label" %><br>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :address, class: "control-label" %><br>
+          <%= f.text_area :address, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :telephone, class: "control-label" %><br>
+          <%= f.text_field :telephone, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :fax, class: "control-label" %><br>
+          <%= f.text_field :fax, class: "form-control" %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>User</h3>
+    <%= render 'application/entity_control_links', entity: @user %>
+    <%= render 'application/entity_timestamps', entity: @user %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Username:</strong>
+        </td>
+        <td nowrap>
+          <%= @user.username %>
+          <% unless @user.active %>
+          [DEACTIVATED]
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Email:</strong>
+        </td>
+        <td nowrap>
+          <%= @user.email %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Full Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @user.full_name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Initials:</strong>
+        </td>
+        <td nowrap>
+          <%= @user.personal_details.initials %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Id Number:</strong>
+        </td>
+        <td nowrap>
+          <%= @user.id_number %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Access Code:</strong>
+        </td>
+        <td nowrap>
+          <%= @user.access_code %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Active:</strong>
+        </td>
+        <td nowrap>
+          <%= @user.active %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Type:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to_if @user.user_type, @user.user_type, @user.user_type %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Groups:</strong>
+        </td>
+        <td nowrap>
+          <ul class="list-unstyled">
+            <% @user.groups.each do |group| %>
+                <li><%= group.name %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Notification subscriptions:</strong>
+        </td>
+        <td nowrap>
+          <ul class="list-unstyled">
+            <% @user.notifications.each do |notification| %>
+                <li><%= notification %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

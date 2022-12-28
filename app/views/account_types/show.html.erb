@@ -1,0 +1,56 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Account Type</h3>
+    <%= render 'application/entity_control_links', entity: @account_type %>
+    <%= render 'application/entity_timestamps', entity: @account_type %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @account_type.name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Initial expenditure limit:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @account_type.initial_expenditure_limit %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Charge Type:</strong>
+        </td>
+        <td nowrap>
+          <%= @account_type.account_charge_type.underscore.humanize %>
+        </td>
+      </tr>
+      <% if show_charge_rate_fixed_fee @account_type %>
+      <tr>
+        <td nowrap>
+          <strong>Fixed fee amount:</strong>
+        </td>
+        <td nowrap>
+          <% if @account_type.account_charge_rate %>
+          <%= link_to_if @account_type.account_charge_rate,
+           humanized_money_with_symbol(@account_type.account_charge_rate.fixed_fee),
+           @account_type.account_charge_rate %>
+          <% else %>
+          No account charge rate <%= link_to 'Create', new_account_charge_rate_path(account_type_id: @account_type.id), class: 'btn btn-default btn-sm' %>
+          <% end %>
+      </tr>
+      <% end %>
+    </table>
+
+  </div>
+
+  <div class="col-md-8">
+
+    <%= render 'side_tabs' %>
+
+  </div>
+</div>

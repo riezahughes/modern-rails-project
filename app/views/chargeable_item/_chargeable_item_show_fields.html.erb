@@ -1,0 +1,10 @@
+<% if chargeable_item.account_charge_item && chargeable_item.account_charge_item.account %>
+<tr>
+  <td>
+    <strong>Charged under account:</strong>
+  </td>
+  <td>
+    <%= link_to chargeable_item.account_charge_item.account, chargeable_item.account_charge_item.account %>
+  </td>
+</tr>
+<% end %>

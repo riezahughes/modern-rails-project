@@ -1,0 +1,13 @@
+<h1>Precognitions</h1>
+
+<% if can? :create, Precognition %>
+<p>
+  <%= link_to 'New Precognition', new_precognition_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

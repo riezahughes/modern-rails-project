@@ -1,0 +1,15 @@
+<% if can? :update, entity.class %>
+<%= link_to 'Edit', id: entity, action: :edit %> |
+<% end %>
+<% if can? :delete, entity.class %>
+<%= link_to 'Delete', entity, method: :delete, data: {confirm: 'Are you sure?'} %> |
+<% end %>
+<% if content_for?(:list_link) %>
+  <%= yield(:list_link) %>
+<% else %>
+  <% if entity.respond_to?(:client_file) %>
+    <%= link_to "Back to Client file #{entity.client_file}", entity.client_file %>
+  <% else %>
+    <%= link_to "#{entity.model_name.human.downcase.pluralize.capitalize} list", controller: entity.model_name.to_s.underscore.pluralize, action: :index %>
+  <% end %>
+<% end %>

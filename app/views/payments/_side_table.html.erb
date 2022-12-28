@@ -1,0 +1,12 @@
+<table class="table" id="payments_table">
+  <thead>
+  <th>Date</th>
+  <th>Fee Amount</th>
+  <th>Outlay Amount</th>
+  </thead>
+  <tbody>
+  <% payments.each do |payment| %>
+      <%= render partial: 'payments/table_row', locals: {payment: payment} %>
+  <% end %>
+  </tbody>
+</table>

@@ -1,0 +1,19 @@
+<tr>
+  <% if show_client_file %>
+      <td nowrap>
+        <%= link_to meeting.client_file.file_number, meeting.client_file %>
+      </td>
+  <% end %>
+  <td nowrap>
+    <%= truncate(meeting.meeting_type.name, separator: ' ') if meeting.meeting_type %>
+  </td>
+  <td nowrap>
+    <%= meeting.formatted_start_date %>
+  </td>
+  <td nowrap>
+    <%= truncate(meeting.attendance_with, separator: ' ') %>
+  </td>
+  <td nowrap>
+    <%= link_to truncate(meeting.description, length: 50, separator: ' '), meeting %>
+  </td>
+</tr>

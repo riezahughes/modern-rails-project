@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Precognition</h3>
+    <%= render 'application/entity_control_links', entity: @precognition %>
+    <%= render 'application/entity_timestamps', entity: @precognition %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Meeting:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @precognition.meeting, @precognition.meeting %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Date framed:</strong>
+        </td>
+        <td nowrap>
+          <%= @precognition.date_framed %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Description:</strong>
+        </td>
+        <td nowrap>
+          <%= @precognition.description %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Length:</strong>
+        </td>
+        <td nowrap>
+          <%= @precognition.length %>
+        </td>
+      </tr>
+      <%= render 'chargeable_item/chargeable_item_show_fields', chargeable_item: @precognition %>
+      <%= render 'templated_document/show_fields', document_templateable: @precognition %>
+    </table>
+
+  </div>
+
+  <div class="col-md-8">
+
+    <%= render 'side_tabs' %>
+
+  </div>
+</div>

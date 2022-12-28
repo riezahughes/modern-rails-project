@@ -1,0 +1,69 @@
+<h1>Work in Progress Report</h1>
+<p>
+<%= search_form_for @search, url: work_in_progress_report_claims_path, class: 'form-inline' do |f| %>
+
+<div class="form-group">
+  <%= f.label :claim_date_gteq, 'From' %>
+  <%= f.search_field :claim_date_gteq, class: 'form-control', placeholder: 'DD/MM/YYYY', style: 'width: 100px' %>
+</div>
+
+<div class="form-group">
+  <%= f.label :claim_date_lteq, 'To' %>
+  <%= f.search_field :claim_date_lteq, class: 'form-control', placeholder: 'DD/MM/YYYY', style: 'width: 100px' %>
+</div>
+
+<div class="form-group" data-toggle="tooltip" title="Claims with at least one payment and greater than 0 outstanding amount">
+  <div class="checkbox">
+    <label>
+      <%= f.check_box :part_payment %>
+      Only part payments
+    </label>
+  </div>
+</div>
+
+<%= f.submit class: 'btn btn-default' %>
+<% end %>
+</p>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Client</th>
+      <th><%= sort_link @search, :client_file_file_number, 'Client File' %></th>
+      <th><%= sort_link @search, :account_account_type_name, 'Account Type' %></th>
+      <th><%= sort_link @search, :account_reference, 'Reference' %></th>
+      <th><%= sort_link @search, :claim_date %></th>
+      <th><%= sort_link @search, :problem %></th>
+      <th><%= sort_link @search, :accepted %></th>
+      <th><%= sort_link @search, :amount_pennies, 'Amount' %></th>
+      <th>Outstanding</th>
+
+      <th colspan="1"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @claims.each do |claim| %>
+      <tr>
+        <td><%= claim.client %></td>
+        <td><%= claim.client_file %></td>
+        <td><%= claim.account.account_type %></td>
+        <td><%= claim.account.reference %></td>
+        <td><%= claim.formatted_claim_date %></td>
+        <td><%= claim.problem ? 'Yes' : 'No' %></td>
+        <td><%= claim.accepted ? 'Yes' : 'No' %></td>
+        <td><%= humanized_money_with_symbol claim.amount %></td>
+        <td><%= humanized_money_with_symbol outstanding_amount(claim, claim.payments) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @claims, renderer: BootstrapPagination::Rails %>
+
+<p>
+  <%= page_entries_info @claims %>,
+  showing <%= select_tag :per_page,
+              options_for_select([10,20,50,100], params[:per_page].to_i),
+              {class: "form-control", style: "width: auto; display: inline;"} %> per page
+</p>

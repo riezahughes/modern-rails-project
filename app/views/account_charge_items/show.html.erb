@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Account_charge_item</h3>
+    <%= render 'application/entity_control_links', entity: @account_charge_item %>
+    <%= render 'application/entity_timestamps', entity: @account_charge_item %>
+
+    <table class="table">          <tr>
+            <td nowrap>
+            <strong>Fee amount:</strong>
+            </td>
+            <td nowrap>
+            <%= @account_charge_item.fee_amount %>
+            </td>
+          </tr>          <tr>
+            <td nowrap>
+            <strong>Outlay amount:</strong>
+            </td>
+            <td nowrap>
+            <%= @account_charge_item.outlay_amount %>
+            </td>
+          </tr>          <tr>
+            <td nowrap>
+            <strong>Narrative:</strong>
+            </td>
+            <td nowrap>
+            <%= @account_charge_item.narrative %>
+            </td>
+          </tr>          <tr>
+            <td nowrap>
+            <strong>Account:</strong>
+            </td>
+            <td nowrap>
+            <%= @account_charge_item.account %>
+            </td>
+          </tr>          <tr>
+            <td nowrap>
+            <strong>Chargeable item:</strong>
+            </td>
+            <td nowrap>
+            <%= @account_charge_item.chargeable_item %>
+            </td>
+          </tr>    </table>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<%= form_for(@police_authority) do |f| %>
+    <% if @police_authority.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@police_authority.errors.count, "error") %> prohibited this police_authority
+            from being saved:</h2>
+
+          <ul>
+            <% @police_authority.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :name, class: "control-label" %><br>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :address, class: "control-label" %><br>
+          <%= f.text_area :address, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :city, class: "control-label" %><br>
+          <%= f.text_field :city, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :police_constable, class: "control-label" %><br>
+          <%= f.text_field :police_constable, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :telephone, class: "control-label" %><br>
+          <%= f.text_field :telephone, class: "form-control" %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

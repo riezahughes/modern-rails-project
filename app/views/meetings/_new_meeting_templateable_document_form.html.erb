@@ -1,0 +1,39 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+
+<%= form_tag templateable_document_meeting_new_meeting_templateable_document_path, remote: true do %>
+<div class="row">
+    <div class="col-md-8">
+
+        <h3>Please select a template</h3>
+
+        <%= hidden_field_tag :template_type, @document_template_type.name %>
+        <%= hidden_field_tag :client_file_id, @parent_id %>
+
+        <% [
+          :meeting_type_id,
+          :locus,
+          :attendance_with,
+          :witness_id,
+          :user_id,
+          :start_date,
+          :end_date
+        ].each do |field| %>
+          <div class="field form-group">
+
+            <%= hidden_field_tag "meeting[#{field.to_s.gsub(/_(\d+)i/, '(\1i)')}]", '', class: "meeting_#{field}-template-value" %>
+          </div>
+        <% end %>
+
+        <div class="field form-group">
+          <%= label_tag :document_template_id, 'Document Template', class: "control-label" %><br>
+          <%= select_tag 'document_template_id', options_from_collection_for_select(DocumentTemplate.where(template_type: @document_template_type).order(name: :asc), :id, :to_s), {class: "form-control"} %>
+        </div>
+
+        <div class="actions form-group">
+          <%= submit_tag 'Create', class: "btn btn-default recharge-submit" %>
+        </div>
+    </div>
+</div>
+<% end %>

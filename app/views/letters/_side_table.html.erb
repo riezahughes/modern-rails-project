@@ -1,0 +1,12 @@
+<table class="table" id="letter_table">
+  <thead>
+  <th>Date</th>
+  <th>Description</th>
+  <th>Length</th>
+  </thead>
+  <tbody>
+  <% letters.each do |letter| %>
+      <%= render partial: 'letters/table_row', locals: {letter: letter} %>
+  <% end %>
+  </tbody>
+</table>

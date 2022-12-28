@@ -1,0 +1,11 @@
+<table class="table" id="witness_table">
+  <thead>
+  <th>Name</th>
+  <th>Cited</th>
+  </thead>
+  <tbody>
+  <% witnesses.each do |witness| %>
+      <%= render partial: 'witnesses/table_row', locals: {witness: witness} %>
+  <% end %>
+  </tbody>
+</table>

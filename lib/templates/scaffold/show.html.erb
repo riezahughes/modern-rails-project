@@ -1,0 +1,19 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3><%= singular_table_name.humanize %></h3>
+    <%%= render 'application/entity_control_links', entity: @<%= singular_table_name %> %>
+    <%%= render 'application/entity_timestamps', entity: @<%= singular_table_name %> %>
+
+    <table class="table"><% attributes.reject(&:password_digest?).each do |attribute| -%>
+          <tr>
+            <td nowrap>
+            <strong><%= attribute.human_name %>:</strong>
+            </td>
+            <td nowrap>
+            <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+            </td>
+          </tr><% end -%>
+    </table>
+
+  </div>
+</div>

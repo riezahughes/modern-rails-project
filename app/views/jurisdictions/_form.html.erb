@@ -1,0 +1,26 @@
+<%= form_for(@jurisdiction) do |f| %>
+<% if @jurisdiction.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@jurisdiction.errors.count, "error") %>
+      prohibited this jurisdiction from being saved:</h2>
+
+    <ul>
+      <% @jurisdiction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :name, class: "control-label" %><br>
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+</div>
+<% end %>

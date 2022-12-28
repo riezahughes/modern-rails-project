@@ -1,0 +1,42 @@
+<% can_read_all = can?(:manage, :all) || can?(:read, :all) %>
+<% record_classes = [
+    Client,
+    Location,
+    ClientFile,
+    Court,
+    CourtDate,
+    Account,
+    AccountType,
+    Claim,
+    Payment,
+    ProcuratorFiscal,
+    Ledger,
+    Letter,
+    Meeting,
+    FileForm,
+    Document,
+    Journey,
+    PhoneCall,
+    DebitEntry
+  ] %>
+<% record_classes.sort_by {|record_class| record_class.model_name}.each do |record_class| %>
+  <% if can_read_all || can?(:read, record_class) %>
+      <li class="<%= 'active' if current_page?(polymorphic_path(record_class)) %>"><%= link_to record_class.model_name.human, polymorphic_path(record_class) %></li>
+  <% end %>
+<% end %>
+
+<% can_read_police_officer = can?(:read, PoliceOfficer) %>
+<% can_read_civilian = can?(:read, Civilian) %>
+<% if can_read_all || can_read_police_officer || can_read_civilian %>
+    <li class="dropdown-submenu">
+      <a href="#">Witness</a>
+      <ul class="dropdown-menu">
+        <% if can_read_police_officer %>
+            <li class="<%= 'active' if current_page?(police_officers_path) %>"><%= link_to "Police Officers", police_officers_path %></li>
+        <% end %>
+        <% if can_read_civilian %>
+            <li class="<%= 'active' if current_page?(civilians_path) %>"><%= link_to "Civilians", civilians_path %></li>
+        <% end %>
+      </ul>
+    </li>
+<% end %>

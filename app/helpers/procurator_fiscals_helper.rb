@@ -1,0 +1,2 @@
+module ProcuratorFiscalsHelper
+end

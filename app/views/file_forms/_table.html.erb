@@ -1,0 +1,48 @@
+<% can_manage = can? :manage, FileForm %>
+<% can_update = can? :update, FileForm %>
+<% can_delete = can? :delete, FileForm %>
+<table class="table">
+  <thead>
+    <tr>
+      <th><%= sort_link @search, :form_date %></th>
+      <th><%= sort_link @search, :description %></th>
+      <th><%= sort_link @search, :chargeable %></th>
+      <th><%= sort_link @search, :created_by %></th>
+      <th colspan="1">
+        <%= search_form_for @search, class: 'form-inline' do |f| %>
+        <div class="form-group has-feedback">
+          <%= f.search_field :form_date_cont, class: 'form-control' %>
+        </div>
+        <%= f.submit %>
+        <% end %>
+      </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @file_forms.each do |file_form| %>
+    <tr>
+      <td><%= file_form.form_date %></td>
+      <td><%= truncate(file_form.description) %></td>
+      <td><%= file_form.chargeable %></td>
+      <td><%= file_form.created_by %></td>
+      <td><%= link_to 'View', file_form, class: 'btn btn-default btn-sm' %>
+        <% if can_manage || can_update %>
+        <%= link_to 'Edit', edit_file_form_path(file_form), class: 'btn btn-default btn-sm' %>
+        <% end %>
+        <% if can_manage || can_delete %>
+        <%= link_to file_form, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        <% end %>
+        <% end %>
+      </td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @file_forms, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @file_forms %>
+</p>

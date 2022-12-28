@@ -1,0 +1,32 @@
+<table class="table" id="accounts_report_table">
+  <thead>
+  <th>Type</th>
+  <th>Total Expenditure</th>
+  <th>Total Limit</th>
+  <th>Initial Limit</th>
+  </thead>
+  <tbody>
+
+  <% account_report_records.each do |account_report_record| %>
+      <tr>
+        <td><%= account_report_record.name %></td>
+        <td><%= humanized_money_with_symbol Money.new(account_report_record.total_expenditure) %></td>
+        <td>
+          <% if account_report_record.total_limit > 0 %>
+              <%= humanized_money_with_symbol Money.new(account_report_record.total_limit) %>
+          <% else %>
+              N/A
+          <% end %>
+        </td>
+        <td>
+          <% if account_report_record.total_initial > 0 %>
+              <%= humanized_money_with_symbol Money.new(account_report_record.total_initial) %>
+          <% else %>
+              N/A
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+
+  </tbody>
+</table>

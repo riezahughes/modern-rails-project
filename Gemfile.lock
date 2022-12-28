@@ -1,6 +1,27 @@
+GIT
+  remote: https://github.com/mmotherwell/best_in_place
+  revision: 88eb3052623a9a6cd346864d2aca05021c2f80d0
+  specs:
+    best_in_place (3.1.1)
+      actionpack (>= 3.2)
+      railties (>= 3.2)
+
+GIT
+  remote: https://github.com/thoughtbot/paperclip.git
+  revision: c769382c9b7078f3d1620b50ec2a70e91ba62ec4
+  specs:
+    paperclip (6.1.0)
+      activemodel (>= 4.2.0)
+      activesupport (>= 4.2.0)
+      mime-types
+      mimemagic (~> 0.3.0)
+      terrapin (~> 0.6.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (5.4.0)
+      concurrent-ruby (~> 1.0)
     actioncable (7.0.4)
       actionpack (= 7.0.4)
       activesupport (= 7.0.4)
@@ -49,6 +70,8 @@ GEM
     activejob (7.0.4)
       activesupport (= 7.0.4)
       globalid (>= 0.3.6)
+    activemdb (0.2.2)
+      hoe (>= 1.2.0)
     activemodel (7.0.4)
       activesupport (= 7.0.4)
     activerecord (7.0.4)
@@ -68,10 +91,54 @@ GEM
       tzinfo (~> 2.0)
     addressable (2.8.1)
       public_suffix (>= 2.0.2, < 6.0)
+    airbrussh (1.4.1)
+      sshkit (>= 1.6.1, != 1.7.0)
+    arel (9.0.0)
+    bcrypt (3.1.18)
     bindex (0.8.1)
     bootsnap (1.15.0)
       msgpack (~> 1.2)
+    bootstrap-datepicker-rails (1.9.0.1)
+      railties (>= 3.0)
+    bootstrap-filestyle-rails (1.2.1)
+    bootstrap-multiselect-rails (0.9.9)
+      rails (>= 4.0.0)
+    bootstrap3-datetimepicker-rails (4.17.47)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.4)
+    cancan (1.6.10)
+    capistrano (3.17.1)
+      airbrussh (>= 1.0.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (1.6.0)
+      capistrano (~> 3.1)
+    capistrano-cookbook (5.0.2)
+      capistrano (~> 3.16)
+      capistrano-sidekiq (~> 2.0)
+      capistrano3-puma (~> 5.0.4)
+    capistrano-rails (1.1.8)
+      capistrano (~> 3.1)
+      capistrano-bundler (~> 1.1)
+    capistrano-rails-console (2.3.0)
+      capistrano (>= 3.5.0, < 4.0.0)
+      sshkit-interactive (~> 0.3.0)
+    capistrano-rbenv (2.2.0)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
+    capistrano-resque (0.2.3)
+      capistrano
+      resque
+      resque-scheduler
+    capistrano-sidekiq (2.3.0)
+      capistrano (>= 3.9.0)
+      capistrano-bundler
+      sidekiq (>= 6.0)
+    capistrano3-puma (5.0.4)
+      capistrano (~> 3.7)
+      capistrano-bundler
+      puma (>= 4.0, < 6.0)
     capybara (3.38.0)
       addressable
       matrix
@@ -81,20 +148,101 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    capybara-webkit (1.15.1)
+      capybara (>= 2.3, < 4.0)
+      json
+    chronic (0.10.2)
+    climate_control (0.2.0)
+    clipboard-rails (1.7.1)
+    cmis-ruby (0.5.38)
+      faraday (~> 1.0)
+      faraday_middleware (~> 1.0)
+    coffee-rails (5.0.0)
+      coffee-script (>= 2.2.0)
+      railties (>= 5.2.0)
+    coffee-script (2.4.1)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.12.2)
+    combine_pdf (1.0.22)
+      matrix
+      ruby-rc4 (>= 0.1.5)
     concurrent-ruby (1.1.10)
+    connection_pool (2.3.0)
     crass (1.0.6)
+    d3-rails (7.0.0)
+      railties (>= 3.1)
+    database_cleaner (2.0.1)
+      database_cleaner-active_record (~> 2.0.0)
+    database_cleaner-active_record (2.0.1)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     date (3.3.3)
     debug (1.7.1)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
+    devise (4.8.1)
+      bcrypt (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 4.1.0)
+      responders
+      warden (~> 1.2.3)
+    domain_name (0.5.20190701)
+      unf (>= 0.0.5, < 1.0.0)
     dotenv (2.8.1)
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
     erubi (1.12.0)
+    et-orbi (1.2.7)
+      tzinfo
+    execjs (2.8.1)
+    factory_girl (4.9.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.9.0)
+      factory_girl (~> 4.9.0)
+      railties (>= 3.0.0)
+    faraday (1.10.2)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.0)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      faraday-retry (~> 1.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
+    faraday_middleware (1.2.0)
+      faraday (~> 1.0)
+    fastercsv (1.5.5)
     ffi (1.15.5)
+    fugit (1.8.0)
+      et-orbi (~> 1, >= 1.2.7)
+      raabro (~> 1.4)
+    gelf (3.1.0)
+      json
     globalid (1.0.0)
       activesupport (>= 5.0)
+    headless (2.3.1)
+    hoe (4.0.1)
+      rake (>= 0.8, < 15.0)
+    http-accept (1.7.0)
+    http-cookie (1.0.5)
+      domain_name (~> 0.5)
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.1.5)
@@ -106,6 +254,21 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    jquery-rails (4.5.1)
+      rails-dom-testing (>= 1, < 3)
+      railties (>= 4.2.0)
+      thor (>= 0.14, < 2.0)
+    jquery-ui-rails (6.0.1)
+      railties (>= 3.2.16)
+    json (2.6.3)
+    jstree-rails-4 (3.3.8)
+    kgio (2.11.4)
+    libreconv (0.9.5)
+    lograge (0.12.0)
+      actionpack (>= 4)
+      activesupport (>= 4)
+      railties (>= 4)
+      request_store (~> 1.0)
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -114,12 +277,38 @@ GEM
       net-imap
       net-pop
       net-smtp
+    mailgun_rails (0.9.0)
+      actionmailer (>= 3.2.13)
+      json (>= 1.7.7)
+      rest-client (>= 1.6.7)
     marcel (1.0.2)
     matrix (0.4.2)
     method_source (1.0.0)
+    mime-types (3.4.1)
+      mime-types-data (~> 3.2015)
+    mime-types-data (3.2022.0105)
+    mimemagic (0.3.10)
+      nokogiri (~> 1)
+      rake
     mini_mime (1.1.2)
     minitest (5.16.3)
+    momentjs-rails (2.29.4.1)
+      railties (>= 3.1)
+    monetize (1.12.0)
+      money (~> 6.12)
+    money (6.16.0)
+      i18n (>= 0.6.4, <= 2)
+    money-rails (1.15.0)
+      activesupport (>= 3.0)
+      monetize (~> 1.9)
+      money (~> 6.13)
+      railties (>= 3.0)
+    mono_logger (1.1.1)
     msgpack (1.6.0)
+    multi_json (1.15.0)
+    multipart-post (2.2.3)
+    mustermann (3.0.0)
+      ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.4)
     net-imap (0.3.4)
       date
@@ -128,16 +317,30 @@ GEM
       net-protocol
     net-protocol (0.2.1)
       timeout
+    net-scp (4.0.0)
+      net-ssh (>= 2.6.5, < 8.0.0)
     net-smtp (0.3.3)
       net-protocol
+    net-ssh (7.0.1)
+    netrc (0.11.0)
     nio4r (2.5.8)
     nokogiri (1.13.10-x86_64-linux)
       racc (~> 1.4)
+    orm_adapter (0.5.0)
+    pdfjs_viewer-rails (0.3.2)
+      json (> 1.8.4)
+      rails (> 4.2.0)
+      sassc-rails (>= 2.1)
+    psych (5.0.1)
+      stringio
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
+    raabro (1.4.0)
     racc (1.6.2)
     rack (2.2.4)
+    rack-protection (3.0.5)
+      rack
     rack-test (2.0.2)
       rack (>= 1.3)
     rails (7.0.4)
@@ -159,6 +362,8 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.4.4)
       loofah (~> 2.19, >= 2.19.1)
+    rails4-autocomplete (1.1.1)
+      rails (>= 3.0)
     railties (7.0.4)
       actionpack (= 7.0.4)
       activesupport (= 7.0.4)
@@ -166,12 +371,52 @@ GEM
       rake (>= 12.2)
       thor (~> 1.0)
       zeitwerk (~> 2.5)
+    raindrops (0.20.0)
     rake (13.0.6)
+    ransack (3.2.1)
+      activerecord (>= 6.1.5)
+      activesupport (>= 6.1.5)
+      i18n
+    rdoc (6.5.0)
+      psych (>= 4.0.0)
+    redis (5.0.5)
+      redis-client (>= 0.9.0)
+    redis-client (0.11.2)
+      connection_pool
+    redis-namespace (1.10.0)
+      redis (>= 4)
     regexp_parser (2.6.1)
     reline (0.3.2)
       io-console (~> 0.5)
+    request_store (1.5.1)
+      rack (>= 1.4)
+    responders (3.0.1)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
+    resque (2.4.0)
+      mono_logger (~> 1.0)
+      multi_json (~> 1.0)
+      redis-namespace (~> 1.6)
+      sinatra (>= 0.9.2)
+    resque-scheduler (4.7.0)
+      mono_logger (~> 1.0)
+      redis (>= 3.3)
+      resque (>= 1.27)
+      rufus-scheduler (~> 3.2, != 3.3)
+    rest-client (2.1.0)
+      http-accept (>= 1.7.0, < 2.0)
+      http-cookie (>= 1.0.2, < 2.0)
+      mime-types (>= 1.16, < 4.0)
+      netrc (~> 0.8)
     rexml (3.2.5)
+    ruby-rc4 (0.1.5)
+    ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
+    rufus-scheduler (3.8.2)
+      fugit (~> 1.1, >= 1.1.6)
+    sablon (0.3.2)
+      nokogiri (>= 1.8.5)
+      rubyzip (>= 1.1.1)
     sassc (2.4.0)
       ffi (~> 1.9)
     sassc-rails (2.1.2)
@@ -180,10 +425,25 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    sdoc (2.5.0)
+      rdoc (>= 5.0)
+    seed_dump (3.3.1)
+      activerecord (>= 4)
+      activesupport (>= 4)
     selenium-webdriver (4.7.1)
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sidekiq (7.0.2)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      rack (>= 2.2.4)
+      redis-client (>= 0.11.0)
+    sinatra (3.0.5)
+      mustermann (~> 3.0)
+      rack (~> 2.2, >= 2.2.4)
+      rack-protection (= 3.0.5)
+      tilt (~> 2.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -191,8 +451,17 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    sqlite3 (1.5.4-x86_64-linux)
+    sshkit (1.21.3)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
+    sshkit-interactive (0.3.0)
+      sshkit (~> 1.12)
     stimulus-rails (1.2.1)
       railties (>= 6.0.0)
+    stringio (3.0.4)
+    terrapin (0.6.0)
+      climate_control (>= 0.0.3, < 1.0)
     thor (1.2.1)
     tilt (2.0.11)
     timeout (0.3.1)
@@ -200,8 +469,22 @@ GEM
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
+    turbolinks (5.2.1)
+      turbolinks-source (~> 5.2)
+    turbolinks-source (5.2.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
+    uglifier (4.2.0)
+      execjs (>= 0.3.0, < 3)
+    unf (0.1.4)
+      unf_ext
+    unf_ext (0.0.8.2)
+    unicorn (4.9.0)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -211,10 +494,16 @@ GEM
       nokogiri (~> 1.6)
       rubyzip (>= 1.3.0)
       selenium-webdriver (~> 4.0)
+    webrick (1.7.0)
     websocket (1.2.9)
     websocket-driver (0.7.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    whenever (1.0.0)
+      chronic (>= 0.6.3)
+    will_paginate (3.3.1)
+    will_paginate-bootstrap (1.0.2)
+      will_paginate (>= 3.0.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.6)
@@ -223,23 +512,74 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  aasm
+  activemdb (~> 0.2.2)
+  arel
+  best_in_place!
   bootsnap
+  bootstrap-datepicker-rails
+  bootstrap-filestyle-rails
+  bootstrap-multiselect-rails
+  bootstrap3-datetimepicker-rails (~> 4.17.47)
+  cancan
+  capistrano (~> 3.4)
+  capistrano-bundler
+  capistrano-cookbook
+  capistrano-rails (~> 1.1.0)
+  capistrano-rails-console
+  capistrano-rbenv (~> 2.0)
+  capistrano-resque (~> 0.2.2)
   capybara
+  capybara-webkit
+  clipboard-rails
+  cmis-ruby
+  coffee-rails (~> 5.0)
+  combine_pdf
+  d3-rails
+  database_cleaner
   debug
+  devise
   dotenv-rails
+  factory_girl_rails
+  fastercsv (>= 1.2.3)
+  gelf
+  headless
   importmap-rails
   jbuilder
+  jquery-rails (~> 4.5)
+  jquery-ui-rails (~> 6.0)
+  jstree-rails-4
+  libreconv
+  lograge
+  mailgun_rails
+  momentjs-rails (>= 2.9.0)
+  money-rails
   mysql2 (~> 0.5.4)
+  paperclip!
+  pdfjs_viewer-rails
   puma (~> 5.0)
   rails (~> 7.0.4)
+  rails4-autocomplete
+  ransack
+  resque
+  sablon
   sassc-rails
+  sdoc (~> 2.5)
+  seed_dump
   selenium-webdriver
   sprockets-rails
+  sqlite3
   stimulus-rails
   turbo-rails
+  turbolinks (~> 5.2)
   tzinfo-data
+  uglifier (~> 4.2)
+  unicorn (~> 4.9)
   web-console
   webdrivers
+  webrick (~> 1.7)
+  whenever
+  will_paginate-bootstrap
 
 RUBY VERSION
    ruby 3.1.2p20

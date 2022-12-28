@@ -1,0 +1,31 @@
+$('#upload-to-document-store-submit').toggle(true);
+$('.link-delete').toggle(true);
+$('#upload-to-document-store-loading').remove();
+
+<% @disclosures.each do |disclosure| %>
+<% if disclosure.alfresco_id %>
+$('#document-store-<%= disclosure.id %>').toggle(true);
+<% end %>
+<% if disclosure.first_page && disclosure.last_page %>
+if (!$.trim($('#current-pages-<%= disclosure.id %>').html())) {
+  $('#current-pages-<%= disclosure.id %>').append('<strong>Pages: <%= disclosure.first_page %>-<%= disclosure.last_page %></strong>')
+}
+<% end %>
+<% end %>
+
+<% @errors.each do |disclosure_id, disclosure_error| %>
+<% disclosure_error.each do |field, messages| %>
+$('#<%= field %>-<%= disclosure_id %>').append('<%= j messages.join(', ') %>').closest('.form-group').addClass('has-error');
+<% end %>
+<% end %>
+
+$('.document_link').each(function () {
+  var current_link = $(this);
+  $.ajax({
+    url: '/' + current_link.data('entity') + '/document_link',
+    success: function (result) {
+      current_link.empty();
+      current_link.append(result);
+    }
+  });
+});

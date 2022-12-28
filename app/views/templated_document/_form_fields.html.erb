@@ -1,0 +1,23 @@
+<% @open_for_edit = true if !defined? @open_for_edit %>
+<% label_content ||= nil %>
+<% if @templated_document %>
+  <div class="field form-group">
+    <% if @open_for_edit %>
+    <%= render 'templated_document/open_for_edit_webdav_link', templated_document: @templated_document %>
+    <div id="open-webdav-url" data-url="<%= @templated_document.document_url %>"></div>
+    <% end %>
+    <%= label_tag :edit_document, label_content, options: {class: "control-label"} %><br>
+    <%= link_to "Open in Word", @templated_document.document_url, class: 'btn btn-default' %>
+    <%= hidden_field_tag :templated_document_id, @templated_document.id %>
+  </div>
+<% end %>
+
+<% document_template = document_templateable.document_template || @document_template %>
+<% document_template_id = document_template ? document_template.id : nil %>
+<% if document_template %>
+<div class="field form-group">
+  <%= f.label :document_template, class: "control-label" %><br>
+  <%= link_to_if document_template, document_template, document_template %>
+  <%= f.hidden_field :document_template_id, value: document_template_id %>
+</div>
+<% end %>

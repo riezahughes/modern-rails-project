@@ -1,0 +1,47 @@
+<%= form_for(@phone_call) do |f| %>
+    <% if @phone_call.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@phone_call.errors.count, "error") %> prohibited this phone call
+            from being saved:</h2>
+
+          <ul>
+            <% @phone_call.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <%= render 'application/form_autocomplete', f: f,
+                   entity: :phone_call, field: :client_file_id, method: :client_file_file_number,
+                   field_label: :client_file,
+                   placeholder: 'File Number',
+                   autocomplete_path: autocomplete_client_file_file_number_phone_calls_path %>
+
+        <%= render 'work/work_form_fields', f: f, workable: @phone_call %>
+
+        <div class="field form-group">
+          <%= f.label :attendance_with, class: "control-label" %><br>
+          <%= f.autocomplete_field :attendance_with, autocomplete_phone_call_attendance_with_phone_calls_path,
+                                   class: "phone_call_attendance_with-autocomplete form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :description, class: "control-label" %><br>
+          <%= f.text_area :description, rows: 10, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :chargeable, class: "control-label" %><br>
+          <%= f.check_box :chargeable, checked: @phone_call.chargeable.nil? || @phone_call.chargeable %>
+        </div>
+
+        <div class="actions form-group">
+          <%= f.submit class: "btn btn-default" %>
+        </div>
+      </div>
+    </div>
+<% end %>

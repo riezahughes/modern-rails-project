@@ -1,0 +1,24 @@
+<%= form_for @court_date, url: add_court_date_to_form_journeys_path, remote: true, html: {'data-model': 'court_date'} do |f| %>
+
+<div class="field form-group ui-front">
+  <%= f.hidden_field :client_file_id, class: "court_date_client_file_id-autocomplete", id: "court_date_client_file_id", value: @court_date.client_file_id || @client_file_id %>
+  <%= f.label :client_file, class: "control-label" %><br>
+  <%= f.autocomplete_field :client_file_file_number, autocomplete_client_file_file_number_court_dates_path,
+                           id_element: '.court_date_client_file_id-autocomplete',
+                           class: "court_date_client_file_file_number-autocomplete form-control court_date_client_file_select",
+                           placeholder: "File Number",
+                           value: @court_date.client_file || @client_file %>
+</div>
+
+<div class="field form-group">
+  <%= label_tag 'court_date[id]', 'Court date', class: "control-label" %><br>
+  <%= select_tag 'court_date[id]',
+   options_for_select(['Please select a client file']),
+   disabled: true, class: "form-control", id: "court_date_for_client_file" %>
+</div>
+
+<div class="actions form-group">
+  <%= f.submit value: "Add", class: "btn btn-default" %>
+</div>
+
+<% end %>

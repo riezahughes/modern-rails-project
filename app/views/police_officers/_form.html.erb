@@ -1,0 +1,55 @@
+<%= form_for(@police_officer) do |f| %>
+    <% if @police_officer.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@police_officer.errors.count, "error") %> prohibited this police_officer
+            from being saved:</h2>
+
+          <ul>
+            <% @police_officer.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :title, class: "control-label" %><br>
+          <%= f.text_field :title, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :name, class: "control-label" %><br>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :pc_number, class: "control-label" %><br>
+          <%= f.text_field :pc_number, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :police_authority, class: "control-label" %><br>
+          <%= f.select :police_authority_id, options_from_collection_for_select(@police_authorities, :id, :to_s, @police_officer.police_authority_id), {},
+                       class: "form-control" %>
+        </div>
+
+        <%= f.label 'Witness for Client Files', class: "control-label" %><br>
+        <%= autocomplete_field_tag :client_file, '', autocomplete_client_file_file_number_police_officers_path,
+                                   class: 'civilian_client_file multi-select-autocomplete form-control',
+                                   :'data-item_row_url' => 'witnesses/multi_select_row',
+                                   placeholder: 'File Number' %>
+
+        <%= f.multiselected_items_field @police_officer.witnesses do |witness| %>
+            <%= render partial: 'witnesses/select_row', locals: {label: "#{witness.client_file}", client_file_id: witness.client_file.id, cited: witness.cited} %>
+        <% end %>
+
+      </div>
+    </div>
+<% end %>

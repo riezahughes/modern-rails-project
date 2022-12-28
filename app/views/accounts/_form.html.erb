@@ -1,0 +1,93 @@
+<%= form_for(@account) do |f| %>
+    <% if @account.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@account.errors.count, "error") %> prohibited this account
+            from being saved:</h2>
+
+          <ul>
+            <% @account.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.hidden_field :client_file_id, class: "account_client_file_id-autocomplete", id: "account_client_file_id", value: @account.client_file_id || @client_file_id %>
+          <%= f.label :client_file, class: "control-label" %><br>
+          <%= f.autocomplete_field :client_file_file_number, autocomplete_client_file_file_number_accounts_path,
+                                   id_element: '.account_client_file_id-autocomplete',
+                                   class: "account_client_file_file_number-autocomplete form-control",
+                                   placeholder: "File Number",
+                                   value: @account.client_file || @client_file %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :account_type, class: "control-label" %><br>
+          <%= f.select :account_type_id, options_from_collection_for_select(AccountType.all, :id, :name, @account.account_type_id), {}, {class: "form-control"} %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :effective_from, class: "control-label" %><br>
+          <%= f.date_select :effective_from, {}, {class: "form-control "} %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :effective_until, class: "control-label" %><br>
+          <%= f.date_select :effective_until, {:include_blank => true, :default => nil}, {class: "form-control "} %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :feed_upto, class: "control-label" %><br>
+          <%= f.date_select :feed_upto, {:include_blank => true, :default => nil}, {class: "form-control "} %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :feed_date, class: "control-label" %><br>
+          <%= f.date_select :feed_date, {:include_blank => true, :default => nil}, {class: "form-control "} %>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+
+        <div class="field form-group">
+          <%= f.label :feed_status, class: "control-label" %><br>
+          <%= f.select :feed_status, Account.valid_statuses.map(&:to_s), {selected: @account.feed_status}, {class: "form-control"} %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :expenditure, class: "control-label" %><br>
+          <%= f.text_field :expenditure, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :expenditure_limit, class: "control-label" %><br>
+          <%= f.text_field :expenditure_limit, class: "form-control" %>
+          <% if @account.account_type %>
+              <i>Initial: <%= humanized_money_with_symbol @account.account_type.initial_expenditure_limit %></i>
+          <% end %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :reference, class: "control-label" %><br>
+          <%= f.text_field :reference, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :nominated_solicitor, class: "control-label" %><br>
+          <%= f.select :nominated_solicitor_id,
+                       options_from_collection_for_select(User.active.sorted_by_names, :id, :short_full_name, @account.nominated_solicitor_id),
+                       {include_blank: true, default: nil}, {class: "form-control"} %>
+        </div>
+
+      </div>
+
+    </div>
+<% end %>

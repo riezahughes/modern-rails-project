@@ -1,0 +1,13 @@
+<h1>Documents</h1>
+
+<% if can? :create, Document %>
+<p>
+  <%= link_to 'New Document', new_document_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

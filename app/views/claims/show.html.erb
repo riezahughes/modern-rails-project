@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Claim</h3>
+    <%= render 'application/entity_control_links', entity: @claim %>
+    <%= render 'application/entity_timestamps', entity: @claim %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Cleint:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @claim.client, @claim.client %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Account:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @claim.account, @claim.account %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Account Reference:</strong>
+        </td>
+        <td nowrap>
+          <%= @claim.account.reference %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Claim date:</strong>
+        </td>
+        <td nowrap>
+          <%= @claim.formatted_claim_date %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Last payment on:</strong>
+        </td>
+        <td nowrap>
+          <%= @claim.last_payment_on %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Amount:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @claim.amount %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Accepted:</strong>
+        </td>
+        <td nowrap>
+          <%= @claim.accepted %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Problem:</strong>
+        </td>
+        <td nowrap>
+          <%= @claim.problem %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Slab Registration Number:</strong>
+        </td>
+        <td nowrap>
+          <%= @claim.slab_registration_number %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Notes:</strong>
+        </td>
+        <td nowrap>
+          <%= @claim.notes %>
+        </td>
+      </tr>
+    </table>
+
+  </div>
+
+  <div class="col-md-8">
+
+    <%= render 'side_tabs' %>
+
+  </div>
+</div>

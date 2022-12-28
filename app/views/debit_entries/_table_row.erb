@@ -1,0 +1,17 @@
+<tr>
+  <td nowrap>
+    <%= link_to debit_entry.debit_entry_date, debit_entry %>
+  </td>
+  <td nowrap>
+    <%= truncate(debit_entry.description, length: 50, separator: ' ') %>
+  </td>
+  <td nowrap>
+    <%= humanized_money_with_symbol debit_entry.amount %>
+  </td>
+  <td nowrap>
+    <%= humanized_money_with_symbol debit_entry.vat %>
+  </td>
+  <td nowrap>
+    <%= humanized_money_with_symbol debit_entry.total %>
+  </td>
+</tr>

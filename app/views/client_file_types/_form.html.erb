@@ -1,0 +1,41 @@
+<%= form_for(@client_file_type) do |f| %>
+    <% if @client_file_type.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@client_file_type.errors.count, "error") %> prohibited this client_file_type
+            from being saved:</h2>
+
+          <ul>
+            <% @client_file_type.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :prefixes %><br>
+          <%= f.text_field :prefixes, class: "form-control" %>
+          <i>(A-Z separated by commas)</i>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :folder_colour %><br>
+          <%= f.text_field :folder_colour, class: "form-control" %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

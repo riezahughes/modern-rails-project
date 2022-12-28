@@ -1,0 +1,76 @@
+<% meeting = notifiable %>
+<h3>Meeting</h3>
+<table class="table">
+  <tr valign="top">
+    <td nowrap>
+      <strong>Client file:</strong>
+    </td>
+    <td nowrap>
+      <%= meeting.client_file %> - <%= meeting.client_file.client %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Type:</strong>
+    </td>
+    <td nowrap>
+      <%= meeting.meeting_type.name if meeting.meeting_type %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Dates:</strong>
+    </td>
+    <td nowrap>
+      <%= meeting.short_datetimes %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Duration:</strong>
+    </td>
+    <td nowrap>
+      <%= distance_of_time_in_words meeting.work.duration %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>User:</strong>
+    </td>
+    <td nowrap>
+      <%= meeting.work.user %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Attendance with:</strong>
+    </td>
+    <td nowrap>
+      <%= meeting.attendance_with %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Description:</strong>
+    </td>
+    <td>
+      <%= meeting.description %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Locus:</strong>
+    </td>
+    <td nowrap>
+      <%= meeting.locus %>
+    </td>
+  </tr>
+  <tr valign="top">
+    <td nowrap>
+      <strong>Created By:</strong>
+    </td>
+    <td nowrap>
+      <%= meeting.created_by %>
+    </td>
+  </tr>
+</table>

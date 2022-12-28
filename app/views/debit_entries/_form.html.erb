@@ -1,0 +1,55 @@
+<%= form_for(@debit_entry) do |f| %>
+<% if @debit_entry.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(@debit_entry.errors.count, "error") %>
+    prohibited this debit_entry from being saved:</h2>
+
+  <ul>
+    <% @debit_entry.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-md-4">
+
+    <div class="actions form-group">
+      <%= f.submit_change_aware %>
+    </div>
+
+    <%= render 'application/form_autocomplete', f: f,
+               entity: :debit_entry, field: :client_file_id, method: :client_file_file_number,
+               field_label: :client_file,
+               placeholder: 'File Number',
+               default_id: (@debit_entry.client_file ? @debit_entry.client_file.id : nil) || (@client_file ? @client_file.id : nil),
+               default_value: (@debit_entry.client_file) || (@client_file),
+               autocomplete_path: autocomplete_client_file_file_number_debit_entries_path %>
+
+    <div class="field form-group">
+      <%= f.label :debit_entry_date, class: "control-label" %><br>
+      <%= f.date_select :debit_entry_date, {}, class: "form-control " %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :description, class: "control-label" %> <i>(To:)</i><br>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :vat, class: "control-label" %><br>
+      <%= f.text_field :vat, class: "form-control" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :amount, class: "control-label" %><br>
+      <%= f.text_field :amount, class: "form-control" %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :payment_method, class: "control-label" %><br>
+      <%= f.select :payment_method, options_for_select(DebitEntry.valid_payment_methods, @debit_entry.payment_method), {},
+              class: "form-control" %>
+    </div>
+    <%= render 'templated_document/form_fields', f: f, document_templateable: @debit_entry %>
+
+  </div>
+</div>
+<% end %>

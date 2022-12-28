@@ -1,0 +1,49 @@
+<table class="table">
+  <thead>
+  <tr>
+    <th><%= sort_link @search, :client_surname_sort, [:client_surname_sort, :client_forename_sort, :client_middlenames_sort], 'Client' %></th>
+    <th><%= sort_link @search, :date_paid %></th>
+    <th><%= sort_link @search, :narrative %></th>
+    <th><%= sort_link @search, :amount_in_pennies, "Amount in" %></th>
+    <th><%= sort_link @search, :amount_out_pennies, "Amount out" %></th>
+    <th><%= sort_link @search, :balance_pennies, "Balance" %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :narrative_or_client_name_sort_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @ledgers.each do |ledger| %>
+      <tr>
+        <td><%= ledger.client.short_full_name %></td>
+        <td><%= ledger.date_paid %></td>
+        <td><%= truncate ledger.narrative %></td>
+        <td><%= humanized_money_with_symbol ledger.amount_in %></td>
+        <td><%= humanized_money_with_symbol ledger.amount_out %></td>
+        <td><%= humanized_money_with_symbol ledger.balance %></td>
+        <td><%= link_to 'View', ledger, class: 'btn btn-default btn-sm' %>
+          <% if can? :update, Ledger %>
+              <%= link_to 'Edit', edit_ledger_path(ledger), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can? :delete, Ledger %>
+              <%= link_to ledger, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @ledgers, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @ledgers %>
+</p>

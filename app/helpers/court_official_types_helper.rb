@@ -1,0 +1,2 @@
+module CourtOfficialTypesHelper
+end

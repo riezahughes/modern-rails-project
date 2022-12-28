@@ -1,0 +1,44 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Account increase</h3>
+    <%= render 'application/entity_control_links', entity: @account_increase %>
+    <%= render 'application/entity_timestamps', entity: @account_increase %>
+
+    <table class="table">
+      <tr>
+        <td nowrap="nowrap">
+          <strong>Account:</strong>
+        </td>
+        <td nowrap="nowrap">
+          <%= link_to @account_increase.account, @account_increase.account %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">
+          <strong>Amount:</strong>
+        </td>
+        <td nowrap="nowrap">
+          <%= @account_increase.amount %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">
+          <strong>Date granted:</strong>
+        </td>
+        <td nowrap="nowrap">
+          <%= @account_increase.date_granted %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap="nowrap">
+          <strong>Granted by:</strong>
+        </td>
+        <td nowrap="nowrap">
+          <%= @account_increase.granted_by %>
+        </td>
+      </tr>
+
+    </table>
+
+  </div>
+</div>

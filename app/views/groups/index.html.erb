@@ -1,0 +1,11 @@
+<h1>Groups</h1>
+
+<% if can? :create, Group %>
+    <p>
+      <%= render 'table' %>
+    </p>
+<% end %>
+
+<br>
+
+<%= link_to 'New Group', new_group_path %>

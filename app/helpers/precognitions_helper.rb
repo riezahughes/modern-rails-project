@@ -1,0 +1,2 @@
+module PrecognitionsHelper
+end

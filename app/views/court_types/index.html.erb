@@ -1,0 +1,15 @@
+<h1>Court Types</h1>
+
+<% if can? :create, CourtType %>
+    <p>
+      <%= link_to 'New Court type', new_court_type_path, class: 'btn btn-default btn-sm' %>
+    </p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

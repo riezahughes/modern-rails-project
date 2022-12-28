@@ -1,0 +1,45 @@
+<% can_manage = can? :manage, Notification %>
+<% can_update = can? :update, Notification %>
+<% can_delete = can? :delete, Notification %>
+<table class="table">
+  <thead>
+  <tr>
+
+    <th><%= sort_link @search, :entity %></th>
+
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :entity_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @notifications.each do |notification| %>
+      <tr>
+        <td><%= notification.entity %></td>
+        <td><%= link_to 'View', notification, class: 'btn btn-default btn-sm' %>
+          <% if can_manage || can_update %>
+              <%= link_to 'Edit', edit_notification_path(notification), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can_manage || can_delete %>
+              <%= link_to notification, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @notifications, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @notifications %>
+</p>
+

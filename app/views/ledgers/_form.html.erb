@@ -1,0 +1,82 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+<%= form_for(@ledger, remote: remote, html: {role: :form, 'data-model' => 'ledger'}) do |f| %>
+    <% if @ledger.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@ledger.errors.count, "error") %> prohibited this ledger
+            from being saved:</h2>
+
+          <ul>
+            <% @ledger.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+
+      <% if modal %>
+          <% col = 8 %>
+      <% else %>
+          <% col = 4 %>
+      <% end %>
+
+      <div class="col-md-<%= col %>">
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+        <% if parent %>
+            <div class="field form-group">
+              <%= f.label :client, class: "control-label" %>: <%= parent.full_name %>
+              <%= f.hidden_field :client_id, value: parent.id %>
+              <span class="help-block"></span>
+            </div>
+        <% else %>
+            <div class="field form-group">
+              <div class="field">
+                <%= f.hidden_field :client_id, class: "client_file_client_id-autocomplete control-label", id: "client_file_client_id" %>
+                <%= f.label 'Client' %><br>
+                <%= f.autocomplete_field :client_full_name, autocomplete_client_name_ledgers_path,
+                                         id_element: '.client_file_client_id-autocomplete',
+                                         class: "client_file_client_name-autocomplete form-control",
+                                         placeholder: "Client" %>
+              </div>
+              <span class="help-block"></span>
+            </div>
+        <% end %>
+
+        <div class="field form-group">
+          <%= f.label :date_paid, class: "control-label" %><br>
+          <%= f.date_select :date_paid, {}, class: "form-control " %>
+          <span class="help-block"></span>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :narrative, class: "control-label" %><br>
+          <%= f.text_area :narrative, maxlength: 255, class: "form-control" %>
+          <span class="help-block"></span>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :amount_in, class: "control-label" %><br>
+          <%= f.text_field :amount_in, :'data-href' => get_balance_ledgers_url, class: "form-control" %>
+          <span class="help-block"></span>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :amount_out, class: "control-label" %><br>
+          <%= f.text_field :amount_out, :'data-href' => get_balance_ledgers_url, class: "form-control" %>
+          <span class="help-block"></span>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :balance, class: "control-label" %><br>
+          <%= f.text_field :balance, class: "form-control" %>
+          <span class="help-block"></span>
+        </div>
+
+      </div>
+    </div>
+<% end %>

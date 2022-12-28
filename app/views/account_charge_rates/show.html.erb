@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-4">
+        <h3>Account charge rate</h3>
+        <%= render 'application/entity_control_links', entity: @account_charge_rate %>
+        <%= render 'application/entity_timestamps', entity: @account_charge_rate %>
+
+        <table class="table">
+            <tr>
+                <td nowrap>
+                    <strong>Account type:</strong>
+                </td>
+                <td nowrap>
+                    <%= link_to_if @account_charge_rate.account_type,
+                    @account_charge_rate.account_type,
+                    @account_charge_rate.account_type %>
+                </td>
+            </tr>
+            <tr>
+                <td nowrap>
+                    <strong>Fixed fee:</strong>
+                </td>
+                <td nowrap><%= best_in_place @account_charge_rate, :fixed_fee, as: :input,
+                  display_with: :humanized_money_with_symbol,
+                  html_attrs: { style: 'width:100%;' } %></td>
+            </tr>
+
+
+        </table>
+
+    </div>
+</div>

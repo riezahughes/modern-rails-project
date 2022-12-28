@@ -1,0 +1,18 @@
+<h1>Document templates</h1>
+
+<% if can? :create, DocumentTemplate %>
+  <ul class="list-inline">
+    <li>
+      <%= link_to 'New Document template', new_document_template_path, class: 'btn btn-default btn-sm' %>
+    </li>
+    <li>
+      <%= link_to 'New multiple Document templates', new_mutiple_file_upload_document_templates_path, class: 'btn btn-default btn-sm' %>
+    </li>
+  </ul>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

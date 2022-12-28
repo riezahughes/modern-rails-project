@@ -1,0 +1,11 @@
+<div class="panel-body">
+  <div class="folder_tree" data-href="<%= client.id %>"></div>
+  <hr/>
+  <div class="create_folder">
+    <%= form_tag create_folder_client_path(client), method: :post do %>
+        <%= submit_tag 'Create folder', id: 'create_folder_button', class: 'btn btn-success btn-sm', 'data-loading-text' => "Creating" %>
+    <% end %>
+  </div>
+  <div class="folder_link">
+  </div>
+</div>

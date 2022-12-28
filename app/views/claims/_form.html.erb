@@ -1,0 +1,78 @@
+<% modal ||= false %>
+<% remote = modal ? true : false %>
+<% parent ||= nil %>
+<%= form_for(@claim, remote: remote, html: {role: :form, 'data-model' => 'claim'}) do |f| %>
+    <% if @claim.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@claim.errors.count, "error") %> prohibited this claim
+            from being saved:</h2>
+
+          <ul>
+            <% @claim.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-<%= modal ? '8' : '4' %>">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+         <% if parent %>
+             <div class="field form-group">
+               <%= f.label :account, class: "control-label" %>: <%= parent %>
+               <%= f.hidden_field :account_id, value: parent.id %>
+               <span class="help-block"></span>
+             </div>
+         <% else %>
+          <%= render 'application/form_autocomplete', f: f,
+                    entity: :claim, field: :account_id, method: :account_formatted_identifier,
+                    field_label: :account,
+                    placeholder: 'File Number, Account Type or Effective From',
+                    default_id: (@claim.account ? @claim.account.id : nil) || (@account ? @account.id : nil),
+                    default_value: (@claim.account) || (@account),
+                    autocomplete_path: autocomplete_account_identifier_claims_path %>
+               <span class="help-block"></span>
+         <% end %>
+
+        <div class="field form-group">
+          <%= f.label :claim_date, class: "control-label" %><br>
+          <%= f.date_select :claim_date, {}, class: "form-control " %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :amount, class: "control-label" %><br>
+          <%= f.text_field :amount, value: ClaimsHelper.account_remainig_amount(@claim, @account), class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <div class="checkbox-inline">
+            <%= f.check_box :accepted %>
+            <%= f.label :accepted, class: "control-label" %>
+          </div>
+        </div>
+
+        <div class="field form-group">
+          <div class="checkbox-inline">
+            <%= f.check_box :problem %>
+            <%= f.label :problem, class: "control-label" %><br>
+          </div>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :slab_registration_number, class: "control-label" %><br>
+          <%= f.text_field :slab_registration_number, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :notes, class: "control-label" %><br>
+          <%= f.text_field :notes, class: "form-control" %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

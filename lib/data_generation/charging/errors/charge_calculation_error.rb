@@ -1,0 +1,2 @@
+class ChargeCalculationError < StandardError
+end

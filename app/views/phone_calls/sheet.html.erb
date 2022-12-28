@@ -1,0 +1,43 @@
+<h1>Phone Call Attendance Sheet</h1>
+
+<div class="row">
+  <div class="col-md-6">
+    <h3>Date: <%= @phone_call.start_date.strftime('%A') %></h3>
+  </div>
+  <div class="col-md-6">
+    <h3><%= @phone_call.short_datetimes %></h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <h3>Client: <%= @phone_call.client_file.client %></h3>
+  </div>
+  <div class="col-md-6">
+    <h3>File: <%= @phone_call.client_file %></h3>
+  </div>
+</div>
+
+<h3>With: <%= @phone_call.attendance_with %></h3>
+
+<h3>Description:</h3>
+
+<div class="row">
+  <div class="col-md-8">
+    <h4><%= @phone_call.description %></h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+    <h4>Solicitor: <%= @phone_call.user %></h4>
+  </div>
+  <div class="col-md-6">
+    <h4>Duration: <%= distance_of_time_in_words @phone_call.duration %></h4>
+    <h4>Chargeable: <%= @phone_call.chargeable ? 'Yes' : 'No' %></h4>
+  </div>
+</div>
+
+<%= link_to phone_call_path, class: 'btn btn-default hidden-print' do %>
+    Back to Phone Call
+<% end %>

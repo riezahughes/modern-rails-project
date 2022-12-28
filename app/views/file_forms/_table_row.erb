@@ -1,0 +1,17 @@
+<% show_client_file ||= false %>
+<tr>
+  <% if show_client_file %>
+      <td nowrap>
+        <%= link_to file_form.client_file.file_number, file_form.client_file %>
+      </td>
+  <% end %>
+  <td nowrap>
+    <%= file_form.form_date %>
+  </td>
+  <td nowrap>
+    <%= link_to truncate(file_form.description, length: 50, separator: ' '), file_form %>
+  </td>
+  <td nowrap>
+    <%= file_form.templated_document.document_template if file_form.templated_document %>
+  </td>
+</tr>

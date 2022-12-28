@@ -1,0 +1,14 @@
+<table class="table" id="phone_call_table">
+  <thead>
+  <th>Date</th>
+  <th>Description</th>
+  <th>Amount</th>
+  <th>Vat</th>
+  <th>Total</th>
+  </thead>
+  <tbody>
+  <% debit_entries.each do |debit_entry| %>
+      <%= render partial: 'debit_entries/table_row', locals: {debit_entry: debit_entry} %>
+  <% end %>
+  </tbody>
+</table>

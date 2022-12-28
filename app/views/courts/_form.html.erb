@@ -1,0 +1,67 @@
+<%= form_for(@court) do |f| %>
+    <% if @court.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@court.errors.count, "error") %> prohibited this court
+            from being saved:</h2>
+
+          <ul>
+            <% @court.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-4">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :name, class: "control-label" %><br>
+          <%= f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :court_type, class: "control-label" %><br>
+          <%= f.select :court_type_id, options_from_collection_for_select(CourtType.all, :id, :name, @court.court_type_id), {},
+                  class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :address, class: "control-label" %><br>
+          <%= f.text_area :address, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :city, class: "control-label" %><br>
+          <%= f.text_field :city, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :telephone, class: "control-label" %><br>
+          <%= f.text_field :telephone, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :fax, class: "control-label" %><br>
+          <%= f.text_field :fax, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :police_authority, class: "control-label" %><br>
+          <%= f.select :police_authority_id, options_from_collection_for_select(PoliceAuthority.all, :id, :name, @court.police_authority_id), {},
+                       class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :jurisdiction, class: "control-label" %><br>
+          <%= f.select :jurisdiction_id, options_from_collection_for_select(Jurisdiction.all, :id, :name, @court.jurisdiction_id), {},
+                       class: "form-control" %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

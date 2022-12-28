@@ -1,0 +1,74 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Debit entry</h3>
+    <%= render 'application/entity_control_links', entity: @debit_entry %>
+    <%= render 'application/entity_timestamps', entity: @debit_entry %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Client file:</strong>
+        </td>
+        <td nowrap>
+          <%= link_to @debit_entry.client_file, @debit_entry.client_file %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Debit entry date:</strong>
+        </td>
+        <td nowrap>
+          <%= @debit_entry.debit_entry_date %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Description:</strong>
+        </td>
+        <td nowrap>
+          <%= @debit_entry.description %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Vat:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @debit_entry.vat %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Amount:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @debit_entry.amount %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Total:</strong>
+        </td>
+        <td nowrap>
+          <%= humanized_money_with_symbol @debit_entry.total %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Payment method:</strong>
+        </td>
+        <td nowrap>
+          <%= @debit_entry.payment_method %>
+        </td>
+      </tr>
+      <%= render 'templated_document/show_fields', document_templateable: @debit_entry %>
+    </table>
+
+  </div>
+
+  <div class="col-md-8">
+
+    <%= render 'side_tabs' %>
+
+  </div>
+</div>

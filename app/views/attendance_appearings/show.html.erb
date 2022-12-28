@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-md-4">
+        <h3>Attendance appearing</h3>
+        <%= render 'application/entity_control_links', entity: @attendance_appearing %>
+        <%= render 'application/entity_timestamps', entity: @attendance_appearing %>
+
+        <table class="table">
+            <tr>
+                <td nowrap>
+                    <strong>Court Date:</strong>
+                </td>
+                <td nowrap>
+                    <%= link_to @attendance_appearing.court_date, @attendance_appearing.court_date %>
+                </td>
+            </tr>
+            <%= (render 'work/work_show_fields', workable: @attendance_appearing.court_attendance) %>
+            <tr>
+                <td nowrap>
+                    <strong>Counsel:</strong>
+                </td>
+                <td nowrap>
+                    <%= @attendance_appearing.counsel %>
+                </td>
+            </tr>
+            <%= render 'chargeable_item/chargeable_item_show_fields', chargeable_item: @attendance_appearing.court_attendance %>
+        </table>
+
+    </div>
+</div>

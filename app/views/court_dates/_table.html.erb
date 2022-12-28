@@ -1,0 +1,50 @@
+<% can_manage = can? :manage, CourtDate %>
+<% can_update = can? :update, CourtDate %>
+<% can_delete = can? :delete, CourtDate %>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Client</th>
+    <th><%= sort_link @search, :client_file_file_number, 'FN' %></th>
+    <th><%= sort_link @search, :court_date, 'Date' %></th>
+    <th><%= sort_link @search, :court_name, 'Court' %></th>
+    <th><%= sort_link @search, :court_date_type_name, 'Type' %></th>
+    <th colspan="1">
+      <%= search_form_for @search, class: 'form-inline' do |f| %>
+          <div class="form-group has-feedback">
+            <%= f.search_field :client_file_file_number_or_court_name_or_court_date_type_name_cont, class: 'form-control' %>
+          </div>
+          <%= f.submit %>
+      <% end %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @court_dates.each do |court_date| %>
+      <tr>
+        <td><%= court_date.client %></td>
+        <td><%= court_date.client_file %></td>
+        <td><%= court_date.formatted_court_date %></td>
+        <td><%= court_date.court %></td>
+        <td><%= court_date.court_date_type %></td>
+        <td><%= link_to 'View', court_date, class: 'btn btn-default btn-sm' %>
+          <% if can_manage || can_update %>
+              <%= link_to 'Edit', edit_court_date_path(court_date), class: 'btn btn-default btn-sm' %>
+          <% end %>
+          <% if can_manage || can_delete %>
+              <%= link_to court_date, method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are
+      you sure?'} do %>
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+              <% end %>
+          <% end %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @court_dates, renderer: BootstrapPagination::Rails %>
+<p>
+  <%= page_entries_info @court_dates %>
+</p>

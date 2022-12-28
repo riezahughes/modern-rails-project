@@ -1,0 +1,82 @@
+<div class="tab-content">
+
+  <%= render 'application/side_tab_panel', collection: @accounts, collection_class: Account, panel_buttons: 'create_button_redirect', parent: @client_file %>
+
+  <% if can? :read, Account %>
+      <div role="tabpanel" class="tab-pane" id="accounts_report">
+        <div class="panel panel-default">
+          <div class="panel-heading"><h5>Accounts Report</h5></div>
+          <%= render 'accounts/expenditure_report', account_report_records: account_expenditure_records(@client_file) %>
+        </div>
+      </div>
+  <% end %>
+
+  <% if can? :folder_contents, ClientFile %>
+      <div role="tabpanel" class="tab-pane" id="storage_documents">
+        <div class="panel panel-default">
+          <div class="panel-heading"><h5>Storage</h5></div>
+          <%= render 'document_folder_tree', client_file: @client_file %>
+        </div>
+      </div>
+  <% end %>
+
+  <%= render 'application/side_tab_panel', collection: @letters, collection_class: Letter, panel_buttons: 'create_button_template_select_modal', parent: @client_file %>
+
+  <%= render 'application/side_tab_panel', collection: @meetings, collection_class: Meeting, panel_buttons: 'create_button_redirect', parent: @client_file %>
+
+  <%= render 'application/side_tab_panel', collection: @phone_calls, collection_class: PhoneCall, panel_buttons: 'create_button_redirect', parent: @client_file %>
+
+  <%= render 'application/side_tab_panel', collection: @court_dates, collection_class: CourtDate, active: true, panel_buttons: 'create_button_redirect', parent: @client_file %>
+
+  <%= render layout: 'application/side_tab_panel', locals: {collection: @witnesses, collection_class: Witness, polymorphic_association_types: [Civilian, PoliceOfficer], panel_buttons: 'create_button_polymorphic_redirect'} do %>
+      <li><%= link_to "Create cited witness forms", "#create-cited-witness-file-forms", 'data-toggle' => 'modal', class: 'btn btn-default btn-sm', style: 'display: line-block' %></li>
+  <% end %>
+
+  <%= render 'application/modal_form',
+    model_class: FileForm,
+    modal_id: 'create-cited-witness-file-forms',
+    parent: nil,
+    form_partial: 'witnesses/create_cited_witness_file_forms_form' %>
+
+  <%= render 'application/side_tab_panel', collection: @file_forms, collection_class: FileForm, panel_buttons: 'create_button_file_form_template_select_modal', parent: @client_file %>
+
+  <%= render 'application/side_tab_panel', collection: @debit_entries, collection_class: DebitEntry, panel_buttons: 'create_button_template_select_modal', parent: @client_file %>
+
+  <%= render 'application/side_tab_panel', collection: @documents, collection_class: Document, panel_buttons: 'create_button_redirect', parent: @client_file %>
+
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+
+  <%= render 'application/side_tab', collection_class: Account %>
+
+  <% if can? :read, Account %>
+      <li role="presentation">
+        <a href="#accounts_report" aria-controls="accounts_report" role="tab" data-toggle="tab">Accounts Report</a>
+      </li>
+  <% end %>
+
+  <% if can? :folder_contents, ClientFile %>
+      <li role="presentation">
+        <a href="#storage_documents" aria-controls="storage_documents" role="tab" data-toggle="tab">
+          <%= image_tag 'alfresco-logo.png', size: "16x16" %>Storage</a>
+      </li>
+  <% end %>
+
+  <%= render 'application/side_tab', collection_class: Letter %>
+
+  <%= render 'application/side_tab', collection_class: Meeting %>
+
+  <%= render 'application/side_tab', collection_class: PhoneCall %>
+
+  <%= render 'application/side_tab', collection_class: CourtDate, active: true %>
+
+  <%= render 'application/side_tab', collection_class: Witness %>
+
+  <%= render 'application/side_tab', collection_class: FileForm %>
+
+  <%= render 'application/side_tab', collection_class: DebitEntry %>
+
+  <%= render 'application/side_tab', collection_class: Document %>
+
+</ul>

@@ -1,0 +1,122 @@
+<%= form_for(@client_file) do |f| %>
+    <% if @client_file.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@client_file.errors.count, "error") %> prohibited this client_file
+            from being saved:</h2>
+
+          <ul>
+            <% @client_file.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+      <div class="col-md-6">
+
+        <div class="actions form-group">
+          <%= f.submit_change_aware %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :file_number, class: "control-label" %><br>
+          <%= f.text_field :file_number, class: "form-control client_file_file_number", style: "width: auto; display: inline-block" %>
+          <%= button_tag "Next File Number", type: 'button', id: 'next_file_number_link',
+           class: 'btn btn-default',
+           :'data-href' => get_next_file_number_client_files_path %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :client_file_type, class: "control-label" %><br>
+          <%= f.select :client_file_type_id,
+                       options_from_collection_for_select(ClientFileType.all, :id, :name, @client_file.client_file_type_id), {},
+                       {class: "form-control client_file_type_select"} %>
+        </div>
+
+        <%= render 'application/form_autocomplete', f: f,
+                   entity: :client_file, field: :client_id, method: :client_full_name,
+                   field_label: :client_id,
+                   default_id: (@client_file.client ? @client_file.client.id : nil) || (@client ? @client.id : nil),
+                   default_value: (@client_file.client) || (@client),
+                   placeholder: 'Name',
+                   autocomplete_path: autocomplete_client_name_client_files_path %>
+
+        <div class="field form-group">
+          <%= f.label :subject_matter, class: "control-label" %><br>
+          <%= f.text_field :subject_matter, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :locus, class: "control-label" %><br>
+          <%= f.text_field :locus, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :date_of_offence, class: "control-label" %><br>
+          <%= f.date_select :date_of_offence, {:include_blank => true, :default => nil}, {class: "form-control "} %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :date_open, class: "control-label" %><br>
+          <%= f.date_select :date_open, {}, {class: "form-control "} %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :date_closed, class: "control-label" %><br>
+          <%= f.date_select :date_closed, {:include_blank => true, :default => nil}, {class: "form-control "} %>
+        </div>
+
+      </div>
+      <div class="col-md-6">
+
+        <div class="field form-group">
+          <%= f.label :disposal, class: "control-label" %><br>
+          <%= f.text_field :disposal, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :procurator_fiscal_reference, class: "control-label" %><br>
+          <%= f.text_field :procurator_fiscal_reference, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :police_reference, class: "control-label" %><br>
+          <%= f.text_field :police_reference, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :allocated, class: "control-label" %><br>
+          <%= f.text_field :allocated, class: "form-control" %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :court, class: "control-label" %><br>
+          <%= f.collection_select(:court_id, Court.order(:name), :id, :name, {selected: @client_file.court_id}, {class: "form-control"}) %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :procurator_fiscal, class: "control-label" %><br>
+          <%= f.collection_select(:procurator_fiscal_id, ProcuratorFiscal.order(:name), :id, :name, {selected: @client_file.procurator_fiscal_id}, {class: "form-control"}) %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :current_solicitor, class: "control-label" %><br>
+          <%= f.collection_select(:current_solicitor_id, User.active.sorted_by_names, :id, :to_s, {selected: @client_file.current_solicitor_id}, {class: "form-control"}) %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :partner, class: "control-label" %><br>
+          <%= f.collection_select(:partner_id, User.active.sorted_by_names, :id, :to_s, {selected: @client_file.partner_id}, {class: "form-control"}) %>
+        </div>
+
+        <div class="field form-group">
+          <%= f.label :client_file_information, class: "control-label" %><br>
+          <%= f.select :client_file_information_id,
+                       options_from_collection_for_select(ClientFileInformation.all, :id, :name, @client_file.client_file_information_id), {},
+                       {class: "form-control"} %>
+        </div>
+
+      </div>
+    </div>
+<% end %>

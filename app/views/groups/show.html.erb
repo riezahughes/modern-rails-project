@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>Group</h3>
+    <%= render 'application/entity_control_links', entity: @group %>
+    <%= render 'application/entity_timestamps', entity: @group %>
+
+    <table class="table">
+      <tr>
+        <td nowrap>
+          <strong>Name:</strong>
+        </td>
+        <td nowrap>
+          <%= @group.name %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Description:</strong>
+        </td>
+        <td nowrap>
+          <%= @group.description %>
+        </td>
+      </tr>
+      <tr>
+        <td nowrap>
+          <strong>Permissions:</strong>
+        </td>
+        <td nowrap>
+          <ul>
+            <% @group.permissions.each do |permission| %>
+                <li>Can <%= permission.action.capitalize %> <%= permission.subject_class.capitalize %></li>
+            <% end %>
+          </ul>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+<div class="tab-content">
+
+  <%= render 'application/side_tab_panel',
+                collection: @court_attendances,
+                collection_class: CourtAttendance,
+                polymorphic_association_types: [AttendanceWaiting, AttendanceAppearing],
+                active: true,
+                panel_buttons: 'create_button_polymorphic_redirect',
+                parent: @court_date %>
+
+</div>
+
+<ul class="nav nav-tabs" role="tablist">
+
+  <%= render 'application/side_tab', collection_class: CourtAttendance, active: true %>
+
+</ul>

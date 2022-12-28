@@ -1,0 +1,25 @@
+<% model_class = model_class ||= nil %>
+<% parent = parent ||= nil %>
+<% hide_title = hide_title ||= false %>
+<% entity_name = model_class ? model_class.model_name.route_key : '' %>
+<% form_partial = form_partial ||= "#{entity_name}/form" %>
+<% modal_id = modal_id ||= "new_#{entity_name}_modal" %>
+<% title = title ||= "Create new #{model_class.model_name.human}" %>
+<div class="modal fade" id="<%= modal_id %>" tabindex="-1" role="dialog" aria-labelledby="my<%= model_class %>ModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <% unless hide_title %>
+            <h4 class="modal-title" id="my<%= model_class %>ModalLabel"><%= title %></h4>
+        <% end %>
+      </div>
+      <div class="modal-body">
+        <%= render partial: form_partial, locals: {modal: true, parent: parent} %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

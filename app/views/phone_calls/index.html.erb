@@ -1,0 +1,15 @@
+<h1>Phone Calls</h1>
+
+<% if can? :create, PhoneCall %>
+<p>
+  <%= link_to 'New Phone call', new_phone_call_path, class: 'btn btn-default btn-sm' %>
+</p>
+<% end %>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>
+
+

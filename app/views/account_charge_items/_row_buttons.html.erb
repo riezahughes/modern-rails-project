@@ -1,0 +1,23 @@
+<% can_manage ||= can? :manage, AccountChargeItem %>
+<% can_read ||= can? :read, AccountChargeItem %>
+<% can_delete ||= can? :delete, AccountChargeItem %>
+
+<% if can_manage || can_read %>
+  <button class="btn btn-default btn-sm clipboard-btn"
+   data-clipboard-action="copy" data-clipboard-target="#narrative_<%= account_charge_item.id %>"
+   data-toggle = "tooltip" data-placement = "top" title = "<%= account_charge_item.narrative %>">Click to copy</button>
+
+  <% if has_item_charge_rate?(account_charge_item) %>
+    <%= link_to charge_rate_link(account_charge_item),
+     class: 'btn btn-default btn-sm', :'data-toggle' => "tooltip", :'data-placement' => "top", title: charge_rate_description(account_charge_item) do %>
+        <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+    <% end %>
+  <% end %>
+
+<% end %>
+<% if can_manage || can_delete %>
+  <%= link_to account_account_charge_item_path(account_charge_item.account_id, account_charge_item.id),
+          method: :delete, class: 'btn btn-default btn-sm', data: {confirm: 'Are you sure?'} do %>
+  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+  <% end %>
+<% end %>

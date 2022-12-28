@@ -1,0 +1,83 @@
+.brand {
+  font-family: 'Playfair Display', serif;
+  font-size: 35px;
+  font-weight: 500;
+}
+
+/*changing pagination colour*/
+
+.pagination > li > a,
+.pagination > li > span{
+  color: #333 !important;
+  text-decoration: none;
+//  background-color: #fff !important;
+  border: 1px solid #ddd !important;
+}
+
+.pagination > .active > span{
+  background-color: #ddd !important;
+}
+
+.tab-content {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-bottom: 0px;
+}
+
+.nav-tabs {
+  border-bottom: 0px;
+  border-top: 1px solid #ddd;
+}
+
+.nav-tabs > li {
+  margin-bottom: 0;
+  margin-top: -1px;
+}
+
+.nav-tabs > li > a {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  line-height: 20px;
+  border: 1px solid transparent;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
+  border-radius: 0px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
+  color: #555555;
+  cursor: default;
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-top-color: transparent !important;
+  border-bottom-color: #dddddd !important;
+}
+
+.btn-xlarge {
+  padding: 18px 28px;
+  font-size: 22px;
+  line-height: normal;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+
+.inline {
+  display: inline !important;
+}
+
+.btn-clear {
+  background:transparent;
+  border:none;
+}
+
+@media print {
+  @page { margin: 0; }
+  body { margin: 1.6cm; }
+}

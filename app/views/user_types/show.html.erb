@@ -1,0 +1,24 @@
+<div class="row">
+  <div class="col-md-4">
+    <h3>User type</h3>
+    <%= render 'application/entity_control_links', entity: @user_type %>
+    <%= render 'application/entity_timestamps', entity: @user_type %>
+
+    <table class="table">          <tr>
+            <td nowrap>
+            <strong>Name:</strong>
+            </td>
+            <td nowrap>
+            <%= @user_type.name %>
+            </td>
+          </tr>          <tr>
+            <td nowrap>
+            <strong>Qualified solicitor:</strong>
+            </td>
+            <td nowrap>
+            <%= @user_type.qualified_solicitor %>
+            </td>
+          </tr>    </table>
+
+  </div>
+</div>

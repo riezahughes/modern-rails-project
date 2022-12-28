@@ -1,0 +1,67 @@
+<h1>Payments</h1>
+
+<% if can? :create, Payment %>
+  <ul class="list-inline">
+    <li>
+      <%= link_to 'New Payment', new_payment_path, class: 'btn btn-default btn-sm' %>
+    </li>
+    <li>
+      <%= link_to "Import SLAB file", "#payment_import_modal", 'data-toggle' => 'modal', class: 'btn btn-default btn-sm' %>
+      <%= render 'application/modal_form', title: 'Import payment from SLAB', modal_id: 'payment_import_modal', model_class: Payment, form_partial: 'payments/import_xml_form' %>
+    </li>
+  </ul>
+<% end %>
+
+<% if flash[:missing_registration_numbers] %>
+  <p>
+    <details>
+      <summary>Missing registration number list.</summary>
+      <ul class="list-unstyled">
+        <% flash[:missing_registration_numbers].each do |missing_registration_number| %>
+          <% account = Account.find_by_reference(missing_registration_number['legal_aid_refernce']) %>
+          <% unless missing_registration_number['legal_aid_refernce'] && account %>
+            <li><%= "Missing #{missing_registration_number['slab_registration_number']} for reference #{missing_registration_number['legal_aid_refernce']}" %></li>
+          <% else %>
+            <li><%= "Missing #{missing_registration_number['slab_registration_number']} for reference "%> <%= link_to missing_registration_number['legal_aid_refernce'], account  %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </details>
+  </p>
+<% end %>
+
+<p>
+  <div class="row">
+    <div class="col-md-6">
+      <table class="table">
+        <tr>
+          <td>
+            <strong>Fees paid:</strong>
+          </td>
+          <td><%= humanized_money_with_symbol @total_fee_amount %></td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Outalys paid:</strong>
+          </td>
+          <td><%= humanized_money_with_symbol @total_outlay_amount %></td>
+        </tr>
+        <tr>
+          <td>
+            <strong>Total:</strong>
+          </td>
+          <td><%= humanized_money_with_symbol @total_amount %></td>
+        </tr>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <svg id="payments-breakdown" width="420" height="150"></svg>
+    </div>
+  </div>
+</p>
+
+<p>
+  <%= render 'table' %>
+</p>
+
+<br>

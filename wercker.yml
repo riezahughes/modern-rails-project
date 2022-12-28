@@ -1,0 +1,63 @@
+# The container definition we want to use for developing our app
+box: sashman/storelaw-docker
+# Defining the dev pipeline
+dev:
+  steps:
+    # first we want to install the dependencies
+    - bundle-install
+        # then we want to run a wercker step that watches your files and reloads
+        # when changes are detected
+    - internal/watch:
+        code: |
+          bundle exec thin -R config.ru -p 8080 start
+        reload: true
+
+build:
+  services:
+    - id: mariadb
+      tag: latest
+      env:
+        MYSQL_ROOT_PASSWORD: password
+    - id: webcenter/rancher-alfresco
+      name: alfresco
+      tag: latest
+
+  steps:
+    - script:
+      name: Clear bundle cache
+      code: rm -rf $WERCKER_CACHE_DIR/bundle-install
+    - install-packages:
+        packages: qt5-default libqt5webkit5-dev gstreamer1.0-plugins-base gstreamer1.0-tools gstreamer1.0-x xvfb netcat
+    - script:
+      name: Enable virtual display
+      code: |-
+        # Start xvfb which gives the context an virtual display
+        # which is required for tests that require an GUI
+        export DISPLAY=:99.0
+        start-stop-daemon --start --quiet --pidfile /tmp/xvfb_99.pid --make-pidfile --background --exec /usr/bin/Xvfb -- :99 -screen 0 1024x768x24 -ac +extension GLX +render -noreset
+        # Give xvfb time to start. 3 seconds is the default for all xvfb-run commands.
+        sleep 3
+    - bundle-install
+    - script:
+      name: database config
+      code: cp config/database.wercker.yml config/database.yml
+    - script:
+      name: wait for db
+      code: |-
+        while ! nc -q 1 $MARIADB_PORT_3306_TCP_ADDR $MARIADB_PORT_3306_TCP_PORT > /dev/null; do sleep 3; printf "."; done
+    - script:
+      name: setup db
+      code: bundle exec rake db:setup RAILS_ENV=test
+    - script:
+      name: rspec
+      code: bundle exec rspec --exclude-pattern spec/{features}/**/*_spec.rb
+    - script:
+      name: alfresco config
+      code: cp config/alfresco.wercker.yml config/alfresco.yml
+    - script:
+      name: wait for alfresco
+      code: |-
+        while ! nc -q 1 $ALFRESCO_PORT_8080_TCP_ADDR $ALFRESCO_PORT_8080_TCP_PORT > /dev/null; do sleep 3; printf "."; done
+    - script:
+      name: rspec features
+      code: bundle exec rspec --pattern spec/{features}/**/*_spec.rb
